@@ -3,7 +3,7 @@ import { Injector, ViewChild } from '@angular/core';
 
 //=>App
 import { BaseRequest } from '@based/classes/base-request';
-import { FormComponent } from '@app/cores/form/form.component';
+import { FormComponent } from '@cores/form/form.component';
 import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 
 
