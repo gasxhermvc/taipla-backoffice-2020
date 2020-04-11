@@ -1,14 +1,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "outDir": "dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
@@ -16,8 +17,39 @@
     ],
     "lib": [
       "es2018",
+      "es2016",
+      "es2017",
+      "es2015",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@app-base/*": [
+        "app/app-base/*"
+      ],
+      "@based/*": [
+        "app/based/*",
+      ],
+      "@cores/*": [
+        "app/cores/*"
+      ],
+      "@configs/*": [
+        "app/configs/*"
+      ],
+      "@backoffice/*": [
+        "app/backoffice/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

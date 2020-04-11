@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService } from '@based/services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'taipla-backoffice';
+
+  constructor(public app: AppService) {
+    (window as any).app = this;
+  }
 }

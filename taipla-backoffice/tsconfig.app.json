@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "baseUrl": "./",
+    "rootDir": ".",
     "types": []
   },
   "files": [
@@ -12,7 +14,8 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "src/test.ts",
+    "assets/**/*.zip",
+    "test.ts",
     "src/**/*.spec.ts"
   ]
 }
