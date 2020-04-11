@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 //=>App
 import { BackofficeRoutingModule } from '@backoffice/backoffice-routing.module';
 import { CategoryModule } from '@backoffice/category/category.module';
-import { FoodCenterComponent } from '@backoffice/food-center/food-center.component';
+import { FoodCenterModule } from '@backoffice/food-center/food-center.module';
 import { UmModule } from '@backoffice/um/um.module';
 import { AccountModule } from '@backoffice/account/account.module';
 import { RestaurantModule } from '@backoffice/restaurant/restaurant.module';
@@ -19,7 +19,7 @@ import { DashboardModule } from '@backoffice/dashboard/dashboard.module';
     BackofficeRoutingModule,
     CategoryModule,
     UmModule,
-    FoodCenterComponent,
+    FoodCenterModule,
     AccountModule,
     RestaurantModule,
     MediaModule,
