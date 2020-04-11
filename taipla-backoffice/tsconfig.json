@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./",
     "outDir": "dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -24,28 +24,28 @@
     ],
     "paths": {
       "@app/*": [
-        "app/*"
+        "./src/app/*"
       ],
       "@assets/*": [
-        "assets/*"
+        "./src/assets/*"
       ],
       "@environments/*": [
-        "environments/*"
+        "./src/environments/*"
       ],
       "@app-base/*": [
-        "app/app-base/*"
+        "./src/app/app-base/*"
       ],
       "@based/*": [
-        "app/based/*",
+        "./src/app/based/*",
       ],
       "@cores/*": [
-        "app/cores/*"
+        "./src/app/cores/*"
       ],
       "@configs/*": [
-        "app/configs/*"
+        "./src/app/configs/*"
       ],
       "@backoffice/*": [
-        "app/backoffice/*"
+        "./src/app/backoffice/*"
       ]
     },
     "resolveJsonModule": true,

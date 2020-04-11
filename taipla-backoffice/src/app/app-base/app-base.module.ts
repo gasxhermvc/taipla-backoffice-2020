@@ -11,9 +11,6 @@ import { LoginModule } from '@app-base/components/login/login.module';
   declarations: [
     SwitcherComponent
   ],
-  exports: [
-    SwitcherComponent
-  ],
   imports: [
     //=>Angular
     CommonModule,
