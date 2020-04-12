@@ -1,1 +1,44 @@
-<p>stepper works!</p>
+<ng-container *ngIf="_fw">
+    <div class="form-steps d-col flex-1" [ngClass]="className.formStep" [hidden]="!_fw.visible">
+        <div class="navigator-before" *ngIf="_fw.navigationBefore && _fw.navigationBefore.enabled"
+            [ngClass]="className.formNavigatorBefore">
+            <ng-container *ngIf="_fw.navigationBefore. meta != null && _fw.navigationBefore.meta != null && 
+                _fw.navigationBefore.meta.form != null">
+                <ng-container *ngTemplateOutlet="_fw.navigationBefore.templateRef;context: _fw.navigationBefore.meta">
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="form-navigator" [ngClass]="className.formNavigator">
+        <div class="navigation-area">
+            <div class="step-area-line">
+                <div class="step-line"></div>
+            </div>
+            <div class="step-area-content">
+                <div class="step-content d-flex flex-nowrap" [ngClass]="_fw.clickStep ? 'step-click' : ''">
+                    <ng-container *ngFor="let step of _fw.steps;let i = index">
+                        <div class="step col px-0"
+                            [ngClass]="[(step.disabled ? 'disabled' : ''),(step.active ? 'active' : '')]">
+                            <ng-container *ngIf="!step.disabled && _fw.clickStep; else default">
+                                <div class="text-center d-col" (click)="onClickToStep($event,i)">
+                                    <div class="step-line" *ngIf="step.active"></div>
+                                    <img draggable="false" [src]="step.active ? './assets/icons/edoc/' + step.icon_selected + '.png' : 
+                                    './assets/icons/edoc/' + step.icon + '.png'" class="icon-step" />
+                                    {{ step.label}}
+                                </div>
+                            </ng-container>
+                            <ng-template #default>
+                                <div class="text-center d-col">
+                                    <div class="step-line" *ngIf="step.active"></div>
+                                    <img draggable="false" [src]="step.active ? './assets/icons/edoc/' + step.icon_selected + '.png' : 
+                                './assets/icons/edoc/' + step.icon + '.png'" class="icon-step" />
+                                    {{ step.label}}
+                                </div>
+                            </ng-template>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

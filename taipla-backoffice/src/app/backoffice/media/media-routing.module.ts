@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MediaComponent } from '@backoffice/media/media.component';
 
 
-const routes: Routes = [];
+const MEDIA_ROUTES: Routes = [
+  {
+    path: '',
+    component: MediaComponent
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(MEDIA_ROUTES)],
   exports: [RouterModule]
 })
 export class MediaRoutingModule { }

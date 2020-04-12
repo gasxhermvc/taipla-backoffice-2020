@@ -1,0 +1,29 @@
+<nz-layout class="main-layout" infiniteScroll>
+    <nz-sider nzCollapsible [(nzCollapsed)]="layout.isCollapsed" [nzBreakpoint]="'xxl'" [nzCollapsedWidth]="0"
+        [nzZeroTrigger]="zeroTrigger">
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="layout.isCollapsed">
+            <ng-container *ngIf="isShowMenu">
+                <ng-container *ngFor="let menu of menus; let index = index">
+                    <li *ngIf="menu.IS_MENU" nz-menu-item (click)="onClickMenu(index)"
+                        [ngClass]="{'ant-menu-item-selected': menu.IS_ACTIVE}">
+                        <i *ngIf="menu.ICON" nz-icon [nzType]="menu.ICON"></i>
+                        <span>{{ menu.LABEL }}</span>
+                    </li>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header></nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <ng-content></ng-content>
+            </div>
+            <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
+<ng-template #zeroTrigger>
+    <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+</ng-template>

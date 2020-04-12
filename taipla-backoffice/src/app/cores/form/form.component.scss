@@ -1,0 +1,31 @@
+:host {
+    position: relative !important;
+  
+    form {
+      padding: 1rem 0;
+      padding-top: 0;
+    }
+  
+    ::ng-deep {
+      .validate {
+        label.invalid {
+          color: red;
+        }
+  
+        input:invalid,
+        textarea:invalid,
+        nz-select:invalid {
+          border: 1px solid red;
+        }
+  
+        .ng-invalid {
+          .ant-radio-inner,
+          .ant-calendar-picker-input,
+          .ant-select-selection {
+            border-color: red;
+          }
+        }
+      }
+    }
+  }
+  

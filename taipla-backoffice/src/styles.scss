@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+$color-active: #ffb910;
+$color-primary-dark: #8e161a;
+
+$color-gray-light: #dfdfdf;
+$color-bright: #f3f3f3;
+$color-shadow: rgba(0, 0, 0, 0.09);
+
+body,
+html {
+    height: 100%;
+}
+
+// not found
+.not-found {
+    flex: 1;
+    display: flex;
+    padding: 0.5rem;
+}
+
+.not-found::after {
+    content: "ไม่พบข้อมูล";
+    text-align: center;
+    flex: 1;
+}
+
+// scrollbar
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: transparent !important;
+}
+
+::-webkit-scrollbar-track-piece {
+    // background: #ECECEC;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    /*height: 6px;*/
+    border: 1px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    -webkit-border-radius: 3px;
+    background-color: #bebebe !important;
+    -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+}

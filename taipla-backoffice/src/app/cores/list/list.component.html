@@ -1,1 +1,16 @@
-<p>list works!</p>
+<ng-container *ngIf="_items && _items.length > 0; else notFound">
+    <div class="content overflow-auto" infiniteScroll (scrolled)="onScrolled()" [scrollWindow]="false"
+        [infiniteScrollDistance]="1.5" [infiniteScrollThrottle]="250">
+        <div class="card" *ngFor="let item of _items" (click)="onSelected(item)">
+            <ng-container *ngTemplateOutlet="template || default; context: {item: item}"></ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #notFound>
+    <div class="not-found"></div>
+</ng-template>
+
+<ng-template #default let-item="item">
+    {{item | json}}
+</ng-template>

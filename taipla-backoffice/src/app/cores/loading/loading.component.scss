@@ -1,0 +1,64 @@
+:host {
+	position: absolute;
+	z-index: 999;
+	background: rgba(255, 255, 255, 0.8);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	@keyframes ldio-rh8ptw8355a {
+		0% {
+			top: 96px;
+			left: 96px;
+			width: 0;
+			height: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 18px;
+			left: 18px;
+			width: 156px;
+			height: 156px;
+			opacity: 0;
+		}
+	}
+
+	.ldio-rh8ptw8355a div {
+		position: absolute;
+		border-width: 4px;
+		border-style: solid;
+		opacity: 1;
+		border-radius: 50%;
+		animation: ldio-rh8ptw8355a 1.01010101010101s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+	}
+
+	.ldio-rh8ptw8355a div:nth-child(1) {
+		border-color: #670003;
+	}
+
+	.ldio-rh8ptw8355a div:nth-child(2) {
+		border-color: #8e161a;
+		animation-delay: -0.505050505050505s;
+	}
+
+	.loadingio-spinner-ripple-s488uu5usck {
+		width: 200px;
+		height: 200px;
+		display: inline-block;
+		overflow: hidden;
+		background: none;
+	}
+	.ldio-rh8ptw8355a {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		transform: translateZ(0) scale(1);
+		backface-visibility: hidden;
+		transform-origin: 0 0; /* see note above */
+	}
+	.ldio-rh8ptw8355a div {
+		box-sizing: content-box;
+	}
+}

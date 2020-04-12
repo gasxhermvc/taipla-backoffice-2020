@@ -5,9 +5,14 @@ import { LoadingComponent } from '@cores/loading/loading.component';
 
 
 @NgModule({
-  declarations: [LoadingComponent],
+  declarations: [
+    LoadingComponent
+  ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    LoadingComponent
   ]
 })
 export class LoadingModule { }

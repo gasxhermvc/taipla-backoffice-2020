@@ -1,0 +1,4 @@
+<app-loading *ngIf="isShowLoading"></app-loading>
+<app-layout-template *ngIf="loaded" [menu]="menus" [current]="backoffice.currentSystem" >
+    <router-outlet></router-outlet>
+</app-layout-template>

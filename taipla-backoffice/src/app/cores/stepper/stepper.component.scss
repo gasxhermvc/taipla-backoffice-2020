@@ -1,0 +1,106 @@
+@import "src/styles.scss";
+
+$line-area-top: 28px;
+$line-top: 23px;
+
+:host {
+    position: relative;
+
+    img {
+        user-select: none !important;
+        -moz-user-select: none !important;
+        -khtml-user-select: none !important;
+        -webkit-user-select: none !important;
+        -o-user-select: none !important;
+    }
+
+    .form-navigator {
+        padding: 5px 6px;
+    }
+
+    .form-navigator {
+        width: 100%;
+        position: relative;
+        border-bottom: 1px solid #dedede;
+    }
+
+    .step-area-content {
+        position: relative;
+        top: 0;
+        text-align: center;
+        width: 100%;
+
+        .step-click {
+            cursor: pointer;
+
+            .disabled {
+                cursor: context-menu;
+                pointer-events: all;
+            }
+        }
+
+        .step-content {
+            .step {
+                position: relative;
+                margin: 0 auto;
+                padding: 0px 6px;
+                color: $color-gray-light;
+
+                &.active {
+                    color: $color-primary-dark;
+                }
+
+                &:first-child {
+                    .step-line {
+                        left: 50% !important;
+                        width: 50% !important;
+                    }
+                }
+
+                &:last-child {
+                    .step-line {
+                        right: 50% !important;
+                        width: 50% !important;
+                    }
+                }
+
+                .step-line {
+                    position: absolute;
+                    top: $line-top;
+                    left: 0;
+                    z-index: 2;
+                    border: none;
+                    height: 5px;
+                    background-color: $color-active;
+                    width: 100%;
+                }
+
+                .icon-step {
+                    max-width: 40% !important;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 3;
+                }
+            }
+        }
+    }
+    .step-area-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 60%;
+        margin: 0 auto;
+
+        .step-line {
+            position: relative;
+            top: $line-area-top;
+            text-align: center;
+            border: none;
+            height: 5px;
+            background-color: #ddd;
+            margin: 0 auto;
+        }
+    }
+}

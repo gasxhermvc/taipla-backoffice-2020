@@ -15,7 +15,9 @@ import { XHttpOptions } from '@based/interfaces/HttpOptions';
   providedIn: 'root'
 })
 export class AppService {
-  loading: boolean = false;
+  message: any = message;
+
+  private _loading: boolean = false;
 
   get hostName(): string {
     return document.getElementsByTagName("base")[0].href;
@@ -47,15 +49,19 @@ export class AppService {
   }
 
   /* Loading */
+  get isShowLoading(): boolean {
+    return this._loading;
+  }
+
   showLoading() {
     setTimeout(() => {
-      this.loading = true;
+      this._loading = true;
     }, 0);
   }
 
   hideLoading() {
     setTimeout(() => {
-      this.loading = false;
+      this._loading = false;
     }, 0);
   }
 

@@ -26,6 +26,14 @@ import { ListModule } from '@cores/list/list.module';
     TableModule,
     ListModule,
 
+  ],
+  exports: [
+    LoadingModule,
+    FormModule,
+    ControlModule,
+    StepperModule,
+    TableModule,
+    ListModule,
   ]
 })
 export class ShareModule { }

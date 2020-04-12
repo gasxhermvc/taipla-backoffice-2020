@@ -1,14 +1,14 @@
 //=>Angular
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 //=>Libraries
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgZorroAntdModule, NZ_I18N, en_US, NzConfig, NZ_CONFIG } from 'ng-zorro-antd';
-
 //=>App
 import { AppRoutingModule } from '@app/app-routing.module';
+import { AppService } from '@based/services/app.service';
 import { AppComponent } from '@app/app.component';
 import { AppBaseModule } from '@app-base/app-base.module';
 import { ShareModule } from '@cores/share.module';
@@ -24,12 +24,12 @@ const ngZorroConfig: NzConfig = {
   ],
   imports: [
     //=>Angular
-    BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
 
     //=>Libraries
+    InfiniteScrollModule,
     NgZorroAntdModule,
 
     //=>App
@@ -40,7 +40,10 @@ const ngZorroConfig: NzConfig = {
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [{ provide: NZ_CONFIG, useValue: ngZorroConfig }],
+  providers: [
+    AppService,
+    { provide: NZ_CONFIG, useValue: ngZorroConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

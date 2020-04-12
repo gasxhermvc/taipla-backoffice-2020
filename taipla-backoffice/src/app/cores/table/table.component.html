@@ -1,1 +1,39 @@
-<p>table works!</p>
+<div class="d-row p-2" ngClass="table-header">
+    <div class="order" *ngIf="tableConfig && tableConfig.displayOrder">No.</div>
+    <div *ngFor="let col of columns" [class]="col.key + ' flex-1'" [ngClass]="{ 'text-center': col.action }">
+        {{col.label || ''}}
+    </div>
+</div>
+
+<ng-container *ngIf="_items && _items.length > 0; else notFound">
+    <div class="content overflow-auto list" infiniteScroll (scrolled)="onScrolled()" [scrollWindow]="false"
+        [infiniteScrollDistance]="1.5" [infiniteScrollThrottle]="250">
+        <div class="my-3">
+            <div class="card d-row p-2" *ngFor="let item of _items; let i = index" (click)="onSelected(item)">
+                <ng-container *ngTemplateOutlet="template || default; context: {item: item, index: i}"></ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #notFound>
+    <div class="list not-found"></div>
+</ng-template>
+
+<ng-template #default let-item="item" let-index="index">
+    <div class="order" *ngIf="tableConfig && tableConfig.displayOrder">{{index + 1 }}</div>
+    <div *ngFor="let col of columns" [class]="col.key + ' flex-1'" [ngClass]="{ 'text-center': col.action }">
+        <ng-container *ngIf="col.action; else withDefault">
+            <ng-container *ngTemplateOutlet="action || defaultAction; context: {item: item, index: index}">
+            </ng-container>
+        </ng-container>
+        <ng-template #withDefault>
+            {{item[col.key] || ''}}
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #defaultAction let-item="item" let-index="index">
+    <button (click)="onEditItem(item,index)">Edit</button>
+    <button (click)="onDeleteItem(item,index)">Delete</button>
+</ng-template>
