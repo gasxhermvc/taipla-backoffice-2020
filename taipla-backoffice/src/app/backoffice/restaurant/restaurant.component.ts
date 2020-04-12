@@ -12,7 +12,7 @@ export class RestaurantComponent extends BaseClass implements OnInit {
   currentSystem: string = 'restaurant';
 
   get service(): RestaurantService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {

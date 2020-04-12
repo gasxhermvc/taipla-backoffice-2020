@@ -12,7 +12,7 @@ export class MediaComponent extends BaseClass implements OnInit {
   currentSystem: string = 'media';
 
   get service(): MediaService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {

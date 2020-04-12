@@ -12,7 +12,7 @@ export class AccountComponent extends BaseClass implements OnInit {
   currentSystem: string = 'account';
 
   get service(): AccountService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {

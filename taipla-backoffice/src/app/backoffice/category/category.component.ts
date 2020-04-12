@@ -12,7 +12,7 @@ export class CategoryComponent extends BaseClass implements OnInit {
   currentSystem: string = 'category';
 
   get service(): CategoryService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {

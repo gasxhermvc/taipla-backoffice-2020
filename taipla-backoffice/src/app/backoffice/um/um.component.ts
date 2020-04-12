@@ -12,7 +12,7 @@ export class UmComponent extends BaseClass implements OnInit {
   currentSystem: string = 'um';
 
   get service(): UmService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {

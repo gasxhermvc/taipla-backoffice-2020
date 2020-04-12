@@ -15,7 +15,7 @@ export class DashboardComponent extends BaseClass implements OnInit {
   currentSystem: string = 'dashboard';
 
   get service(): DashboardService {
-    return this.store.service[this.currentSystem] || {};
+    return this.store[this.currentSystem] || {};
   }
 
   constructor(injector: Injector) {
