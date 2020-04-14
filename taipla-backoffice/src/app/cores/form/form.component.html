@@ -1,5 +1,5 @@
 <div class="content p-0">
-    <form *ngIf="formGroup" [formGroup]="formGroup" class="d-col" [ngClass]="{ 'validate': isSubmited }">
+    <form *ngIf="formGroup" [formGroup]="formGroup" class="d-col" [ngClass]="{ 'validate was-validated': isSubmited }">
         <div *ngFor="let config of _configs">
             <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config"></app-control>
         </div>

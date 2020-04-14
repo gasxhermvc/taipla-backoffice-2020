@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators } from '@angular/forms';
-import { ControlType, FormConfig } from '@based/interfaces/FormConfig';
+import { ControlType, FormConfig, ValidatorMessage } from '@based/interfaces/FormConfig';
 import { DatetimeService } from '@based/services/datetime.service';
 import { debounceTime } from 'rxjs/operators';
 
@@ -22,6 +22,15 @@ export class ControlComponent implements ControlValueAccessor {
   CONTROL_TYPE = ControlType;
   inputName: string;
 
+  defaultMessage: ValidatorMessage = {
+    required: 'กรุณากรอกข้อมูล',
+    regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
+    email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
+    minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+    maxlength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+    date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
+  };
+
   _config: FormConfig;
   @Input('config')
   set config(value: FormConfig) {
@@ -40,22 +49,38 @@ export class ControlComponent implements ControlValueAccessor {
         Object.keys(this._config.errorMessages).forEach((key: any) => {
           validators = this.setValidator(validators,
             key,
-            this._config.errorMessages[key]);
+            this._config.errorMessages[key] || this.defaultMessage[key]);
         });
 
       } else {
         if (this._config.required === true) { validators = validators.concat(Validators.required); }
         if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
       }
+
       this.control.setValidators(validators);
 
-      this.control.valueChanges.pipe(debounceTime(700)).subscribe((evt) => {
-        //if (this.onChange !== undefined) { try { this.onChange(evt); } catch{ } }
-        if (this._config.change !== undefined && this._config.change !== null) {
-          this._config.change(evt);
-        }
-        this.renderer();
-      });
+      if (this._config.delay !== undefined && this._config.delay > 0) {
+        this.control.valueChanges.pipe(debounceTime(this._config.delay)).subscribe((evt) => {
+          if (this.onChange !== undefined) { try { this.onChange(evt); } catch{ } }
+          if (this._config.change !== undefined && this._config.change !== null) {
+            this._config.change(evt);
+          } else {
+            this.change.emit(evt);
+          }
+          this.renderer();
+        });
+      } else {
+        this.control.valueChanges.subscribe((evt) => {
+          if (this.onChange !== undefined) { try { this.onChange(evt); } catch{ } }
+          if (this._config.change !== undefined && this._config.change !== null) {
+            this._config.change(evt);
+          } else {
+            this.change.emit(evt);
+          }
+          this.renderer();
+        });
+      }
+
 
       this.renderer();
     }
@@ -71,6 +96,16 @@ export class ControlComponent implements ControlValueAccessor {
     if (this._config.blur !== undefined && this._config.blur !== null) {
       this._config.blur(this.control.value);
     }
+  }
+
+  errorMessage(): string {
+    const keys = Object.keys(this.control.errors).map(k => k) || [];
+
+    if (keys && keys.length > 0) {
+      return this._config.errorMessages[keys[0]] || this.defaultMessage[keys[0]] || ''
+    }
+
+    return '';
   }
 
 
@@ -168,15 +203,20 @@ export class ControlComponent implements ControlValueAccessor {
         break;
 
       case "email":
+        // validators = validators.concat(Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/));
+        validators = validators.concat(Validators.email);
         break;
 
-      case "min":
+      case "minlength":
+        validators = validators.concat(Validators.minLength);
         break;
 
       case "max":
+        validators = validators.concat(Validators.maxLength);
         break;
 
       case "date":
+        validators = validators.concat(Validators.pattern(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gi));
         break;
     }
 

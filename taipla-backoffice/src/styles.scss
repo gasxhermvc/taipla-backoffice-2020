@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+$color-dark: #111;
+
 $color-active: #ffb910;
 $color-primary-dark: #8e161a;
 
@@ -43,4 +45,41 @@ html {
     -webkit-border-radius: 3px;
     background-color: #bebebe !important;
     -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+}
+
+.d-row,
+.d-col,
+.d-row-reverse,
+.d-col-reverse {
+    display: flex;
+}
+.d-row {
+    flex-direction: row !important;
+}
+
+.d-col {
+    flex-direction: column !important;
+}
+
+.d-row-reverse {
+    flex-direction: row-reverse !important;
+}
+
+.d-col-reverse {
+    flex-direction: column-reverse !important;
+}
+
+.flex-1 {
+    flex: 1 !important;
+}
+
+.content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.pos-relative {
+    position: relative;
+    height: 100%;
 }

@@ -16,11 +16,12 @@ export class LoginComponent extends BaseClass implements OnInit {
       type: ControlType.text,
       min: 4,
       max: 150,
+      placeholder: 'Username',
       errorMessages: {
         required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
         email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
-        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+        minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        maxlength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
       }
     },
     {
@@ -29,28 +30,34 @@ export class LoginComponent extends BaseClass implements OnInit {
       type: ControlType.password,
       min: 4,
       max: 20,
+      placeholder: 'Password',
+      autocomplete: false,
       errorMessages: {
         required: 'กรุณาป้อนรหัสผ่าน',
-        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        max: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
+        minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        maxlength: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
       }
     },
     {
       key: 'remember',
-      label: 'จดจำรหัสผ่าน',
+      label: 'Remember me',
       inline: true,
+      reverse: true,
       type: ControlType.checkbox
     }
   ]
 
   constructor(injector: Injector) {
     super(injector);
+    (window as any).login = this;
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
+    const data = this.form.getFormData();
+    console.log(data);
     if (this.form.isValid()) {
       console.log('ok');
     }

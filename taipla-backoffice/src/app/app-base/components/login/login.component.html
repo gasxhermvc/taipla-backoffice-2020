@@ -1,5 +1,30 @@
-<p>login works!</p>
-
-
-<app-form [configs]="formConfigs"></app-form>
-<button type="button" (click)="onSubmit()">ล็อกอิน</button>
+<div class="content d-col">
+    <div class="d-row logo">
+        <h2>เข้าสู่ระบบ Taipla</h2>
+    </div>
+    <div class="d-row flex-1">
+        <div class="form-area shadow-lg">
+            <div class="d-row">
+                <div class="flex-1 image">
+                    <img src="./assets/images/bg/web.jpg" class="img-fluid" />
+                </div>
+                <div class="flex-1 form content d-col">
+                    <div class="pos-relative">
+                        <div class="title-container">
+                            <h3>Log In to enter the Web</h3>
+                        </div>
+                        <div class="pos-relative">
+                            <app-form [configs]="formConfigs"></app-form>
+                            <div class="text-center">
+                                <button type="button" (click)="onSubmit()">ล็อกอิน</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-copyright">
+        © 2020 TAIPLA.com All Rights Reserved | Design by Dev.awesome.th
+    </div>
+</div>

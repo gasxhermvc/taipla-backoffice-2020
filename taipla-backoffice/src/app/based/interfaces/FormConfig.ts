@@ -6,6 +6,7 @@ export interface FormConfig {
     type?: ControlType;
     errorMessages?: ValidatorMessage;
     inline?: boolean;
+    reverse?: boolean;
 
     placeholder?: any;
     defaultValue?: any;
@@ -13,9 +14,11 @@ export interface FormConfig {
     format?: string;
     change?: any;
     blur?: any;
+    delay?: number;
 
     invisible?: boolean;
     disable?: boolean;
+    autocomplete?: boolean;
     readonly?: boolean;
     view?: boolean; /* only for app-form!! */
 
@@ -35,8 +38,8 @@ export interface ValidatorMessage {
     required?: string;
     regex?: string;
     email?: string;
-    min?: string;
-    max?: string;
+    minlength?: string;
+    maxlength?: string;
     date?: string;
 }
 

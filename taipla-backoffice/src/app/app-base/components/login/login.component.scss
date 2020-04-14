@@ -1,0 +1,93 @@
+@import "src/styles.scss";
+
+::ng-deep {
+    body {
+        // background-image: url(../../../../assets/images/bg/bg3.jpg);
+        // background-size: cover;
+        // background-repeat: no-repeat;
+        background-color: #05c2f9;
+        text-align: center;
+        overflow-y: hidden;
+    }
+}
+:host {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    .logo {
+        width: 50%;
+        justify-content: center;
+        padding: 4rem 0 3rem 0;
+        margin: 0 auto;
+
+        h2 {
+            color: white;
+            font-weight: bold !important;
+        }
+    }
+
+    .form-area {
+        width: 100vh;
+        margin: 0 auto;
+        background-color: #fff;
+        justify-content: start;
+        height: 70%;
+
+        .image {
+            background-color: #111;
+            padding: 2rem;
+        }
+        .form {
+            justify-content: start;
+            text-align: left;
+            padding: 2rem;
+
+            ::ng-deep {
+                .ctrl {
+                    input {
+                        border-radius: 0;
+                        border: none;
+                        border-bottom: 3px solid $color-dark;
+                        padding: 10px 0 10px 0;
+                        height: auto;
+                        margin-bottom: 15px;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+
+            button {
+                padding: 10px 30px;
+                font-size: 15px;
+                border: none;
+                outline: none;
+                border-radius: 30px;
+                background-color: #05c2f9;
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .title-container {
+        color: $color-dark;
+        padding: 1rem;
+        h3 {
+            text-align: center;
+            font-size: 1.3rem;
+        }
+    }
+
+    .container-copyright {
+        font-size: 15px;
+        line-height: 25px;
+        color: #eee;
+        height: 80px;
+    }
+}

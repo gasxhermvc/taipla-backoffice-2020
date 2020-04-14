@@ -30,7 +30,9 @@ export class FormComponent {
 
   isSubmited: boolean = false;
 
-  constructor(private app: AppService, private cdr: ChangeDetectorRef) { }
+  constructor(private app: AppService, private cdr: ChangeDetectorRef) {
+    (window as any).form = this;
+  }
 
   initFormGroup() {
     this.isSubmited = false;

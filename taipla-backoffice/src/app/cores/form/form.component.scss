@@ -1,31 +1,42 @@
 :host {
-    position: relative !important;
-  
-    form {
-      padding: 1rem 0;
-      padding-top: 0;
-    }
-  
-    ::ng-deep {
-      .validate {
-        label.invalid {
-          color: red;
+  position: relative !important;
+
+  .content {
+    height: auto;
+    width: auto;
+  }
+  form {
+    padding: 1rem 0;
+    padding-top: 0;
+  }
+
+  ::ng-deep {
+    .validate {
+      .text-error {
+        display: block !important;
+        color: red;
+      }
+
+      input,
+      textarea,
+      nz-select {
+        &.invalid {
+          transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          border: 1px solid red !important;
         }
-  
-        input:invalid,
-        textarea:invalid,
-        nz-select:invalid {
-          border: 1px solid red;
+
+        &:focus {
+          box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25) !important;
         }
-  
-        .ng-invalid {
-          .ant-radio-inner,
-          .ant-calendar-picker-input,
-          .ant-select-selection {
-            border-color: red;
-          }
+      }
+
+      .ng-invalid {
+        .ant-radio-inner,
+        .ant-calendar-picker-input,
+        .ant-select-selection {
+          border-color: red;
         }
       }
     }
   }
-  
+}
