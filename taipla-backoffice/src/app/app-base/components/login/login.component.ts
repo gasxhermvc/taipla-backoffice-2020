@@ -8,7 +8,7 @@ import { FormConfig, ControlType } from '@app/based/interfaces/FormConfig';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends BaseClass implements OnInit {
-
+  //example : https://p.w3layouts.com/demos_new/10-03-2017/techno_login_form-demo_Free/12325293/web/index.html
   formConfigs: FormConfig[] = [
     {
       key: 'username',
