@@ -35,8 +35,18 @@ export class ControlComponent implements ControlValueAccessor {
 
       if (this._config.disable === true) { this.control.disable(); }
       let validators = [];
-      if (this._config.required === true) { validators = validators.concat(Validators.required); }
-      if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
+
+      if (this._config.errorMessages !== undefined) {
+        Object.keys(this._config.errorMessages).forEach((key: any) => {
+          validators = this.setValidator(validators,
+            key,
+            this._config.errorMessages[key]);
+        });
+
+      } else {
+        if (this._config.required === true) { validators = validators.concat(Validators.required); }
+        if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
+      }
       this.control.setValidators(validators);
 
       this.control.valueChanges.pipe(debounceTime(700)).subscribe((evt) => {
@@ -145,5 +155,31 @@ export class ControlComponent implements ControlValueAccessor {
     if (!(<ViewRef>this.cdr).destroyed) {
       this.cdr.detectChanges();
     }
+  }
+
+  private setValidator(validators: any[], key: string, message: string): any[] {
+    switch (key.toLocaleLowerCase()) {
+      case "required":
+        validators = validators.concat(Validators.required);
+        break;
+
+      case "regex":
+        validators = validators.concat(Validators.pattern(this._config.regex));
+        break;
+
+      case "email":
+        break;
+
+      case "min":
+        break;
+
+      case "max":
+        break;
+
+      case "date":
+        break;
+    }
+
+    return validators;
   }
 }

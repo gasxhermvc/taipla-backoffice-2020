@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //=>App
+import { DatetimeService } from '@based/services/datetime.service';
 import { LoadingModule } from '@cores/loading/loading.module';
 import { FormModule } from '@cores/form/form.module';
 import { ControlModule } from '@cores/control/control.module';
@@ -34,6 +35,9 @@ import { ListModule } from '@cores/list/list.module';
     StepperModule,
     TableModule,
     ListModule,
+  ],
+  providers: [
+    DatetimeService
   ]
 })
 export class ShareModule { }

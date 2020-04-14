@@ -4,6 +4,8 @@ export interface FormConfig {
     label?: string;
     key: string;
     type?: ControlType;
+    errorMessages?: ValidatorMessage;
+    inline?: boolean;
 
     placeholder?: any;
     defaultValue?: any;
@@ -29,17 +31,26 @@ export interface FormConfig {
     step?: number;
 }
 
+export interface ValidatorMessage {
+    required?: string;
+    regex?: string;
+    email?: string;
+    min?: string;
+    max?: string;
+    date?: string;
+}
+
 export enum ControlType {
     text,
+    password,
     number,
     textarea,
     select,
     autocomplete,
+    checkbox,
     radio,
     date,
     daterange,
-    drawpoint,
-    drawline,
     modal,
-    buffer
+    slider
 }

@@ -72,11 +72,11 @@
             </nz-range-picker>
         </div>
 
-        <div *ngSwitchCase="CONTROL_TYPE.buffer" class="ctrl">
-            <nz-slider #buffer [nzMax]="_config.max" [nzMin]="_config.min" [formControl]="control"
-                [(ngModel)]="buffer.value" [nzMarks]="_config.child" [nzStep]="_config.step">
+        <div *ngSwitchCase="CONTROL_TYPE.slider" class="ctrl">
+            <nz-slider #slider [nzMax]="_config.max" [nzMin]="_config.min" [formControl]="control"
+                [(ngModel)]="slider.value" [nzMarks]="_config.child" [nzStep]="_config.step">
             </nz-slider>&nbsp;
-            <nz-input-number [nzMin]="_config.min" [nzMax]="_config.max" [(ngModel)]="buffer.value"
+            <nz-input-number [nzMin]="_config.min" [nzMax]="_config.max" [(ngModel)]="slider.value"
                 [nzStep]="_config.step">
             </nz-input-number> <label class="suffix-text">{{_config.unit}}</label>
         </div>
