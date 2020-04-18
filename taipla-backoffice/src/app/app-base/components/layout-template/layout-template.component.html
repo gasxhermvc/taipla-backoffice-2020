@@ -15,12 +15,14 @@
         </ul>
     </nz-sider>
     <nz-layout>
-        <nz-header></nz-header>
+        <nz-header>
+            <ng-content select="[inner-header]"></ng-content>
+        </nz-header>
         <nz-content>
             <div class="inner-content">
-                <ng-content></ng-content>
+                <ng-content select="[inner-content]"></ng-content>
             </div>
-            <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
+            <nz-footer>{{ env.copyright.text }}</nz-footer>
         </nz-content>
     </nz-layout>
 </nz-layout>

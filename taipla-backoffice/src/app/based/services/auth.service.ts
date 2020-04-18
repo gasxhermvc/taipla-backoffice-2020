@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AppService } from '@based/services/app.service';
 import { of, Observable } from 'rxjs';
+import { User } from '@app-base/interfaces/default-interface';
+import { MOCK_USER } from '@based/mocks/defaults/mock-user';
+import { LocalStorageService } from '@based/services/local-storage.service';
 
 @Injectable()
 export class AuthService {
@@ -8,7 +11,7 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  constructor(private app: AppService) { }
+  constructor(private app: AppService, private localStorage: LocalStorageService) { }
 
   isLoggedIn(): Observable<boolean> {
     return of(true);
@@ -25,6 +28,15 @@ export class AuthService {
     //     return response;
     //   })
     // );
+    if (!this.localStorage.exsit('auth')) {
+      const user: User = { ...MOCK_USER };
+      this.localStorage.set('auth', user);
+    }
+
+    setTimeout(() => {
+      this.app.showSuccess(this.app.message.SUCCESS.LOGIN);
+      this.app.hideLoading();
+    }, 1000);
     return of(true);
   }
 
@@ -40,7 +52,12 @@ export class AuthService {
     //         window.location.reload();
     //       }
     //     }
-    //     this.appService.hideLoading();
+    this.localStorage.remove('auth');
+
+    setTimeout(() => {
+      this.app.showSuccess(this.app.message.SUCCESS.LOGOUT);
+      this.app.hideLoading();
+    }, 1000);
 
     //     return response;
     //   })

@@ -1,9 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  constructor() { }
+  loaded: boolean;
+
+  @Output() isLoaded = new EventEmitter<any>();
+
+  constructor() {
+    console.log('create dashboard service');
+    this.init();
+  }
+
+  private init() {
+    setTimeout(() => {
+      this.isLoaded.emit(true);
+    }, 2000)
+  }
 }

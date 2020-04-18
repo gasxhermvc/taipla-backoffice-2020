@@ -1,4 +1,9 @@
 <app-loading *ngIf="isShowLoading"></app-loading>
-<app-layout-template *ngIf="loaded" [menu]="menus" [current]="backoffice.currentSystem" >
-    <router-outlet></router-outlet>
+<app-layout-template [menu]="menus" [current]="backoffice.currentSystem">
+    <ng-container inner-header *ngTemplateOutlet="headerTemp"></ng-container>
+    <router-outlet inner-content></router-outlet>
 </app-layout-template>
+
+<ng-template #headerTemp>
+    <div class="logo px-3">TAIPLA BACKOFFICE</div>
+</ng-template>

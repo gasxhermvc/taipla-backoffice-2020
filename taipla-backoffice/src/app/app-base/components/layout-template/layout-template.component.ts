@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 //=>App
+import { environment as env } from '@environments/environment';
 import { LayoutTemplateService } from '@app/app-base/components/layout-template/layout-template.service';
 import { MENU } from '@app/app-base/interfaces/menu-config';
 
@@ -12,6 +13,8 @@ import { MENU } from '@app/app-base/interfaces/menu-config';
   styleUrls: ['./layout-template.component.scss']
 })
 export class LayoutTemplateComponent implements OnInit {
+
+  env: any = env;
 
   @Input('menu')
   set menu(menus: any) {

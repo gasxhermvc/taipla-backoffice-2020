@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, Input, ViewRef, ChangeDetectorRef } fr
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AppService } from '@based/services/app.service';
 import { ControlComponent } from '@cores/control/control.component';
-import { FormConfig, ControlType } from '@based/interfaces/FormConfig';
+import { FormConfig, ControlType, ValidatorMessage } from '@based/interfaces/FormConfig';
 
 @Component({
   selector: 'app-form',
@@ -26,6 +26,15 @@ export class FormComponent {
     }
   }
 
+  defaultMessage: ValidatorMessage = {
+    required: 'กรุณากรอกข้อมูล',
+    regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
+    email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
+    minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+    maxlength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+    date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
+  };
+
   formGroup: FormGroup;
 
   isSubmited: boolean = false;
@@ -41,8 +50,18 @@ export class FormComponent {
       formcontrols[item.key] = new FormControl(item.defaultValue || null);
       if (item.disable === true) { formcontrols[item.key].disable(); }
       let validators = [];
-      if (item.required === true) { validators = validators.concat(Validators.required); }
-      if (item.regex) { validators = validators.concat(Validators.pattern(item.regex)); }
+      if (item.errorMessages !== undefined) {
+        Object.keys(item.errorMessages).forEach((key: any) => {
+          validators = this.setValidator(item, validators,
+            key,
+            item.errorMessages[key] || this.defaultMessage[key]);
+        });
+
+      } else {
+        if (item.required === true) { validators = validators.concat(Validators.required); }
+        if (item.regex) { validators = validators.concat(Validators.pattern(item.regex)); }
+      }
+
       formcontrols[item.key].setValidators(validators);
     });
     this.formGroup = new FormGroup(formcontrols);
@@ -74,6 +93,37 @@ export class FormComponent {
     if (!(<ViewRef>this.cdr).destroyed) {
       this.cdr.detectChanges();
     }
+  }
+
+  private setValidator(config: any, validators: any[], key: string, message: string): any[] {
+    switch (key.toLocaleLowerCase()) {
+      case "required":
+        validators = validators.concat(Validators.required);
+        break;
+
+      case "regex":
+        validators = validators.concat(Validators.pattern(config.regex));
+        break;
+
+      case "email":
+        // validators = validators.concat(Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/));
+        validators = validators.concat(Validators.email);
+        break;
+
+      case "minlength":
+        validators = validators.concat(Validators.minLength);
+        break;
+
+      case "max":
+        validators = validators.concat(Validators.maxLength);
+        break;
+
+      case "date":
+        validators = validators.concat(Validators.pattern(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gi));
+        break;
+    }
+
+    return validators;
   }
 
   isValid(displayError: boolean = true): boolean {

@@ -1,4 +1,5 @@
 import { MENU } from '@app/app-base/interfaces/menu-config';
+import { environment } from '@environments/environment';
 
 export let MENU_CONFIGS: MENU[] = [
     {
@@ -64,5 +65,13 @@ export let MENU_CONFIGS: MENU[] = [
         PATH: 'backoffice/account',
         IS_ACTIVE: false,
         IS_MENU: false
+    },
+    {
+        NAME: 'logout',
+        LABEL: 'ออกจากระบบ',
+        ICON: 'logout',
+        PATH: environment.auth.redirects.logout,
+        IS_ACTIVE: false,
+        IS_MENU: true
     }
 ];

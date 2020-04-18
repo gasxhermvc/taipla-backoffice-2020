@@ -81,5 +81,15 @@ html {
 
 .pos-relative {
     position: relative;
+}
+
+.pos-relative-fluid {
+    position: relative;
     height: 100%;
+}
+::ng-deep {
+    .ant-message-custom-content {
+        display: flex;
+        align-self: center;
+    }
 }

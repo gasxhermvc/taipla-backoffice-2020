@@ -10,8 +10,9 @@
 </div>
 
 <ng-template #input>
-    <div [ngSwitch]="_config.type" class="input" [ngClass]="{ 'inline': _config.inline , 'reverse': _config.reverse}">
-        <label *ngIf="_config.label" [class.invalid]="control.invalid != null && control.invalid">{{_config.label}}
+    <div [ngSwitch]="_config.type" class="input" [ngClass]="{ 'inline': _config.inline }">
+        <label *ngIf="_config.label && _config.type !== CONTROL_TYPE.checkbox"
+            [class.invalid]="control.invalid != null && control.invalid">{{_config.label}}
             <span *ngIf="_config.required" class="text-danger">*</span></label>
 
         <div *ngSwitchCase="CONTROL_TYPE.text" class="ctrl">
@@ -70,7 +71,8 @@
 
         <div *ngSwitchCase="CONTROL_TYPE.checkbox" class="ctrl">
             <label nz-checkbox [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
-                [required]="_config.required"></label>
+                [required]="_config.required">{{_config.label}}
+                <span *ngIf="_config.required" class="text-danger">*</span></label>
         </div>
 
         <div *ngSwitchCase="CONTROL_TYPE.date" class="ctrl">

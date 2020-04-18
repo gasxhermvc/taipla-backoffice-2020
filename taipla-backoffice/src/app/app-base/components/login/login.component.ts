@@ -1,13 +1,18 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import { BaseClass } from '@based/classes/base-class';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormConfig, ControlType } from '@app/based/interfaces/FormConfig';
+import { Router } from '@angular/router';
+import { FormComponent } from '@cores/form/form.component';
+import { AppService } from '@based/services/app.service';
+import { AuthService } from '@based/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent extends BaseClass implements OnInit {
+export class LoginComponent implements OnInit {
+  @ViewChild(FormComponent, { static: false }) form?: FormComponent;
+
   //example : https://p.w3layouts.com/demos_new/10-03-2017/techno_login_form-demo_Free/12325293/web/index.html
   formConfigs: FormConfig[] = [
     {
@@ -42,24 +47,38 @@ export class LoginComponent extends BaseClass implements OnInit {
       key: 'remember',
       label: 'Remember me',
       inline: true,
-      reverse: true,
       type: ControlType.checkbox
     }
   ]
 
-  constructor(injector: Injector) {
-    super(injector);
+  constructor(private router: Router, private app: AppService, private auth: AuthService) {
     (window as any).login = this;
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    const data = this.form.getFormData();
-    console.log(data);
-    if (this.form.isValid()) {
-      console.log('ok');
+  ngAfterViewInit() {
+    this.app.hideLoading();
+  }
+
+  async onSubmit() {
+    if (this.form.isValid(false)) {
+      this.app.showLoading();
+
+      const data = this.form.getFormData();
+      const response: any = await this.auth.login(data);
+
+      if (response) {
+        this.router.navigate([this.app.env.auth.redirects.intent]);
+      } else {
+        this.app.showError(response.message);
+      }
+
+      this.app.hideLoading();
+    } else {
+      this.app.showError(this.app.message.ERROR.LOGIN_INVALID);
     }
+
   }
 }

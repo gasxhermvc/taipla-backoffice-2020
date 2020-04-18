@@ -1,3 +1,5 @@
+@import "src/styles.scss";
+
 :host {
     position: absolute;
     top: 0;
@@ -30,7 +32,16 @@
         }
     }
 
+    nz-layout {
+        nz-silder {
+            text-align: left;
+        }
+    }
     nz-content {
         margin: 24px 16px 0;
+    }
+
+    nz-footer {
+        text-align: center;
     }
 }

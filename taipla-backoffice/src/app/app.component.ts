@@ -11,4 +11,8 @@ export class AppComponent {
   constructor(public app: AppService) {
     (window as any).app = this;
   }
+
+  ngOnInit() {
+    this.app.showLoading();
+  }
 }

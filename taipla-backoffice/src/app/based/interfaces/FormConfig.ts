@@ -6,7 +6,6 @@ export interface FormConfig {
     type?: ControlType;
     errorMessages?: ValidatorMessage;
     inline?: boolean;
-    reverse?: boolean;
 
     placeholder?: any;
     defaultValue?: any;

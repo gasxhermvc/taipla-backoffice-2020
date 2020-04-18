@@ -8,6 +8,7 @@ import { environment as env } from '@environments/environment';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 //=>App
+import { environment } from '@environments/environment';
 import message from "@assets/messages/message.json";
 import { XHttpOptions } from '@based/interfaces/HttpOptions';
 
@@ -15,6 +16,7 @@ import { XHttpOptions } from '@based/interfaces/HttpOptions';
   providedIn: 'root'
 })
 export class AppService {
+  env: any = environment;
   message: any = message;
 
   private _loading: boolean = false;
@@ -54,15 +56,17 @@ export class AppService {
   }
 
   showLoading() {
+    console.log('app.show.loading');
     setTimeout(() => {
       this._loading = true;
-    }, 0);
+    });
   }
 
   hideLoading() {
+    console.log('app.hide.loading');
     setTimeout(() => {
       this._loading = false;
-    }, 0);
+    });
   }
 
   /* Private */

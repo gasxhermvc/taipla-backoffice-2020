@@ -60,10 +60,11 @@ export class BackofficeService extends BaseRequest {
   }
 
   private async init() {
-    this.autoMapperInjection();
+    console.log('backoffice.service.init');
+    //this.autoMapperInjection();
     setTimeout(() => {
       this.isLoaded.emit(true);
-    }, 1000);
+    }, 2000);
   }
 
   private async autoMapperInjection() {

@@ -18,7 +18,6 @@
     right: 0;
 
     .logo {
-        width: 50%;
         justify-content: center;
         padding: 4rem 0 3rem 0;
         margin: 0 auto;
@@ -30,22 +29,42 @@
     }
 
     .form-area {
-        width: 100vh;
+        width: 750px;
+        max-width: 90%;
         margin: 0 auto;
         background-color: #fff;
         justify-content: start;
-        height: 70%;
+        height: min-content;
+
+        .area {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
 
         .image {
+            display: none;
             background-color: #111;
-            padding: 2rem;
+
+            img {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                margin: auto;
+            }
         }
         .form {
             justify-content: start;
             text-align: left;
-            padding: 2rem;
 
             ::ng-deep {
+                .invalid-feedback {
+                    margin-bottom: 1rem;
+                }
                 .ctrl {
                     input {
                         border-radius: 0;
@@ -56,7 +75,25 @@
                         margin-bottom: 15px;
 
                         &:focus {
-                            box-shadow: none;
+                            box-shadow: none !important;
+                        }
+                    }
+                }
+
+                .was-validated {
+                    input.invalid {
+                        margin-bottom: 0px !important;
+                    }
+
+                    input.invalid {
+                        border: 0 !important;
+                        border-bottom: 3px solid red !important;
+
+                        &:focus {
+                            outline: none;
+                            border: 0 !important;
+                            border-bottom: 3px solid red !important;
+                            box-shadow: none !important;
                         }
                     }
                 }
@@ -89,5 +126,22 @@
         line-height: 25px;
         color: #eee;
         height: 80px;
+    }
+
+    @media screen and (min-width: 758px) {
+        .form-area {
+            width: 100%;
+            max-width: 750px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .form-area {
+            width: 80%;
+        }
+
+        .logo {
+            padding: 4rem 0 2rem 0;
+        }
     }
 }

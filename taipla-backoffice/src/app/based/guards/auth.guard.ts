@@ -3,11 +3,12 @@ import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnaps
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AppService } from '@based/services/app.service';
 import { AuthService } from '@based/services/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private app: AppService, private auth: AuthService, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -21,15 +22,20 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   private checkLogin(url: string): Observable<boolean> {
-    return this.authService.isLoggedIn().pipe(
+    return this.auth.isLoggedIn().pipe(
       map(loggedIn => {
         console.log("checkLogin-> ", url);
+
+        if (url.startsWith(this.app.env.auth.redirects.logout)) {
+          this.auth.logout();
+          loggedIn = false;
+        }
+
         if (!loggedIn) {
           // Store the attempted URL for redirecting
-          this.authService.redirectUrl = url;
-
+          this.auth.redirectUrl = url;
           // Navigate to the login page with extras
-          this.router.navigate(['/login']);
+          this.router.navigate([this.app.env.auth.redirects.login]);
         }
 
         return loggedIn;
