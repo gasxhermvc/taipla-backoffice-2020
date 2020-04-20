@@ -25,4 +25,8 @@ export class UmComponent extends BaseClass implements OnInit {
     console.log('um');
   }
 
+  createUser() {
+
+  }
+
 }

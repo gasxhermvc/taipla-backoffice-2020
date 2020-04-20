@@ -1,1 +1,9 @@
-<p>um works!</p>
+<div class="content d-flex flex-column">
+    <div class="d-flex flex-row">
+        <h3>จัดการผู้ใช้งาน</h3>
+        <button (click)="createUser()" nz-button nzType="primary">
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มผู้ใช้งาน
+        </button>
+    </div>
+    <router-outlet></router-outlet>
+</div>
