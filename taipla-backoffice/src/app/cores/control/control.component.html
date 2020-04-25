@@ -16,13 +16,13 @@
             <span *ngIf="_config.required" class="text-danger">*</span></label>
 
         <div *ngSwitchCase="CONTROL_TYPE.text" class="ctrl">
-            <input [formControl]="control" (blur)="touched($event)" [required]="_config.required"
+            <input [formControl]="control" (blur)="touched()" [required]="_config.required"
                 [placeholder]="_config?.placeholder || ''" [autocomplete]="_config.autocomplete ? 'on' : 'off'"
                 [class.invalid]="control.invalid != null && control.invalid" />
         </div>
 
         <div *ngSwitchCase="CONTROL_TYPE.password" class="ctrl">
-            <input [formControl]="control" (blur)="touched($event)" [required]="_config.required"
+            <input [formControl]="control" (blur)="touched()" [required]="_config.required"
                 [placeholder]="_config?.placeholder || ''" type="password"
                 [autocomplete]="_config.autocomplete ? 'on' : 'new-password'"
                 [class.invalid]="control.invalid != null && control.invalid" />

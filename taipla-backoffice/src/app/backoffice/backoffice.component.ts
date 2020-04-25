@@ -26,6 +26,10 @@ export class BackofficeComponent extends BaseClass implements OnInit {
     return this._loaded;
   }
 
+  get currentSystem() {
+    return this.backoffice.currentSystem;
+  }
+
   constructor(injector: Injector, private router: Router) {
     super(injector);
     (window as any).backoffice = this;

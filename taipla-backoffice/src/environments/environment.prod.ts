@@ -6,7 +6,8 @@ export const environment = {
   auth: {
     redirects: {
       intent: '/backoffice',
-      login: '/login'
+      login: '/login',
+      logout: '/logout'
     }
   },
   localStorage: {

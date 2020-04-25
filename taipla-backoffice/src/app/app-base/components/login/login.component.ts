@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router, private app: AppService, private auth: AuthService) {
+  constructor(private router: Router, public app: AppService, private auth: AuthService) {
     (window as any).login = this;
   }
 

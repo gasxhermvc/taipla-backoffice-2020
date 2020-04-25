@@ -18,7 +18,7 @@ export class BaseClass extends BaseRequest {
     get store(): any {
         return this.backoffice !== undefined ? this.backoffice.service : {};
     }
-    
+
     constructor(injector: Injector) {
         super(injector);
         this.backoffice = injector.get(BackofficeService);

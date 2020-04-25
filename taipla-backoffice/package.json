@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prod": "ng build --prod --base-href=/backoffice/ --deploy-url=./ --output-path=./dist --delete-output-path=true --sourceMap=false --vendorChunk=false --commonChunk=false  --outputHashing=all --buildOptimizer=true"
   },
   "private": true,
   "dependencies": {

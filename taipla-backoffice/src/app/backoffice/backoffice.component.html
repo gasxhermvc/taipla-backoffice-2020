@@ -1,5 +1,5 @@
 <app-loading *ngIf="isShowLoading"></app-loading>
-<app-layout-template [menu]="menus" [current]="backoffice.currentSystem">
+<app-layout-template [menu]="menus" [current]="currentSystem">
     <ng-container inner-header *ngTemplateOutlet="headerTemp"></ng-container>
     <router-outlet inner-content></router-outlet>
 </app-layout-template>
