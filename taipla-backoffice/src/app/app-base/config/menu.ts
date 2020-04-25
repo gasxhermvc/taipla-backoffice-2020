@@ -6,7 +6,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'dashboard',
         LABEL: "หน้าแรก",
         ICON: 'home',
-        PATH: 'backoffice/dashboard',
+        PATH: 'dashboard',
         IS_ACTIVE: true,
         IS_MENU: true
     },
@@ -14,7 +14,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'um',
         LABEL: 'จัดการผู้ใช้งาน',
         ICON: 'user',
-        PATH: 'backoffice/um',
+        PATH: 'um',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -22,7 +22,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'category',
         LABEL: 'ประเภทอาหาร',
         ICON: 'read',
-        PATH: 'backoffice/category',
+        PATH: 'category',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -30,7 +30,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'food-center',
         LABEL: 'อาหารส่วนกลาง',
         ICON: 'database',
-        PATH: 'backoffice/food-center',
+        PATH: 'food-center',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -38,7 +38,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'restaurant',
         LABEL: 'ร้านอาหาร',
         ICON: 'reconciliation',
-        PATH: 'backoffice/restaurant',
+        PATH: 'restaurant',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -46,7 +46,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'media',
         LABEL: 'ภาพสื่อ',
         ICON: 'cloud-upload',
-        PATH: 'backoffice/media',
+        PATH: 'media',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -54,7 +54,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'report',
         LABEL: 'รายงาน',
         ICON: 'export',
-        PATH: 'backoffice/report',
+        PATH: 'report',
         IS_ACTIVE: false,
         IS_MENU: false
     },
@@ -62,7 +62,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'account',
         LABEL: 'ข้อมูลส่วนตัว',
         ICON: 'profile',
-        PATH: 'backoffice/account',
+        PATH: 'account',
         IS_ACTIVE: false,
         IS_MENU: false
     },

@@ -6,7 +6,7 @@
         // background-size: cover;
         // background-repeat: no-repeat;
         background-color: #05c2f9;
-        text-align: center;
+        // text-align: center;
         overflow-y: hidden;
     }
 }
@@ -126,6 +126,7 @@
         line-height: 25px;
         color: #eee;
         height: 80px;
+        text-align: center;
     }
 
     @media screen and (min-width: 758px) {

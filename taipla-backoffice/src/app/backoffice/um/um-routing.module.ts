@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UmComponent } from '@backoffice/um/um.component';
-import { ListsComponent } from '@backoffice/um/components/lists/lists.component';
-import { AddComponent } from './components/add/add.component';
-import { EditComponent } from './components/edit/edit.component';
+import { UmManageComponent } from '@backoffice/um/components/um-manage/um-manage.component';
 
 
 const routes: Routes = [
@@ -14,20 +12,12 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'lists'
+        redirectTo: 'manage'
       },
       {
-        path: 'lists',
-        component: ListsComponent
+        path: 'manage',
+        component: UmManageComponent
       },
-      {
-        path: 'add',
-        component: AddComponent
-      },
-      {
-        path: 'edit/:user_id',
-        component: EditComponent
-      }
     ]
   }
 ];

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BackofficeComponent } from '@backoffice/backoffice.component';
 
-
 const BACKOFFICE_ROUTES: Routes = [
   {
     path: '',

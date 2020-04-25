@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from '@backoffice/category/category.component';
+import { CategoryManageComponent } from '@backoffice/category/components/category-manage/category-manage.component';
 
 
 const CATEGORY_ROUTES: Routes = [
   {
     path: '',
-    component: CategoryComponent
+    component: CategoryComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'manage'
+      },
+      {
+        path: 'manage',
+        component: CategoryManageComponent
+      }
+    ]
   }
 ];
 

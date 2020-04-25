@@ -11,6 +11,7 @@ $color-shadow: rgba(0, 0, 0, 0.09);
 body,
 html {
     height: 100%;
+    overflow: hidden;
 }
 
 // not found
@@ -79,6 +80,30 @@ html {
     width: 100%;
 }
 
+.pos-absolute {
+    position: absolute;
+}
+
+.pos-absolute-middle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.pos-fixed {
+    position: fixed;
+}
+
+.pos-fixed-middle {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 .pos-relative {
     position: relative;
 }
@@ -88,9 +113,17 @@ html {
     height: 100%;
 }
 
-::ng-deep {
-    .ant-message-custom-content {
-        display: flex;
-        align-self: center;
-    }
+.ant-message-custom-content {
+    display: flex;
+    align-self: center;
+    text-align: center;
+}
+
+.overflow-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.overflow-x {
+    overflow-y: hidden;
+    overflow-x: auto;
 }
