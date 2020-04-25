@@ -5,7 +5,7 @@ export const environment = {
   },
   auth: {
     redirects: {
-      intent: '/',
+      intent: '/backoffice',
       login: '/login',
       logout: '/logout'
     }

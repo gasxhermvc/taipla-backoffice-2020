@@ -60,7 +60,7 @@ export class LayoutTemplateComponent implements OnInit {
       this.layout.setActiveMenu(menu.NAME);
       this.layout.pageChange.emit(true);
 
-      const PATH = `${(this.env.auth.redirects.intent + menu.PATH)}`;
+      const PATH = `${(this.env.auth.redirects.intent._startTrim('/') + '/' + menu.PATH)}`;
       this.router.navigate([`${PATH}`]).then(() => {
         this.layout.pageChange.emit(false);
       });

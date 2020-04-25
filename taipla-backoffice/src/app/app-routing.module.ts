@@ -8,14 +8,15 @@ import { environment as env } from '@environments/environment';
 //example1 => /path1/ output => path1
 //example2 => /path1/path2/ output => path1/path2
 const root = env.auth.redirects.intent._trim('/');
+console.log('root', root);
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: SwitcherComponent,
-  //   canActivate: [AuthGuard]
-  // },
   {
-    path: root,
+    path: '',
+    component: SwitcherComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'backoffice',
     loadChildren: () => import('@backoffice/backoffice.module').then(m => m.BackofficeModule),
     canActivate: [AuthGuard]
   }
