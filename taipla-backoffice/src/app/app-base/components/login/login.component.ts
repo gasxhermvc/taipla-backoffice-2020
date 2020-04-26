@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
       errorMessages: {
         required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
         email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
-        minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        maxlength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
       }
     },
     {
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
       autocomplete: false,
       errorMessages: {
         required: 'กรุณาป้อนรหัสผ่าน',
-        minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        maxlength: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
+        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        max: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
       }
     },
     {

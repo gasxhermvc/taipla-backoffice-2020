@@ -30,8 +30,8 @@ export class FormComponent {
     required: 'กรุณากรอกข้อมูล',
     regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
     email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
-    minlength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-    maxlength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+    min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+    max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
     date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
   };
 
@@ -110,12 +110,12 @@ export class FormComponent {
         validators = validators.concat(Validators.email);
         break;
 
-      case "minlength":
-        validators = validators.concat(Validators.minLength);
+      case "min":
+        validators = validators.concat(Validators.min(4));
         break;
 
       case "max":
-        validators = validators.concat(Validators.maxLength);
+        validators = validators.concat(Validators.max(150));
         break;
 
       case "date":

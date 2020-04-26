@@ -61,7 +61,7 @@ export class BackofficeService extends BaseRequest {
 
   private async init() {
     console.log('backoffice.service.init');
-    //this.autoMapperInjection();
+    this.autoMapperInjection();
     setTimeout(() => {
       this.isLoaded.emit(true);
     }, 2000);

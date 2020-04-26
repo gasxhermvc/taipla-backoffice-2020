@@ -29,7 +29,7 @@ export class AppService {
     private msg: NzMessageService,
     private modalService: NzModalService) { }
 
-  reqUrl(url: string, httpOptions: XHttpOptions, alert: boolean = true) {
+  reqUrl(url: string, httpOptions: XHttpOptions, alert: boolean = true): Observable<any> {
     let req;
 
     if (httpOptions && httpOptions.method === undefined) {

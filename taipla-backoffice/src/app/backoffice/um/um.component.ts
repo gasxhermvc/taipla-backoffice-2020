@@ -1,13 +1,19 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseClass } from '@based/classes/base-class';
-import { UmService } from '../services/um.service';
+import { UmService } from '@backoffice/services/um.service';
+import { MODE } from '@app-base/enums/MODE';
 
 @Component({
   selector: 'app-um',
   templateUrl: './um.component.html',
-  styleUrls: ['./um.component.scss']
+  styleUrls: ['./um.component.scss'],
+  host: {
+    class: 'main'
+  }
 })
 export class UmComponent extends BaseClass implements OnInit {
+
+  public MODE = MODE;
 
   currentSystem: string = 'um';
 
@@ -22,11 +28,6 @@ export class UmComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit() {
-    console.log('um');
+    this.service.STATE = this.service.STATE_PAGE.LISTS;
   }
-
-  createUser() {
-
-  }
-
 }

@@ -1,1 +1,15 @@
-<p>um-manage-add works!</p>
+<div class="row m-0 p-0 mb-3">
+    <button nz-button nzType="danger" (click)="onBack()">
+        ย้อนกลับ
+    </button>
+</div>
+<ng-container *ngIf="formConfig">
+    <app-form [configs]="formConfig"></app-form>
+    <button nz-button nzType="primary" (click)="onSave()">
+        บันทึก
+    </button>
+    <span class="p-1"></span>
+    <button nz-button nzType="danger" (click)="onClear()">
+        ล้างค่า
+    </button>
+</ng-container>

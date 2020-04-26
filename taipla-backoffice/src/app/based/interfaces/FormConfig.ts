@@ -37,8 +37,8 @@ export interface ValidatorMessage {
     required?: string;
     regex?: string;
     email?: string;
-    minlength?: string;
-    maxlength?: string;
+    min?: string;
+    max?: string;
     date?: string;
 }
 

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 //=>App
+import { ShareModule } from '@app/cores/share.module';
 import { UmRoutingModule } from '@backoffice/um/um-routing.module';
 import { UmComponent } from '@backoffice/um/um.component';
 import { UmManageComponent } from '@backoffice/um/components/um-manage/um-manage.component';
@@ -26,6 +27,7 @@ import { UmManageEditComponent } from '@backoffice/um/components/um-manage/compo
     CommonModule,
     UmRoutingModule,
     NgZorroAntdModule,
+    ShareModule
   ],
   exports: [
     UmManageComponent,

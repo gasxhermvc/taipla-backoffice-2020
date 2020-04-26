@@ -1,61 +1,7 @@
-<div class="content">
-    <p>um-manage works!</p>
-    <app-um-manage-list></app-um-manage-list>
-    <app-um-manage-add></app-um-manage-add>
-    <app-um-manage-edit></app-um-manage-edit>
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    AAAAAAAAA<br />
-    OK
-</div>
+<ng-container [ngSwitch]="service.STATE">
+    <app-um-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)"></app-um-manage-list>
+    <app-um-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete($event)" (back)="onBack($event)">
+    </app-um-manage-add>
+    <app-um-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete($event)" (back)="onBack($event)">
+    </app-um-manage-edit>
+</ng-container>

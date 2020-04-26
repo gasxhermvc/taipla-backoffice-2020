@@ -3,7 +3,7 @@
         <ng-content select="[inner-header]"></ng-content>
     </nz-header>
 </div>
-<div class="row p-0 m-0 main-content">
+<div class="row p-0 m-0 main-content flex-nowrap">
     <div class="px-0 pos-relative slider" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible
         [ngClass]="{'slider-hide': !layout.isCollapsed }">
         <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': !layout.isCollapsed }">
@@ -27,7 +27,7 @@
         </span>
         <nz-content class="row col-12 p-0 m-0">
             <div class="inner-content">
-                <div class="content p-3">
+                <div class="content p-3 p-sm-3 p-md-4">
                     <ng-content select="[inner-content]"></ng-content>
                 </div>
             </div>
