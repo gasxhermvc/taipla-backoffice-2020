@@ -21,7 +21,7 @@
             </ul>
         </div>
     </div>
-    <div class="px-0" [ngClass]="{'col': layout.isCollapsed , 'col-12': !layout.isCollapsed }">
+    <div class="col-12 px-0" [ngClass]="{'col': layout.isCollapsed , 'col-12': !layout.isCollapsed }">
         <span class="ant-layout-sider-zero-width-trigger" (click)="layout.isCollapsed = !layout.isCollapsed">
             <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
         </span>

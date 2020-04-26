@@ -27,7 +27,7 @@ export class SwitcherComponent implements OnInit {
     this.auth.logout().subscribe(response => {
       if (response.success) {
         // window.location.reload();
-        this.router.navigate(['/login']);
+        this.router.navigate([this.app.env.auth.redirects.login]);
       } else {
         this.app.showDefaultError();
       }
@@ -36,7 +36,7 @@ export class SwitcherComponent implements OnInit {
   }
 
   public onOk() {
-    this.router.navigate(['/backoffice']);
+    this.router.navigate([this.app.env.auth.redirects.intent]);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { BaseClass } from '@based/classes/base-class';
 import { UmService, UM_INFO } from '@backoffice/services/um.service';
-import { MODE } from '@app/app-base/enums/MODE';
+import { MODE } from '@app-base/enums/MODE';
 import { UmManageListComponent } from '@backoffice/um/components/um-manage/components/um-manage-list/um-manage-list.component';
 
 @Component({

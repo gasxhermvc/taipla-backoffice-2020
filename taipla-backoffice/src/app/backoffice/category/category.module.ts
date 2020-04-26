@@ -1,6 +1,12 @@
+//=>Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+//=>Libraries
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+
+//=>App
+import { ShareModule } from '@cores/share.module';
 import { CategoryRoutingModule } from '@backoffice/category/category-routing.module';
 import { CategoryComponent } from '@backoffice/category/category.component';
 import { CategoryManageComponent } from '@backoffice/category/components/category-manage/category-manage.component';
@@ -19,7 +25,16 @@ import { CategoryManageEditComponent } from '@backoffice/category/components/cat
   ],
   imports: [
     CommonModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    NgZorroAntdModule,
+    ShareModule
+  ],
+  exports: [
+    CategoryComponent,
+    CategoryManageComponent,
+    CategoryManageListComponent,
+    CategoryManageAddComponent,
+    CategoryManageEditComponent
   ]
 })
 export class CategoryModule { }

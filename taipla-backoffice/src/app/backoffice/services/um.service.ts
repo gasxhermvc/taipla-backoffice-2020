@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '@based/classes/base-service';
 import { AppService } from '@based/services/app.service';
 import { UM } from '@app-base/interfaces/um-interface';
 import { MODE } from '@app-base/enums/MODE';
-import { STATE_PAGE } from '@app-base/enums/STATE_PAGE';
 import { MOCK_UM_LISTS } from '@based/mocks/um/mock_um_lists';
 import { MOCK_UM_ADD } from '@based/mocks/um/mock_um_add';
 import { MOCK_UM_EDIT } from '@based/mocks/um/mock_um_edit';
@@ -11,16 +11,13 @@ import { MOCK_UM_DELETE } from '@based/mocks/um/mock_um_delete';
 @Injectable({
   providedIn: 'root'
 })
-export class UmService {
-
-  STATE_PAGE = STATE_PAGE;
-
-  STATE: STATE_PAGE;
-
+export class UmService extends BaseService {
   LISTS: UM_LIST;
   UM_INFO: UM_INFO;
 
-  constructor(private app: AppService) { }
+  constructor(private app: AppService) {
+    super();
+  }
 
   async getUMLists() {
 
@@ -38,7 +35,7 @@ export class UmService {
     } catch{ }
 
     //=>Mock
-    const LISTS = MOCK_UM_LISTS;
+    const LISTS = [].concat(...MOCK_UM_LISTS);
     this.LISTS = {
       TOTAL: LISTS.length,
       LISTS: LISTS,
@@ -60,6 +57,7 @@ export class UmService {
       console.log('getUser.exception', exception);
     }
 
+    //=>Mock
     result = { ...MOCK_UM_EDIT };
 
     return result;
@@ -78,6 +76,7 @@ export class UmService {
     } catch (exception) {
       console.log('addUser.exception', exception);
     }
+
     //=>Mock
     result = { ...MOCK_UM_ADD };
 
@@ -116,7 +115,8 @@ export class UmService {
       console.log('deleteUser.exception', exception);
     }
 
-    result = { ...MOCK_UM_DELETE }
+    //=>Mock
+    result = MOCK_UM_DELETE.success
 
     return result;
   }
@@ -124,7 +124,7 @@ export class UmService {
 
 export interface UM_LIST {
   LISTS?: Array<UM>,
-  TOTAL: number
+  TOTAL?: number
 }
 
 export interface UM_INFO {

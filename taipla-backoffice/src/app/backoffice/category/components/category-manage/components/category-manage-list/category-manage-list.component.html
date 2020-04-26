@@ -1,1 +1,58 @@
-<p>category-manage-list works!</p>
+<div class="row flex-column flex-sm-row m-0 p-0 mb-3">
+    <div class="col-12 col-sm-6 px-0">
+        <h3>จัดการประเภทอาหาร</h3>
+    </div>
+    <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+        <button (click)="createCategory()" class="d-flex align-self-center" nz-button nzType="primary">
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มประเภทอาหาร
+        </button>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center align-top">#</th>
+                <th class="text-center align-top">ประเภทอาหาร</th>
+                <th class="text-center align-top">ผู้สร้างรายการ</th>
+                <th class="text-center align-top">วันที่สร้าง</th>
+                <th class="text-center align-top">วันที่แก้ไข</th>
+                <th class="text-center align-top">จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of items;let index = index">
+                <tr>
+                    <td class="text-center align-top">
+                        {{ (index + 1) }}
+                    </td>
+                    <td class="text-center align-top">
+                        {{ item.name }}
+                    </td>
+                    <td class="text-center align-top">
+                        {{ item.author }}
+                    </td>
+                    <td class="text-left align-top">
+                        {{ item.created_date }}
+                    </td>
+                    <td class="text-left align-top">
+                        {{ item.updated_date }}
+                    </td>
+                    <td class="text-center align-top">
+                        <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<ng-template let-item="item" #btn>
+    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+        แก้ไข
+    </button>
+    <span class="px-1"></span>
+    <button nz-button nzType="danger" (click)="onDelete(item)">
+        ลบ
+    </button>
+</ng-template>

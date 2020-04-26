@@ -1,6 +1,5 @@
 import { Component, OnInit, Injector, Output, EventEmitter } from '@angular/core';
 import { BaseClass } from '@based/classes/base-class';
-import { ColumnConfig } from '@based/interfaces/TableConfig';
 import { UmService } from '@backoffice/services/um.service';
 import { MODE } from '@app-base/enums/MODE';
 
