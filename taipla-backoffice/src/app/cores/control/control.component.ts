@@ -99,10 +99,22 @@ export class ControlComponent implements ControlValueAccessor {
   }
 
   errorMessage(): string {
-    const keys = Object.keys(this.control.errors).map(k => (k && k !== undefined) ? k.toLowerCase() : '') || [];
+    const keys = (this.control.errors) ?
+      Object.keys(this.control.errors).map(k => (k && k !== undefined) ? k.toLowerCase() : '') || [] : [];
 
     if (keys && keys.length > 0) {
-      return this._config.errorMessages[ERROR_TYPE_TEXT[keys[0]]] || this.defaultMessage[ERROR_TYPE_TEXT[keys[0]]] || ''
+      return this._config.errorMessages[this.getErrorKey()] || this.defaultMessage[this.getErrorKey()] || ''
+    }
+
+    return '';
+  }
+
+  getErrorKey(): string {
+    const keys = (this.control.errors) ?
+      Object.keys(this.control.errors).map(k => (k && k !== undefined) ? k.toLowerCase() : '') || [] : [];
+
+    if (keys && keys.length > 0) {
+      return ERROR_TYPE_TEXT[keys[0]];
     }
 
     return '';

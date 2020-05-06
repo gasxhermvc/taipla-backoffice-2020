@@ -89,6 +89,10 @@ export class FormComponent {
     }
   }
 
+  getControl(key: string) {
+    return this.controls._results.find(f => f.inputName === key) || undefined;
+  }
+
   renderer() {
     if (!(<ViewRef>this.cdr).destroyed) {
       this.cdr.detectChanges();

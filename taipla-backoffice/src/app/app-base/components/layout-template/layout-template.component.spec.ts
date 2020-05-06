@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutTemplateComponent } from '@app/app-base/components/layout-template/layout-template.component';
 
-describe('LayoutComponent', () => {
+describe('LayoutTemplateComponent', () => {
   let component: LayoutTemplateComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+  let fixture: ComponentFixture<LayoutTemplateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

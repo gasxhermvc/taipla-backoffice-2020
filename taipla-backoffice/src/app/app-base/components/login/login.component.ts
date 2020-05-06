@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       }
     },
     {
-      key: 'remember',
+      key: 'remember_me',
       label: 'Remember me',
       inline: true,
       type: ControlType.checkbox
@@ -66,6 +66,10 @@ export class LoginComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.app.hideLoading();
+
+      this.form.setFormData({
+
+      })
     }, this.app.randomNumber(700, 1200));
   }
 
