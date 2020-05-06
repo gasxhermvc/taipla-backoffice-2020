@@ -39,28 +39,36 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     return this.auth.isLoggedIn().pipe(
       map((loggedIn: boolean) => {
         this.app.showLoading();
-        console.log("checkLogin-> ", url);
+        console.log("checkLogin-> ", url, loggedIn);
 
         if (url.includes(this.app.env.auth.redirects.logout)) {
           this.isLoggedOut = true;
-
           this.auth.logout().subscribe(() => {
+            //=>ล็อกเอ้าท์
             loggedIn = false;
-            if (!loggedIn) {
-              // Store the attempted URL for redirecting
-              this.auth.redirectUrl = url;
-              // Navigate to the login page with extras
-              this.router.navigate([this.app.env.auth.redirects.login]).then(() => {
-                this.app.hideLoading();
-                this.isLoggedOut = false;
-              });
-            }
+            this.redirect(url, this.isLoggedOut);
           });
+        } else {
+          if (!loggedIn) {
+            //=>ไม่ล็อกอิน
+            this.redirect(url, !this.isLoggedOut);
+          }
         }
-
         return loggedIn;
       })
     );
+  }
+
+  redirect(url: any = '', isRedirect: boolean = false) {
+    if (isRedirect) {
+      // Store the attempted URL for redirecting
+      this.auth.redirectUrl = url;
+      // Navigate to the login page with extras
+      this.router.navigate([this.app.env.auth.redirects.login]).then(() => {
+        this.app.hideLoading();
+        this.isLoggedOut = false;
+      });
+    }
   }
 
   getParam(name) {
