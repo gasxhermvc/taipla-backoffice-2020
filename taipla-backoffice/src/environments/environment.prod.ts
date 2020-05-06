@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   api: {
-    baseUrl: ''
+    baseUrl: 'https://taipla.com/api'
   },
   auth: {
     redirects: {

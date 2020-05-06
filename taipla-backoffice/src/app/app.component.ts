@@ -13,6 +13,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    console.log('ok');
     this.app.showLoading();
   }
 }

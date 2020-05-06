@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators } from '@angular/forms';
-import { ControlType, FormConfig, ValidatorMessage } from '@based/interfaces/FormConfig';
+import { ControlType, FormConfig, ValidatorMessage, ERROR_TYPE_TEXT } from '@based/interfaces/FormConfig';
 import { DatetimeService } from '@based/services/datetime.service';
 import { debounceTime } from 'rxjs/operators';
 
@@ -26,8 +26,8 @@ export class ControlComponent implements ControlValueAccessor {
     required: 'กรุณากรอกข้อมูล',
     regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
     email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
-    min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-    max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+    minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+    maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
     date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
   };
 
@@ -99,10 +99,10 @@ export class ControlComponent implements ControlValueAccessor {
   }
 
   errorMessage(): string {
-    const keys = Object.keys(this.control.errors).map(k => k) || [];
+    const keys = Object.keys(this.control.errors).map(k => (k && k !== undefined) ? k.toLowerCase() : '') || [];
 
     if (keys && keys.length > 0) {
-      return this._config.errorMessages[keys[0]] || this.defaultMessage[keys[0]] || ''
+      return this._config.errorMessages[ERROR_TYPE_TEXT[keys[0]]] || this.defaultMessage[ERROR_TYPE_TEXT[keys[0]]] || ''
     }
 
     return '';
@@ -207,12 +207,12 @@ export class ControlComponent implements ControlValueAccessor {
         validators = validators.concat(Validators.email);
         break;
 
-      case "min":
-        validators = validators.concat(Validators.min(this._config.min || 4));
+      case "minlength":
+        validators = validators.concat(Validators.minLength(this._config.min || 4));
         break;
 
-      case "max":
-        validators = validators.concat(Validators.max(this._config.max || 150));
+      case "maxlength":
+        validators = validators.concat(Validators.maxLength(this._config.max || 150));
         break;
 
       case "date":

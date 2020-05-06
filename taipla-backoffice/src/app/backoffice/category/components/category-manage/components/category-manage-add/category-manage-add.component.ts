@@ -41,8 +41,8 @@ export class CategoryManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         errorMessages: {
           required: 'กรุณาป้อนประเภทอาหาร',
-          min: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
         min: 3,
         max: 150

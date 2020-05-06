@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormComponent } from '@cores/form/form.component';
 import { AppService } from '@based/services/app.service';
 import { AuthService } from '@based/services/auth.service';
+import { LocalStorageService } from '@based/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +26,8 @@ export class LoginComponent implements OnInit {
       errorMessages: {
         required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
         email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
-        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+        minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
       }
     },
     {
@@ -39,8 +40,8 @@ export class LoginComponent implements OnInit {
       autocomplete: false,
       errorMessages: {
         required: 'กรุณาป้อนรหัสผ่าน',
-        min: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        max: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
+        minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
+        maxLength: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
       }
     },
     {
@@ -51,34 +52,73 @@ export class LoginComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router, public app: AppService, private auth: AuthService) {
+  constructor(private router: Router,
+    public app: AppService,
+    private auth: AuthService,
+    private local: LocalStorageService) {
     (window as any).login = this;
+
+    this.doLogin();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
-    this.app.hideLoading();
+    setTimeout(() => {
+      this.app.hideLoading();
+    }, this.app.randomNumber(700, 1200));
   }
 
   async onSubmit() {
     if (this.form.isValid(false)) {
       this.app.showLoading();
+      try {
+        const data = this.form.getFormData();
+        const response: any = await this.auth.login(data).toPromise();
 
-      const data = this.form.getFormData();
-      const response: any = await this.auth.login(data);
-
-      if (response) {
-        this.router.navigate([this.app.env.auth.redirects.intent]);
-      } else {
-        this.app.showError(response.message);
+        if (response && response.success) {
+          const redirect = this.redirect();
+          this.router.navigate([redirect]).then((complete) => {
+            this.auth.redirectUrl = undefined;
+          });
+          this.app.showSuccess(this.app.message.SUCCESS.LOGIN);
+        } else {
+          this.app.showError((response.message ?
+            response.message : this.app.message.ERROR.DEFAULT));
+        }
+      } catch (exception) {
+        this.app.showError(this.app.message.ERROR.DEFAULT);
       }
-
       this.app.hideLoading();
     } else {
       this.app.showError(this.app.message.ERROR.LOGIN_INVALID);
     }
+  }
 
+  private doLogin() {
+    //=>get pathname
+    const pathname = window.location.pathname;
+    //=>get jwt
+    const jwt = this.local.exsit('jwt') ? this.local.get('jwt') : undefined;
+
+    //=>verify
+    if (jwt && jwt.authenticated && pathname.includes(this.app.env.auth.redirects.login)) {
+      this.router.navigate([this.app.env.auth.redirects.intent]);
+    }
+  }
+
+  private redirect() {
+    let redirect = '';
+    switch (this.auth.redirectUrl) {
+      case undefined:
+      case '':
+      case null:
+        redirect = this.app.env.auth.redirects.intent;
+        break;
+      default:
+        redirect = this.auth.redirectUrl;
+        break;
+    }
+    return redirect;
   }
 }

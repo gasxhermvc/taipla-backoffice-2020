@@ -41,8 +41,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         errorMessages: {
           required: 'กรุณาป้อนชื่อจริง',
-          min: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
         min: 3,
         max: 150
@@ -53,8 +53,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         errorMessages: {
           required: 'กรุณาป้อนนามสกุลจริง',
-          min: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
         min: 3,
         max: 150
@@ -66,8 +66,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         errorMessages: {
           required: 'กรุณาป้อนชื่อผู้ใช้งาน',
           email: 'กรุณาป้อนรูปแบบ Email เท่านั้น',
-          min: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
         },
         min: 3,
         max: 150
@@ -78,8 +78,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.password,
         errorMessages: {
           required: 'กรุณาป้อนรหัสผ่าน',
-          min: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
-          max: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
         min: 6,
         max: 150

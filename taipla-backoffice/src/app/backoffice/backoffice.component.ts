@@ -71,7 +71,6 @@ export class BackofficeComponent extends BaseClass implements OnInit {
       console.log('backoffice.isLoaded', loaded)
       if (loaded) {
         this._loaded = loaded;
-        this.app.hideLoading();
       }
     });
   }

@@ -6,4 +6,20 @@
         font-weight: bold;
         color: $color-dark;
     }
+
+    .profile-menu {
+        margin-top: 1rem !important;
+        text-align: center;
+
+        .profile-image {
+            cursor: pointer;
+            margin: 0.5rem auto;
+            max-width: 100px;
+            border-radius: 50%;
+        }
+        .profile-text {
+            color: white;
+            margin: 1rem 0;
+        }
+    }
 }

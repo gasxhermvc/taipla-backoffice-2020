@@ -16,6 +16,7 @@
                 <th class="text-center align-top">รูปประจำตัว</th>
                 <th class="text-center align-top">ชื่อผู้ใช้งาน</th>
                 <th class="text-center align-top">ชื่อ - นามสกุล</th>
+                <th class="text-center align-top">สถานะ</th>
                 <th class="text-center align-top">จัดการ</th>
             </tr>
         </thead>
@@ -26,18 +27,21 @@
                         {{ (index + 1) }}
                     </td>
                     <td class="text-center align-top">
-                        <ng-container *ngIf="item.avatar; else defaultAvatar;">
-                            <img [src]="item.avatar" class="img-fluid avatar" />
+                        <ng-container *ngIf="item.imageProfile; else defaultAvatar;">
+                            <img [src]="item.imageProfile" class="img-fluid avatar rounded-circle" />
                         </ng-container>
                         <ng-template #defaultAvatar>
-                            <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar" />
+                            <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar rounded-circle" />
                         </ng-template>
                     </td>
                     <td class="text-center align-top">
-                        {{ item.username }}
+                        {{ item.email }}
                     </td>
                     <td class="text-left align-top">
-                        {{ item.full_name }}
+                        {{ item.displayName }}
+                    </td>
+                    <td class="text-left align-top">
+                        {{ item.role }}
                     </td>
                     <td class="text-center align-top">
                         <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>

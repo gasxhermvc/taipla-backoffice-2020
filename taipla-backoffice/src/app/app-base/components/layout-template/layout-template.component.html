@@ -7,7 +7,11 @@
     <div class="px-0 pos-relative slider" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible
         [ngClass]="{'slider-hide': !layout.isCollapsed }">
         <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': !layout.isCollapsed }">
-            <div class="logo"></div>
+            <div class="logo" [ngClass]="{ 'd-none': !layout.isCollapsed }">
+                <ng-container *ngIf="profile">
+                    <ng-container *ngTemplateOutlet="profile"></ng-container>
+                </ng-container>
+            </div>
             <ul [ngClass]="{ 'd-none': !layout.isCollapsed }" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible>
                 <ng-container *ngIf="isShowMenu">
                     <ng-container *ngFor="let menu of menus; let index = index">

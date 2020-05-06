@@ -16,7 +16,6 @@ function _trim(pattern: string = ' '): string {
     return this.replace(regex, '');
 }
 
-
 function _startTrim(pattern: string = ' '): string {
 
     const patternStr = `(^\\${pattern}+)`;

@@ -1,10 +1,11 @@
 export interface UM {
-    user_id?: number;
-    username?: string;
-    avatar?: string;
-    full_name?: string;
-    first_name?: string;
-    last_name?: string;
+    client_id?: string;
+    email?: string;
+    displayName?: string;
+    phoneNumber?: string;
+    role?: string;
+    idRestaurant?: string;
+    imageProfile?: string;
     created_date?: string;
     updated_date?: string;
 }

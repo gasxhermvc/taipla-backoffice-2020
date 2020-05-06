@@ -42,6 +42,19 @@ export class LayoutTemplateComponent implements OnInit {
     }
   }
 
+  _profile: any;
+  get profile() {
+    return this._profile || undefined;
+  }
+
+  @Input()
+  set profile(profile: any) {
+    if (profile !== undefined && profile !== null) {
+      setTimeout(() => {
+        this._profile = profile;
+      }, 0);
+    }
+  }
   get isShowMenu() {
     return this.menus !== undefined && this.current !== undefined;
   }

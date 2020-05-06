@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment as env } from '@environments/environment';
@@ -10,7 +10,9 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 //=>App
 import { environment } from '@environments/environment';
 import message from "@assets/messages/message.json";
+import { ROUTE } from '@app-base/config/routes';
 import { XHttpOptions } from '@based/interfaces/HttpOptions';
+import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +20,21 @@ import { XHttpOptions } from '@based/interfaces/HttpOptions';
 export class AppService {
   env: any = environment;
   message: any = message;
+  route: any = ROUTE;
+  jwt: JsonWebToken;
 
   private _loading: boolean = false;
 
   get hostName(): string {
     return document.getElementsByTagName("base")[0].href;
+  }
+
+  get baseApi(): string {
+    return this.env.api.baseUrl._trim('/');
+  }
+
+  get user(): User {
+    return (this.jwt && this.jwt.payload) ? this.jwt.payload : undefined;
   }
 
   constructor(private http: HttpClient,
@@ -45,8 +57,11 @@ export class AppService {
     }
     return req.pipe(map((response: any) => {
       if (response === null || response === undefined) {
-        this.showDefaultError();
+        if (alert) {
+          this.showDefaultError();
+        }
       }
+      return response;
     }));
   }
 
@@ -59,14 +74,14 @@ export class AppService {
     console.log('app.show.loading');
     setTimeout(() => {
       this._loading = true;
-    });
+    }, 0);
   }
 
   hideLoading() {
     console.log('app.hide.loading');
     setTimeout(() => {
       this._loading = false;
-    });
+    }, 0);
   }
 
   /* Private */
@@ -74,9 +89,10 @@ export class AppService {
     const domainName = env.api.baseUrl;
     const combineUrl = domainName + "/" + (url.startsWith('/') ? url.substring(1).trim() : url.trim());
 
-    if (options && options.headers == undefined) {
+    if (options && options.headers !== undefined) {
       options.headers = {
-        "Content-Type": "application/json; charset=utf8"
+        "Content-Type": this.getContentType(options),
+        ...options.headers
       }
     }
 
@@ -85,9 +101,10 @@ export class AppService {
 
   private _reqExternalUrl(url: string, options: XHttpOptions): Observable<any> {
 
-    if (options && options.headers == undefined) {
+    if (options && options.headers !== undefined) {
       options.headers = {
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf8"
+        "Content-Type": this.getContentType(options),
+        ...options.headers
       }
     }
 
@@ -97,15 +114,15 @@ export class AppService {
   private _reqUrl(url: string, options: XHttpOptions): Observable<any> {
     let req;
 
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
 
     if (options && options.headers) {
       Object.keys(options.headers).forEach(key => {
-        headers.append(key, options.headers[key]);
+        headers = headers.append(key, options.headers[key]);
       });
     }
 
-    const params = options && options.parameters ? { params: options.parameters } : {};
+    const params = this.buildParams(options);
 
     switch (options.method) {
       case "get":
@@ -146,6 +163,36 @@ export class AppService {
     return req;
   }
 
+  private buildParams(options: any): any {
+    let params = {};
+    switch (options.method) {
+      case "get":
+      case "delete":
+        params = (options.parameters && Object.keys(options.parameters).length > 0) ? { params: options.parameters } : {};
+        break;
+      default:
+        params = (options.parameters && Object.keys(options.parameters).length > 0) ? { ...options.parameters } : {};
+        break;
+    }
+    return params;
+  }
+
+  private getContentType(options: any): string {
+    let contentType: string = '';
+
+    switch (options.json) {
+      case undefined:
+      case true:
+        contentType = "application/json; charset=utf8";
+        break;
+      default:
+        contentType = "application/x-www-form-urlencoded; charset=utf8";
+        break;
+    }
+
+    return contentType;
+  }
+
   /* Support */
   toJsonObject(jsonString: string) {
     return JSON.parse(jsonString);
@@ -155,7 +202,7 @@ export class AppService {
     return JSON.stringify(jsonObject);
   }
 
-  isInternalUrl(url: string): string {
+  isInternalUrl(url: string): boolean {
     let domainNameStartIndex = url.indexOf("://");
     let domainName = "";
 
@@ -168,7 +215,7 @@ export class AppService {
     if (domainNameEndIndex >= 0)
       domainName = domainName.substring(0, domainNameEndIndex);
 
-    return domainName;
+    return (domainName === '') ? true : false;
   }
 
   /* DEFAULT MESSAGE */
@@ -206,5 +253,22 @@ export class AppService {
       nzOkText: okText,
       nzCancelText: cancelText
     });
+  }
+  /** Helper **/
+  randomStr(maxCharacter: number = 10): string {
+
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  }
+
+  randomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

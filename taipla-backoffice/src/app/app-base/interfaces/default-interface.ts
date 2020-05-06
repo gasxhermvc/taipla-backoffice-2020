@@ -1,9 +1,16 @@
+export interface JsonWebToken {
+    access_token: string
+    payload?: User,
+    remember_me?: boolean,
+    authenticated: boolean
+}
+
 export interface User {
-    user_id: number;
-    client_id: string;
-    username: string;
-    prefix?: string;
-    firstname?: string;
-    lastname?: string;
-    status: string;
+    client_id?: string;
+    displayName?: string;
+    email?: string;
+    idRestaurant?: number;
+    imageProfile?: string;
+    phoneNumber?: number;
+    role?: string;
 }

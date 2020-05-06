@@ -37,8 +37,8 @@ export interface ValidatorMessage {
     required?: string;
     regex?: string;
     email?: string;
-    min?: string;
-    max?: string;
+    minLength?: string;
+    maxLength?: string;
     date?: string;
 }
 
@@ -55,4 +55,13 @@ export enum ControlType {
     daterange,
     modal,
     slider
+}
+
+export enum ERROR_TYPE_TEXT {
+    'required' = 'required',
+    'regex' = 'regex',
+    'email' = 'email',
+    'minlength' = 'minLength',
+    'maxlength' = 'maxLength',
+    'date' = 'date'
 }
