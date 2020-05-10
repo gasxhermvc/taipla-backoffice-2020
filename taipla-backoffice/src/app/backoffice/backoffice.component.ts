@@ -8,6 +8,7 @@ import { BaseClass } from '@app/based/classes/base-class';
 import { Subscription } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { User } from '@app/app-base/interfaces/default-interface';
 
 @Component({
   selector: 'app-backoffice',
@@ -28,6 +29,10 @@ export class BackofficeComponent extends BaseClass implements OnInit {
 
   get currentSystem() {
     return this.backoffice.currentSystem;
+  }
+
+  get user(): User {
+    return this.app.user || undefined;
   }
 
   constructor(injector: Injector, private router: Router) {

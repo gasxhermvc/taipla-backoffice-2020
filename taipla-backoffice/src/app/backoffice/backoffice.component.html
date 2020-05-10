@@ -9,16 +9,16 @@
 </ng-template>
 
 <ng-template #profileTemp>
-    <ng-container *ngIf="app.user">
+    <ng-container *ngIf="user">
         <div class="px-3 m-auto profile-menu">
-            <ng-container *ngIf="app.user.imageProfile; else defaultAvatar;">
-                <img [src]="app.user.imageProfile" class="img-fluid profile-image" draggable="false" />
+            <ng-container *ngIf="user.imageProfile; else defaultAvatar;">
+                <img [src]="user.imageProfile" class="img-fluid profile-image" draggable="false" />
             </ng-container>
             <ng-template #defaultAvatar>
                 <img src="./assets/images/defaults/avatar.png" class="img-fluid profile-image" draggable="false" />
             </ng-template>
             <p class="profile-text">
-                {{ app.user.displayName }}
+                {{ user.displayName }}
             </p>
         </div>
     </ng-container>
