@@ -19,18 +19,22 @@ export class CategoryService extends BaseService {
     super();
   }
 
-  async getCategoryLists() {
+  async getCategoryLists(params: any) {
     try {
-      if (this.LISTS === undefined) {
-        const response = await this.app.reqUrl('', {
+      const response = await this.app.reqUrl('', {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: params
+      }, false).toPromise();
 
-        }, false).toPromise();
-
-        if (response) {
-
+      if (response && response.success) {
+        this.LISTS = {
+          TOTAL: response.data.length,
+          LISTS: [...response.data]
         }
-        console.log('getCategoryLists.reponse', response);
       }
+      console.log('getCategoryLists.reponse', response);
+
     } catch{ }
 
     //=>Mock
@@ -46,10 +50,14 @@ export class CategoryService extends BaseService {
   async getCategory(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl('', {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
-        result = response.data;
+        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
       }
 
     } catch (exception) {
@@ -65,10 +73,15 @@ export class CategoryService extends BaseService {
   async addCategory(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl('', param, false).toPromise();
+
+      const response = await this.app.reqUrl('', {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
-        result = response.data;
+        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
       }
 
     } catch (exception) {
@@ -85,10 +98,14 @@ export class CategoryService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl('', {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
-        result = response.data;
+        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
       }
 
     } catch (exception) {
@@ -106,7 +123,11 @@ export class CategoryService extends BaseService {
 
     try {
 
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl('', {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
         result = response.success;

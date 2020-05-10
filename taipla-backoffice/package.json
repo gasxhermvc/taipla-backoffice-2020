@@ -5,8 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
     "lint": "ng lint",
+    "test": "ng test --watch",
+    "test-core": "ng test --watch --include=./app/cores/**/**.spec.ts",
+    "test-app-base": "ng test --watch --include=./app/app-base/**/**.spec.ts",
+    "test-based": "ng test --watch --include=./app/based/**/**.spec.ts",
+    "test-backoffice": "ng test --watch --include=./app/backoffice/**/**.spec.ts",
     "e2e": "ng e2e",
     "run-prod": "ng serve --prod --base-href=/backoffice/ --deploy-url=./ --sourceMap=false --vendorChunk=false --commonChunk=false --watch",
     "prod": "ng build --prod --base-href=/backoffice/ --deploy-url=./ --output-path=./dist --delete-output-path=true --sourceMap=false --vendorChunk=false --commonChunk=false  --outputHashing=all --buildOptimizer=true"

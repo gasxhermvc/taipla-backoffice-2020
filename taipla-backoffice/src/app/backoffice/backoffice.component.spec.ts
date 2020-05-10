@@ -1,6 +1,11 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BackofficeComponent } from './backoffice.component';
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
+import { ShareModule } from '@cores/share.module';
+import { AppBaseModule } from '@app-base/app-base.module';
+import { BackofficeComponent } from '@backoffice/backoffice.component';
 
 describe('BackofficeComponent', () => {
   let component: BackofficeComponent;
@@ -8,9 +13,14 @@ describe('BackofficeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BackofficeComponent ]
+      imports: [
+        ...moduleConfig,
+        ShareModule,
+        AppBaseModule,
+      ],
+      declarations: [BackofficeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

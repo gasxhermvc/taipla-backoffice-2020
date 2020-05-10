@@ -31,26 +31,28 @@ export class UmManageComponent extends BaseClass implements OnInit {
 
   private initMode() {
     if (this.service !== undefined) {
-      const doMODE = this.service.UM_INFO !== undefined ? this.service.UM_INFO.MODE : undefined;
-      switch (doMODE) {
-        case MODE.ADD:
-          this.service.STATE = this.service.STATE_PAGE.ADD;
-          break;
-        case MODE.EDIT:
-          this.service.STATE = this.service.STATE_PAGE.EDIT;
-          break;
-        case MODE.DELETE:
-          this.service.UM_INFO = undefined;
-          this.service.STATE = this.service.STATE_PAGE.LISTS;
-          if (this.umList) {
-            this.umList.retrieveData();
-          }
-          break;
-        case MODE.VIEW:
-        case MODE.COMPLETE:
-        default:
-          this.service.STATE = this.service.STATE_PAGE.LISTS;
-          break;
+      if (this.service.UM_INFO) {
+        const doMODE = this.service.UM_INFO !== undefined ? this.service.UM_INFO.MODE : undefined;
+        switch (doMODE) {
+          case MODE.ADD:
+            this.service.STATE = this.service.STATE_PAGE.ADD;
+            break;
+          case MODE.EDIT:
+            this.service.STATE = this.service.STATE_PAGE.EDIT;
+            break;
+          case MODE.DELETE:
+            this.service.UM_INFO = undefined;
+            this.service.STATE = this.service.STATE_PAGE.LISTS;
+            if (this.umList) {
+              this.umList.retrieveData();
+            }
+            break;
+          case MODE.VIEW:
+          case MODE.COMPLETE:
+          default:
+            this.service.STATE = this.service.STATE_PAGE.LISTS;
+            break;
+        }
       }
     }
   }

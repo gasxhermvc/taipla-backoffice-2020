@@ -1,6 +1,10 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UmManageListComponent } from './um-manage-list.component';
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
+import { ShareModule } from '@cores/share.module';
+import { UmManageListComponent } from '@backoffice/um/components/um-manage/components/um-manage-list/um-manage-list.component';
 
 describe('UmManageListComponent', () => {
   let component: UmManageListComponent;
@@ -8,9 +12,13 @@ describe('UmManageListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UmManageListComponent ]
+      imports: [
+        ...moduleConfig,
+        ShareModule
+      ],
+      declarations: [UmManageListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

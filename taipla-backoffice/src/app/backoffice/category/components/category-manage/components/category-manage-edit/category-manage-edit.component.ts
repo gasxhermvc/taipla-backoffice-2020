@@ -28,10 +28,12 @@ export class CategoryManageEditComponent extends BaseClass implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.initConfig();
-      this.retrieveData();
-    }, 0);
+    if (this.service.CATEGORY_INFO) {
+      setTimeout(() => {
+        this.initConfig();
+        this.retrieveData();
+      }, 0);
+    }
   }
 
   initConfig() {
@@ -57,7 +59,8 @@ export class CategoryManageEditComponent extends BaseClass implements OnInit {
 
   private async retrieveData() {
     this.showLoading();
-    const result = await this.service.getCategory({});
+    const param: any = {};
+    const result = await this.service.getCategory(param);
 
     if (result) {
       this.service.CATEGORY_INFO.DATA = { ...result };
@@ -75,8 +78,10 @@ export class CategoryManageEditComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
+      let param: any = [];
       const data = this.form.getFormData();
-      const result = await this.service.editCategory(data);
+      param.push(data);
+      const result = await this.service.editCategory(param);
       if (result) {
         this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
         this.onBack();

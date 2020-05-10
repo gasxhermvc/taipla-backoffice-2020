@@ -1,5 +1,8 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
 import { CategoryComponent } from '@backoffice/category/category.component';
 
 describe('CategoryComponent', () => {
@@ -8,9 +11,10 @@ describe('CategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryComponent ]
+      imports: [...moduleConfig],
+      declarations: [CategoryComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

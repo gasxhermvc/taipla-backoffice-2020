@@ -1,5 +1,8 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
 import { TableComponent } from '@cores/table/table.component';
 
 describe('TableComponent', () => {
@@ -8,9 +11,10 @@ describe('TableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableComponent ]
+      imports: [...moduleConfig],
+      declarations: [TableComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

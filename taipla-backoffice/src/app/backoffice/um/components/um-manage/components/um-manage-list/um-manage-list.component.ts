@@ -32,14 +32,26 @@ export class UmManageListComponent extends BaseClass implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.retrieveData();
+    if (this.service.STATE) {
+      setTimeout(() => {
+        this.retrieveData();
+      }, 0);
+    }
   }
 
   async retrieveData() {
     if (this.service !== undefined) {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
-        this.service.LISTS = await this.service.getUMLists();
+
+        const params: any = {
+          search: {
+            client_id: '',
+            role: ''
+          }
+        }
+
+        this.service.LISTS = await this.service.getUMLists(params);
         this.hideLoading();
       }
     }
@@ -53,7 +65,14 @@ export class UmManageListComponent extends BaseClass implements OnInit {
     this.app.showConfirm(this.app.message.CONFIRM.DELETE, async (ok: any) => {
       if (ok) {
         this.showLoading();
-        const result = await this.service.deleteUser({});
+
+        const param: any = {
+          userList: [{
+            client_id: item.client_id
+          }]
+        }
+
+        const result = await this.service.deleteUser(param);
 
         if (result) {
           this.app.showSuccess(this.app.message.SUCCESS.DELETE);

@@ -1,5 +1,8 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
 import { FoodCenterComponent } from '@backoffice/food-center/food-center.component';
 
 describe('FoodCenterComponent', () => {
@@ -8,6 +11,7 @@ describe('FoodCenterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [...moduleConfig],
       declarations: [FoodCenterComponent]
     })
       .compileComponents();

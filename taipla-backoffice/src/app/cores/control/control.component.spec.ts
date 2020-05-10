@@ -1,6 +1,11 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
 import { ControlComponent } from '@cores/control/control.component';
+import { DatetimeService } from '@based/services/datetime.service';
 
 describe('ControlComponent', () => {
   let component: ControlComponent;
@@ -8,9 +13,19 @@ describe('ControlComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ControlComponent ]
+      imports: [
+        ...moduleConfig,
+        FormsModule,
+        ReactiveFormsModule
+      ],
+      declarations: [
+        ControlComponent
+      ],
+      providers: [
+        DatetimeService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

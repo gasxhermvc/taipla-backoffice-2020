@@ -1,13 +1,19 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
 
+//=>App
 import { AccountComponent } from '@backoffice/account/account.component';
+import { moduleConfig } from '@based/configs/test-config';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
+  let debugElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [...moduleConfig],
       declarations: [AccountComponent]
     })
       .compileComponents();

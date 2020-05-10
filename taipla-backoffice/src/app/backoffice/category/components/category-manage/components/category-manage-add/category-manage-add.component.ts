@@ -53,8 +53,10 @@ export class CategoryManageAddComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
+      let param = [];
       const data = this.form.getFormData();
-      const result = await this.service.addCategory(data);
+      param.push(data);
+      const result = await this.service.addCategory(param);
       if (result) {
         this.app.showSuccess(this.app.message.SUCCESS.INSERT);
         this.onBack();

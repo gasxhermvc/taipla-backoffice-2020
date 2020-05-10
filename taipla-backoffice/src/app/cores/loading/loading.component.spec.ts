@@ -1,5 +1,8 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
 import { LoadingComponent } from '@cores/loading/loading.component';
 
 describe('LoadingComponent', () => {
@@ -8,6 +11,7 @@ describe('LoadingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [...moduleConfig],
       declarations: [LoadingComponent]
     })
       .compileComponents();

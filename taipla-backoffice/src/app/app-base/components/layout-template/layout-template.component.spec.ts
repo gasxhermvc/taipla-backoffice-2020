@@ -1,6 +1,9 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutTemplateComponent } from '@app/app-base/components/layout-template/layout-template.component';
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
+import { LayoutTemplateComponent } from '@app-base/components/layout-template/layout-template.component';
 
 describe('LayoutTemplateComponent', () => {
   let component: LayoutTemplateComponent;
@@ -8,6 +11,7 @@ describe('LayoutTemplateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [...moduleConfig],
       declarations: [LayoutTemplateComponent]
     })
       .compileComponents();

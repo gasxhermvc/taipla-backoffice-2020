@@ -19,18 +19,22 @@ export class UmService extends BaseService {
     super();
   }
 
-  async getUMLists() {
-
+  async getUMLists(params: any) {
     try {
-      if (this.LISTS === undefined) {
-        const response = await this.app.reqUrl('', {
+      const response = await this.app.reqUrl(`${this.app.baseApi}/user/getUser`, {
+        method: 'POST',
+        headers: {
+          ...this.app.header
+        },
+        parameters: params
+      }, false).toPromise();
 
-        }, false).toPromise();
-
-        if (response) {
-
-        }
-        console.log('getUMLists.reponse', response);
+      if (response && response.success) {
+        this.LISTS = {
+          TOTAL: response.data.length,
+          LISTS: [...response.data]
+        };
+        console.log('getUMLists.response', response);
       }
     } catch{ }
 
@@ -47,10 +51,21 @@ export class UmService extends BaseService {
   async getUser(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl(`${this.app.baseApi}/user/getUser`, {
+        method: 'POST',
+        headers: {
+          ...this.app.header
+        },
+        parameters: {
+          search: {
+            client_id: param.client_id,
+            role: ''
+          }
+        }
+      }, false).toPromise();
 
       if (response && response.success) {
-        result = response.data;
+        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
       }
 
     } catch (exception) {
@@ -67,7 +82,11 @@ export class UmService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl(`${this.app.baseApi}/user/addUser`, {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
         result = response.data;
@@ -85,8 +104,13 @@ export class UmService extends BaseService {
 
   async editUser(param: any) {
     let result;
+
     try {
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl(`${this.app.baseApi}/user/editUser`, {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
         result = response.data;
@@ -106,7 +130,11 @@ export class UmService extends BaseService {
     let result;
 
     try {
-      const response = await this.app.reqUrl('', param, false).toPromise();
+      const response = await this.app.reqUrl(`${this.app.baseApi}/user/deleteUser`, {
+        method: 'POST',
+        headers: { ...this.app.header },
+        parameters: param
+      }, false).toPromise();
 
       if (response && response.success) {
         result = response.success;

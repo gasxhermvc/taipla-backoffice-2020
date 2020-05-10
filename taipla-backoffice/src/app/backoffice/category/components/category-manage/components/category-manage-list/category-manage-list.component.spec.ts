@@ -1,6 +1,9 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CategoryManageListComponent } from './category-manage-list.component';
+//=>App
+import { moduleConfig } from '@based/configs/test-config';
+import { CategoryManageListComponent } from '@backoffice/category/components/category-manage/components/category-manage-list/category-manage-list.component';
 
 describe('CategoryManageListComponent', () => {
   let component: CategoryManageListComponent;
@@ -8,9 +11,10 @@ describe('CategoryManageListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryManageListComponent ]
+      imports: [...moduleConfig],
+      declarations: [CategoryManageListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

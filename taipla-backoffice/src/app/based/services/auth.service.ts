@@ -31,19 +31,7 @@ export class AuthService {
         return of(false);
       }
 
-      return this.app.reqUrl(`${this.app.baseApi}/user/getUserInfo`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${jwt.access_token}`
-        }
-      }).pipe(map((response: any) => {
-
-        if (response && response.success) {
-          this.app.jwt.payload = response.data;
-        }
-
-        return response.success;
-      }));
+      return this.getUserInfo();
     }
   }
 
@@ -81,9 +69,7 @@ export class AuthService {
 
     return this.app.reqUrl(`${this.app.baseApi}/authen/logout`, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${jwt.access_token}`
-      }
+      headers: { ...this.app.header }
     }).pipe(
       map((response: any) => {
         if (response && response.success) {
@@ -98,14 +84,16 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<any> {
-    const user: User = { ...MOCK_USER };
+    return this.app.reqUrl(`${this.app.baseApi}/user/getUserInfo`, {
+      method: 'POST',
+      headers: { ...this.app.header }
+    }).pipe(map((response: any) => {
 
-    const subject = new Subject<any>();
+      if (response && response.success) {
+        this.app.jwt.payload = response.data;
+      }
 
-    setTimeout(() => {
-      subject.next(user);
-    }, 1500);
-
-    return subject;
+      return response.success;
+    }));
   }
 }

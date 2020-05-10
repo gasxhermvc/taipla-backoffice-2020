@@ -37,6 +37,13 @@ export class AppService {
     return (this.jwt && this.jwt.payload) ? this.jwt.payload : undefined;
   }
 
+  get header() {
+    return {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': `Bearer ${this.jwt.access_token}`
+    }
+  }
+
   constructor(private http: HttpClient,
     private msg: NzMessageService,
     private modalService: NzModalService) { }

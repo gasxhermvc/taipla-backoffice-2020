@@ -1,7 +1,5 @@
 //=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -9,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ShareModule } from '@cores/share.module';
 import { LoginComponent } from '@app-base/components/login/login.component';
 import { AuthService } from '@app/based/services/auth.service';
+import { moduleConfig } from '@based/configs/test-config';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,8 +17,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+        ...moduleConfig,
         ShareModule
       ],
       providers: [

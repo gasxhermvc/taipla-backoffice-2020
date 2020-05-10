@@ -1,6 +1,11 @@
+//=>Angular
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwitcherComponent } from './switcher.component';
+//=App
+import { moduleConfig } from '@based/configs/test-config';
+import { SwitcherComponent } from '@app-base/components/switcher/switcher.component';
+import { AppService } from '@based/services/app.service';
+import { AuthService } from '@based/services/auth.service';
 
 describe('SwitcherComponent', () => {
   let component: SwitcherComponent;
@@ -8,9 +13,14 @@ describe('SwitcherComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwitcherComponent ]
+      imports: [...moduleConfig],
+      declarations: [SwitcherComponent],
+      providers: [
+        AppService,
+        AuthService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,4 +32,5 @@ describe('SwitcherComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

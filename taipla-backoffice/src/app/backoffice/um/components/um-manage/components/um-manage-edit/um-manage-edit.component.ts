@@ -28,10 +28,12 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.initConfig();
-      this.retrieveData();
-    }, 0);
+    if (this.service.UM_INFO) {
+      setTimeout(() => {
+        this.initConfig();
+        this.retrieveData();
+      }, 0);
+    }
   }
 
   initConfig() {
@@ -112,8 +114,10 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
+      let param: any = [];
       const data = this.form.getFormData();
-      const result = await this.service.editUser(data);
+      param.push(data);
+      const result = await this.service.editUser(param);
       if (result) {
         this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
         this.onBack();
@@ -131,7 +135,7 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   onClear() {
     if (this.form) {
       this.form.initFormGroup();
-      if (this.service.UM_INFO.DATA) {
+      if (this.service.UM_INFO && this.service.UM_INFO.DATA) {
         this.form.setFormData(this.service.UM_INFO.DATA);
       }
     }
