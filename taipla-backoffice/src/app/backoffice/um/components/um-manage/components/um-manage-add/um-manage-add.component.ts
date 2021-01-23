@@ -36,7 +36,7 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
   initConfig() {
     this.formConfig = [
       {
-        key: 'first_name',
+        key: 'FIRST_NAME',
         label: 'ชื่อจริง',
         type: ControlType.text,
         errorMessages: {
@@ -48,7 +48,7 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'last_name',
+        key: 'LAST_NAME',
         label: 'นามสกุล',
         type: ControlType.text,
         errorMessages: {
@@ -60,11 +60,23 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'username',
-        label: 'ชื่อผู้ใช้งาน',
+        key: 'PHONE',
+        label: 'เบอร์โทรศัพท์',
         type: ControlType.text,
         errorMessages: {
           required: 'กรุณาป้อนชื่อผู้ใช้งาน',
+          minLength: 'กรุณาป้อนอย่างน้อย 10 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 15 ตัวอักษร',
+        },
+        min: 10,
+        max: 15
+      },
+      {
+        key: 'EMAIL',
+        label: 'อีเมล์',
+        type: ControlType.text,
+        errorMessages: {
+          required: 'กรุณาป้อนอีเมล์',
           email: 'กรุณาป้อนรูปแบบ Email เท่านั้น',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
@@ -73,16 +85,38 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'password',
+        key: 'USERNAME',
+        label: 'ชื่อผู้ใช้งาน',
+        type: ControlType.text,
+        errorMessages: {
+          required: 'กรุณาป้อนชื่อผู้ใช้งาน',
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร',
+        },
+        min: 3,
+        max: 100
+      },
+      {
+        key: 'PASSWORD',
         label: 'รหัสผ่าน',
         type: ControlType.password,
         errorMessages: {
           required: 'กรุณาป้อนรหัสผ่าน',
           minLength: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร'
         },
         min: 6,
-        max: 150
+        max: 100
+      },
+      {
+        key: 'ROLE',
+        label: 'สถานะ',
+        placeholder: "เลือกสถานะผู้ใช้งาน",
+        type: ControlType.select,
+        lookup: this.backoffice.getLookup('ROLES'),
+        errorMessages: {
+          required: 'กรุณาป้อนรหัสผ่าน'
+        }
       }
     ]
   }
@@ -90,14 +124,16 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
-      let param: any = [];
-      const data = this.form.getFormData();
-      param.push(data);
+      let param: any = this.form.getFormData();
       const result = await this.service.addUser(param);
       if (result) {
-        this.app.showSuccess(this.app.message.SUCCESS.INSERT);
-        this.onBack();
-        this.complete.emit();
+        if (result.success) {
+          this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT);
+          this.onBack();
+          this.complete.emit();
+        } else {
+          this.app.showError(result.message || this.app.message.ERROR.INSERT);
+        }
       } else {
         this.app.showError(this.app.message.ERROR.INSERT);
       }

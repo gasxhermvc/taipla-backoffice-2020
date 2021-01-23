@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   login(credential: any): Observable<any> {
-    return this.app.reqUrl(`${this.app.baseApi}/${this.app.route.AUTHEN.LOGIN}`, {
+    return this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.AUTH.LOGIN}`, {
       method: 'POST',
       parameters: credential
     }).pipe(
@@ -45,7 +45,8 @@ export class AuthService {
           let JWT: JsonWebToken;
 
           JWT = {
-            access_token: response.data.access_token,
+            access_token: response.data.token,
+            expired: response.data.expired,
             remember_me: (credential && credential.remember_me) ? credential.remember_me : false,
             authenticated: response.success
           }
@@ -67,7 +68,7 @@ export class AuthService {
 
     this.app.jwt.authenticated = false;
 
-    return this.app.reqUrl(`${this.app.baseApi}/authen/logout`, {
+    return this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.AUTH.LOGOUT}`, {
       method: 'POST',
       headers: { ...this.app.header }
     }).pipe(
@@ -84,8 +85,8 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<any> {
-    return this.app.reqUrl(`${this.app.baseApi}/user/getUserInfo`, {
-      method: 'POST',
+    return this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.AUTH.USER_INFO}`, {
+      method: 'GET',
       headers: { ...this.app.header }
     }).pipe(map((response: any) => {
 

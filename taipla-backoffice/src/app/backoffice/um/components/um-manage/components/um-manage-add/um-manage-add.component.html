@@ -4,7 +4,7 @@
     </button>
 </div>
 <ng-container *ngIf="formConfig">
-    <app-form [configs]="formConfig"></app-form>
+    <app-form [configs]="formConfig" [isMultipart]="true"></app-form>
     <button nz-button nzType="primary" (click)="onSave()">
         บันทึก
     </button>

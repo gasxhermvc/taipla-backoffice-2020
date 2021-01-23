@@ -29,8 +29,12 @@ export class AppService {
     return document.getElementsByTagName("base")[0].href;
   }
 
-  get baseApi(): string {
+  get apiUrl(): string {
     return this.env.api.baseUrl._trim('/');
+  }
+
+  get apiVersion(): string {
+    return this.env.api.version;
   }
 
   get user(): User {
@@ -40,6 +44,20 @@ export class AppService {
   get header() {
     return {
       'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': `Bearer ${this.jwt.access_token}`
+    }
+  }
+
+  get headerFormData() {
+    return {
+      'Content-Type': "multipart/form-data",
+      'Authorization': `Bearer ${this.jwt.access_token}`
+    }
+  }
+
+  get headerUrlEncode() {
+    return {
+      'Content-Type': undefined,
       'Authorization': `Bearer ${this.jwt.access_token}`
     }
   }
@@ -70,6 +88,16 @@ export class AppService {
       }
       return response;
     }));
+  }
+
+  formData(parameters) {
+    var formData: any = new FormData();
+
+    Object.keys(parameters).forEach((key) => {
+      formData.append(key, parameters[key]);
+    });
+
+    return formData;
   }
 
   /* Loading */
@@ -122,20 +150,33 @@ export class AppService {
     let req;
 
     let headers = new HttpHeaders();
+    let isMultipart = false;
+    let formData: FormData;
 
     if (options && options.headers) {
       Object.keys(options.headers).forEach(key => {
-        headers = headers.append(key, options.headers[key]);
+        if (key.toLowerCase() === 'content-type' && options.headers[key] && options.headers[key].indexOf('form-data')) {
+          delete options.headers[key];
+          isMultipart = true;
+          formData = options.parameters;
+        } else {
+          headers = headers.append(key, options.headers[key]);
+        }
       });
     }
 
-    const params = this.buildParams(options);
+    let params: any;
+    if (isMultipart) {
+      params = formData;
+    } else {
+      params = this.buildParams(options);
+    }
 
     switch (options.method) {
       case "get":
         req = this.http.get(url, {
           headers: headers,
-          ...params
+          params: { ...params }
         });
         break;
 
@@ -154,7 +195,7 @@ export class AppService {
       case "delete":
         req = this.http.delete(url, {
           headers: headers,
-          ...params
+          params: { ...params }
         });
         break;
 

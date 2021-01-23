@@ -1,5 +1,17 @@
 export const ROUTE: any = {
-    AUTHEN: {
-        LOGIN: "authen/login"
+    LUT: {
+        ROLE: "lut/roles",
+    },
+    AUTH: {
+        LOGIN: "auth/login",
+        LOGOUT: "auth/logout",
+        USER_INFO: "auth/userinfo"
+    },
+    UM: {
+        USERS: "um/users",
+        GET_USER: "um/user",
+        CREATED: "um/created",
+        UPDATED: "um/updated",
+        DELETED: "um/deleted"
     }
 }

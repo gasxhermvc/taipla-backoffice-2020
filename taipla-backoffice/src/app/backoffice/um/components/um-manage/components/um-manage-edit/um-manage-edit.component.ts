@@ -39,11 +39,11 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   initConfig() {
     this.formConfig = [
       {
-        key: 'user_id',
+        key: 'USER_ID',
         invisible: true
       },
       {
-        key: 'first_name',
+        key: 'FIRST_NAME',
         label: 'ชื่อจริง',
         type: ControlType.text,
         errorMessages: {
@@ -55,7 +55,7 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'last_name',
+        key: 'LAST_NAME',
         label: 'นามสกุล',
         type: ControlType.text,
         errorMessages: {
@@ -67,11 +67,23 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'username',
-        label: 'ชื่อผู้ใช้งาน',
+        key: 'PHONE',
+        label: 'เบอร์โทรศัพท์',
         type: ControlType.text,
         errorMessages: {
           required: 'กรุณาป้อนชื่อผู้ใช้งาน',
+          minLength: 'กรุณาป้อนอย่างน้อย 10 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 15 ตัวอักษร',
+        },
+        min: 10,
+        max: 15
+      },
+      {
+        key: 'EMAIL',
+        label: 'อีเมล์',
+        type: ControlType.text,
+        errorMessages: {
+          required: 'กรุณาป้อนอีเมล์',
           email: 'กรุณาป้อนรูปแบบ Email เท่านั้น',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
@@ -80,28 +92,62 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         max: 150
       },
       {
-        key: 'password',
-        label: 'รหัสผ่าน',
-        type: ControlType.password,
+        key: 'USERNAME',
+        label: 'ชื่อผู้ใช้งาน',
+        type: ControlType.text,
         errorMessages: {
-          required: 'กรุณาป้อนรหัสผ่าน',
-          minLength: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          required: 'กรุณาป้อนชื่อผู้ใช้งาน',
+          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร',
         },
-        min: 6,
-        max: 150
+        min: 3,
+        max: 100
+      },
+      {
+        key: 'ROLE',
+        label: 'สถานะ',
+        placeholder: "เลือกสถานะผู้ใช้งาน",
+        type: ControlType.select,
+        lookup: [
+          {
+            "CODE": "admin",
+            "DESCR": "admin"
+          },
+          {
+            "CODE": "owner",
+            "DESCR": "owner"
+          },
+          {
+            "CODE": "staff",
+            "DESCR": "staff"
+          },
+          {
+            "CODE": "client",
+            "DESCR": "client"
+          }
+        ],
+        errorMessages: {
+          required: 'กรุณาป้อนรหัสผ่าน'
+        }
       }
     ]
   }
 
   private async retrieveData() {
     this.showLoading();
-    const result = await this.service.getUser({});
+
+    const result = await this.service.getUser({
+      USER_ID: this.service.UM_INFO.DATA.USER_ID
+    });
 
     if (result) {
-      this.service.UM_INFO.DATA = { ...result };
-      if (this.form) {
-        this.form.setFormData(this.service.UM_INFO.DATA);
+      if (result.success) {
+        this.service.UM_INFO.DATA = { ...result.data };
+        if (this.form) {
+          this.form.setFormData(this.service.UM_INFO.DATA);
+        }
+      } else {
+        this.app.showError(this.app.message.ERROR.Default);
       }
     } else {
       this.onBack();
@@ -114,14 +160,15 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
-      let param: any = [];
-      const data = this.form.getFormData();
-      param.push(data);
+      let param: any = this.form.getFormData();
       const result = await this.service.editUser(param);
       if (result) {
-        this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
-        this.onBack();
-        this.complete.emit();
+        if (result.success) {
+          this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
+          this.retrieveData();
+        } else {
+          this.app.showError(this.app.message.ERROR.UPDATE);
+        }
       } else {
         this.app.showError(this.app.message.ERROR.UPDATE);
       }

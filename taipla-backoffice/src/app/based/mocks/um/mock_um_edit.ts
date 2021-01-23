@@ -1,11 +1,11 @@
 import { UM } from '@app-base/interfaces/um-interface';
 
 export const MOCK_UM_EDIT: UM = {
-    client_id: '1281f4d435eed102e552c537bfd29d1f',
-    displayName: 'a aa',
-    email: 'a1@example.com',
-    role: 'Staff',
-    idRestaurant: null,
-    created_date: '2020-04-20 07:40:00',
-    updated_date: '2020-04-20 07:40:00'
+    USERNAME: "user1",
+    FIRST_NAME: "tanasit",
+    LAST_NAME: "auewongaree",
+    PHONE: "099999999",
+    EMAIL: "tanaist.a@gmail.com",
+    ROLE: "admin",
+    CLIENT_ID: "4079106e-8ecb-4d74-b4a5-b76e2509c65c"
 }

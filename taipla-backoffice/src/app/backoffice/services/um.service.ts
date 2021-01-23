@@ -21,59 +21,47 @@ export class UmService extends BaseService {
 
   async getUMLists(params: any) {
     try {
-      const response = await this.app.reqUrl(`${this.app.baseApi}/user/getUser`, {
-        method: 'POST',
-        headers: {
-          ...this.app.header
-        },
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.UM.USERS}`, {
+        method: 'GET',
+        headers: this.app.header,
         parameters: params
       }, false).toPromise();
-
       if (response && response.success) {
         this.LISTS = {
           TOTAL: response.data.length,
           LISTS: [...response.data]
         };
         console.log('getUMLists.response', response);
+      } else {
+        this.app.showError(response.message || this.app.message.ERROR.DEFAULT);
       }
-    } catch{ }
-
-    //=>Mock
-    const LISTS = [].concat(...MOCK_UM_LISTS);
-    this.LISTS = {
-      TOTAL: LISTS.length,
-      LISTS: LISTS,
+    } catch (exception) {
+      console.log('getUMLists.exception', exception);
     }
+    //=>Mock
+    // const LISTS = [].concat(...MOCK_UM_LISTS);
+    // this.LISTS = {
+    //   TOTAL: LISTS.length,
+    //   LISTS: LISTS,
+    // }
 
     return this.LISTS;
   }
 
-  async getUser(param: any) {
+  async getUser(params: any) {
     let result;
     try {
-      const response = await this.app.reqUrl(`${this.app.baseApi}/user/getUser`, {
-        method: 'POST',
-        headers: {
-          ...this.app.header
-        },
-        parameters: {
-          search: {
-            client_id: param.client_id,
-            role: ''
-          }
-        }
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.UM.GET_USER}/${params.USER_ID}`, {
+        method: 'GET',
+        headers: this.app.header,
+        parameters: params
       }, false).toPromise();
-
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('getUser.exception', exception);
     }
-
     //=>Mock
-    result = { ...MOCK_UM_EDIT };
+    // result = { ...MOCK_UM_EDIT };
 
     return result;
   }
@@ -81,23 +69,17 @@ export class UmService extends BaseService {
   async addUser(param: any) {
     let result;
     try {
-
-      const response = await this.app.reqUrl(`${this.app.baseApi}/user/addUser`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.UM.CREATED}`, {
         method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
-
-      if (response && response.success) {
-        result = response.data;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('addUser.exception', exception);
     }
-
     //=>Mock
-    result = { ...MOCK_UM_ADD };
+    // result = { ...MOCK_UM_ADD };
 
     return result;
   }
@@ -106,47 +88,57 @@ export class UmService extends BaseService {
     let result;
 
     try {
-      const response = await this.app.reqUrl(`${this.app.baseApi}/user/editUser`, {
-        method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.UM.UPDATED}`, {
+        method: 'PUT',
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
-
-      if (response && response.success) {
-        result = response.data;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('editUser.exception', exception);
     }
-
     //=>Mock
-    result = { ...MOCK_UM_EDIT };
+    // result = { ...MOCK_UM_EDIT };
 
     return result;
   }
 
-  async deleteUser(param: any) {
+  async deleteUser(params: any) {
     let result;
 
     try {
-      const response = await this.app.reqUrl(`${this.app.baseApi}/user/deleteUser`, {
-        method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.UM.DELETED}`, {
+        method: 'DELETE',
+        headers: this.app.header,
+        parameters: params
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.success;
-      }
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('deleteUser.exception', exception);
     }
-
     //=>Mock
-    result = MOCK_UM_DELETE.success
+    // result = MOCK_UM_DELETE.success
 
     return result;
+  }
+
+  async roleLut() {
+    let result;
+
+    try {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.LUT.ROLE}`, {
+        method: 'GET',
+        headers: this.app.header,
+        parameters: {}
+      }, false).toPromise();
+
+      result = response && response.success ? response : [];
+    } catch (exception) {
+      console.log('roleLut.exception', exception);
+    }
+
+    return result || [];
   }
 }
 

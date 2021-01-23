@@ -37,6 +37,9 @@ export class FormComponent {
 
   formGroup: FormGroup;
 
+  @Input()
+  isMultipart: boolean = false;
+
   isSubmited: boolean = false;
 
   constructor(private app: AppService, private cdr: ChangeDetectorRef) {
@@ -115,11 +118,11 @@ export class FormComponent {
         break;
 
       case "minlength":
-        validators = validators.concat(Validators.minLength(4));
+        validators = validators.concat(Validators.minLength(config.min));
         break;
 
       case "maxlength":
-        validators = validators.concat(Validators.maxLength(150));
+        validators = validators.concat(Validators.maxLength(config.max));
         break;
 
       case "date":

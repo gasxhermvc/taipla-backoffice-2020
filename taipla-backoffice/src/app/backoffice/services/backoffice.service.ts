@@ -26,6 +26,11 @@ export class BackofficeService extends BaseRequest {
     { key: 'account', class: AccountService },
   ];
 
+  private lookupList = [
+    'ROLES',
+  ];
+  private lookup: any = {}
+
   @Output() public isLoaded = new EventEmitter<any>();
 
   _currentSystem: string = 'dashboard';
@@ -61,10 +66,19 @@ export class BackofficeService extends BaseRequest {
 
   private async init() {
     console.log('backoffice.service.init');
+
     this.autoMapperInjection();
-    setTimeout(() => {
-      this.isLoaded.emit(true);
-    }, 2000);
+    // setTimeout(() => {
+    //   this.isLoaded.emit(true);
+    // }, 2000);
+    const reqLookup = await Promise.all(this.lookupList.map(async (LUT) => {
+      return await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/lut/${LUT}`, {
+        method: 'GET',
+        headers: this.app.headerFormData,
+        parameters: {}
+      }, false).toPromise()
+    }));
+    this.lookupList.forEach((it, i) => { this.lookup[`${it}`] = reqLookup[i].data; });
   }
 
   private async autoMapperInjection() {
@@ -73,5 +87,9 @@ export class BackofficeService extends BaseRequest {
         this.service[inject.key] = this.injector.get(inject.class);
       }
     });
+  }
+
+  getLookup(key: string): any[] {
+    return this.lookup[`${key}`] || [];
   }
 }

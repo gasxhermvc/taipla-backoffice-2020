@@ -44,12 +44,7 @@ export class UmManageListComponent extends BaseClass implements OnInit {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
 
-        const params: any = {
-          search: {
-            client_id: '',
-            role: ''
-          }
-        }
+        const params: any = {};
 
         this.service.LISTS = await this.service.getUMLists(params);
         this.hideLoading();
@@ -67,16 +62,18 @@ export class UmManageListComponent extends BaseClass implements OnInit {
         this.showLoading();
 
         const param: any = {
-          userList: [{
-            client_id: item.client_id
-          }]
-        }
+          USER_ID: item.USER_ID
+        };
 
         const result = await this.service.deleteUser(param);
 
         if (result) {
-          this.app.showSuccess(this.app.message.SUCCESS.DELETE);
-          this.onSelected(item, MODE.DELETE);
+          if (result.success) {
+            this.app.showSuccess(result.message || this.app.message.SUCCESS.DELETE);
+            this.onSelected(item, MODE.DELETE);
+          } else {
+            this.app.showError(this.app.message.Error.DELETE);
+          }
         } else {
           this.app.showError(this.app.message.ERROR.DELETE);
         }
@@ -87,7 +84,7 @@ export class UmManageListComponent extends BaseClass implements OnInit {
 
   onSelected(item: any, mode: MODE = MODE.VIEW) {
     this.selected.emit({
-      ITEM: item,
+      DATA: item,
       MODE: mode
     });
   }

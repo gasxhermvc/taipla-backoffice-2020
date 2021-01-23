@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   //example : https://p.w3layouts.com/demos_new/10-03-2017/techno_login_form-demo_Free/12325293/web/index.html
   formConfigs: FormConfig[] = [
     {
-      key: 'username',
+      key: 'USERNAME',
       label: 'ชื่อผู้ใช้งาน',
       type: ControlType.text,
       min: 4,
@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
       placeholder: 'Username',
       errorMessages: {
         required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
-        email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
+        // email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
         minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
         maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
       }
     },
     {
-      key: 'password',
+      key: 'PASSWORD',
       label: 'รหัสผ่าน',
       type: ControlType.password,
       min: 4,
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       }
     },
     {
-      key: 'remember_me',
+      key: 'REMEMBER_ME',
       label: 'Remember me',
       inline: true,
       type: ControlType.checkbox
