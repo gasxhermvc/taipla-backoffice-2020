@@ -4,7 +4,8 @@ import { ControlType, FormConfig, ValidatorMessage, ERROR_TYPE_TEXT } from '@bas
 import { DatetimeService } from '@based/services/datetime.service';
 import { debounceTime } from 'rxjs/operators';
 import message from "@assets/messages/message.json";
-import { invalid } from '@angular/compiler/src/render3/view/util';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-control',
@@ -28,12 +29,15 @@ export class ControlComponent implements ControlValueAccessor, Validators {
 
   CONTROL_TYPE = ControlType;
   inputName: string;
+  loading = false;
 
   defaultMessage: ValidatorMessage = {
     required: message.INPUT.VALIDATOR.REQUIRED,
     regex: message.INPUT.VALIDATOR.REGEX,
     email: message.INPUT.VALIDATOR.EMAIL,
     phone: message.INPUT.VALIDATOR.PHONE,
+    uploadFormat: message.INPUT.VALIDATOR.UPLOAD_FORMAT,
+    uploadSize: message.INPUT.VALIDATOR.UPLOAD_SIZE,
     minLength: message.INPUT.VALIDATOR.MIN_LENGTH,
     maxLength: message.INPUT.VALIDATOR.MAX_LENGTH,
     date: message.INPUT.VALIDATOR.DATE
@@ -336,4 +340,48 @@ export class ControlComponent implements ControlValueAccessor, Validators {
 
     return inValid;
   }
+
+  // beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
+  //   return new Observable((observer: Observer<boolean>) => {
+  //     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  //     if (!isJpgOrPng) {
+  //       this.msg.error('You can only upload JPG file!');
+  //       observer.complete();
+  //       return;
+  //     }
+  //     const isLt2M = file.size! / 1024 / 1024 < 2;
+  //     if (!isLt2M) {
+  //       this.msg.error('Image must smaller than 2MB!');
+  //       observer.complete();
+  //       return;
+  //     }
+  //     observer.next(isJpgOrPng && isLt2M);
+  //     observer.complete();
+  //   });
+  // };
+
+  // private getBase64(img: File, callback: (img: string) => void): void {
+  //   const reader = new FileReader();
+  //   reader.addEventListener('load', () => callback(reader.result!.toString()));
+  //   reader.readAsDataURL(img);
+  // }
+
+  // handleChange(info: { file: NzUploadFile }): void {
+  //   switch (info.file.status) {
+  //     case 'uploading':
+  //       this.loading = true;
+  //       break;
+  //     case 'done':
+  //       // Get this url from response in real world.
+  //       this.getBase64(info.file!.originFileObj!, (img: string) => {
+  //         this.loading = false;
+  //         this.avatarUrl = img;
+  //       });
+  //       break;
+  //     case 'error':
+  //       this.msg.error('Network error');
+  //       this.loading = false;
+  //       break;
+  //   }
+  // }
 }

@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 //=>Libraries
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 //=>App
 import { ControlComponent } from '@cores/control/control.component';
@@ -28,6 +29,7 @@ registerLocaleData(th);
 
     NgZorroAntdModule,
     InfiniteScrollModule,
+    NzUploadModule
 
   ],
   exports: [

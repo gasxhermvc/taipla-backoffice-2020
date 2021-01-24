@@ -118,6 +118,19 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         max: 100
       },
       {
+        key: 'UPLOAD',
+        label: 'อัพโหลดรูปภาพประจำตัว',
+        placeholder: 'เลือกรูปภาพประจำตัว',
+        type: ControlType.upload,
+        multiple: false,
+        allowFileType: 'image/jpeg,image/jpg,image/png',
+        size: 10485760,
+        errorMessages: {
+          uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
+          uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
+        }
+      },
+      {
         key: 'ROLE',
         label: 'สถานะ',
         placeholder: "เลือกสถานะผู้ใช้งาน",

@@ -6,6 +6,10 @@ export interface FormConfig {
     type?: ControlType;
     errorMessages?: ValidatorMessage;
     inline?: boolean;
+    multiple?: boolean;
+    allowFileType?: string;
+    size?: Number;
+    avatarUrl?: string;
 
     placeholder?: any;
     defaultValue?: any;
@@ -38,6 +42,8 @@ export interface ValidatorMessage {
     regex?: string;
     email?: string;
     phone?: string;
+    uploadFormat?: string;
+    uploadSize?: string;
     minLength?: string;
     maxLength?: string;
     date?: string;
@@ -64,6 +70,8 @@ export enum ERROR_TYPE_TEXT {
     'required' = 'required',
     'regex' = 'regex',
     'email' = 'email',
+    'uploadFormat' = 'uploadFormat',
+    'uploadSize' = 'uploadSize',
     'phone' = 'phone',
     'minlength' = 'minLength',
     'maxlength' = 'maxLength',

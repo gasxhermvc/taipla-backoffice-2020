@@ -54,6 +54,23 @@
       </nz-select>
     </div>
 
+    <div *ngSwitchCase="CONTROL_TYPE.upload" class="ctrl">
+      <ng-container *ngIf="_config.multiple; else uploadSingle;">
+
+      </ng-container>
+      <ng-template #uploadSingle>
+        <!-- <nz-upload class="avatar-uploader" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" nzName="avatar"
+          nzListType="picture-card" [nzShowUploadList]="_config.multiple" [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)">
+          <ng-container *ngIf="!_config.avatarUrl">
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">Upload</div>
+          </ng-container>
+          <img *ngIf="_config.avatarUrl" [src]="_config.avatarUrl" style="width: 100%" />
+        </nz-upload> -->
+      </ng-template>
+    </div>
+
     <div *ngSwitchCase="CONTROL_TYPE.autocomplete" class="ctrl">
       <input [placeholder]="_config?.placeholder || ''" nz-input [formControl]="control" [nzAutocomplete]="auto"
         [required]="_config.required" [class.invalid]="control.invalid != null && control.invalid" />
