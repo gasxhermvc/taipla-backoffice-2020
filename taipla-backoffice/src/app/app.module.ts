@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 //=>Libraries
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgZorroAntdModule, NZ_I18N, en_US, NzConfig, NZ_CONFIG } from 'ng-zorro-antd';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 //=>App
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppService } from '@based/services/app.service';
@@ -30,7 +30,6 @@ const ngZorroConfig: NzConfig = {
 
     //=>Libraries
     InfiniteScrollModule,
-    NgZorroAntdModule,
 
     //=>App
     AppBaseModule,

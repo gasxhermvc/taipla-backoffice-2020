@@ -1,11 +1,14 @@
 //=>App
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //=>Libraries
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 //=>App
@@ -13,7 +16,6 @@ import { ControlComponent } from '@cores/control/control.component';
 
 /* Calendar thai */
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 
 registerLocaleData(th);
@@ -27,8 +29,11 @@ registerLocaleData(th);
     ReactiveFormsModule,
     FormsModule,
 
-    NgZorroAntdModule,
     InfiniteScrollModule,
+    NzIconModule,
+    NzInputModule,
+    NzButtonModule,
+    NzSelectModule,
     NzUploadModule
 
   ],

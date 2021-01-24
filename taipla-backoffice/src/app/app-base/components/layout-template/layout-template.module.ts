@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 //=>Libraries
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 //=>App
 import { LayoutTemplateComponent } from '@app/app-base/components/layout-template/layout-template.component';
@@ -19,8 +21,10 @@ import { LayoutTemplateService } from '@app/app-base/components/layout-template/
   imports: [
     CommonModule,
     FormsModule,
-    
-    NgZorroAntdModule
+
+    NzLayoutModule,
+    NzMenuModule,
+    NzIconModule
   ],
   exports: [
     LayoutTemplateComponent

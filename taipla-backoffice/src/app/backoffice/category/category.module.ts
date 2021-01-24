@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //=>Libraries
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 //=>App
 import { ShareModule } from '@cores/share.module';
@@ -26,7 +25,6 @@ import { CategoryManageEditComponent } from '@backoffice/category/components/cat
   imports: [
     CommonModule,
     CategoryRoutingModule,
-    NgZorroAntdModule,
     ShareModule
   ],
   exports: [

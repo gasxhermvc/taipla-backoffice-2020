@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //=>Libraries
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 //=>App
@@ -22,7 +22,7 @@ import { ControlModule } from '../control/control.module';
     ReactiveFormsModule,
     FormsModule,
     ControlModule,
-    NgZorroAntdModule,
+    NzFormModule,
     InfiniteScrollModule
   ],
   exports: [

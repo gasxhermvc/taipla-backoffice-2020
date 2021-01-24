@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //=>Libraries
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 //=>App
@@ -17,7 +17,7 @@ import { StepperComponent } from '@cores/stepper/stepper.component';
   ],
   imports: [
     CommonModule,
-    NgZorroAntdModule,
+    NzStepsModule,
     InfiniteScrollModule
   ],
   exports: [
