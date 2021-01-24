@@ -1,5 +1,5 @@
 //=>Angular
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
@@ -9,7 +9,7 @@ describe('MediaComponent', () => {
   let component: MediaComponent;
   let fixture: ComponentFixture<MediaComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [...moduleConfig],
       declarations: [MediaComponent]

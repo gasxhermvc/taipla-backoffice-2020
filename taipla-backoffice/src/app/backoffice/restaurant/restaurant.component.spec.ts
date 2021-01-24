@@ -1,5 +1,5 @@
 //=>Angular
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
@@ -9,7 +9,7 @@ describe('RestaurantComponent', () => {
   let component: RestaurantComponent;
   let fixture: ComponentFixture<RestaurantComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [...moduleConfig],
       declarations: [RestaurantComponent]

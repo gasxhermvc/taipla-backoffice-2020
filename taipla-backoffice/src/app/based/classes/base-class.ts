@@ -1,5 +1,5 @@
 //=>Angular
-import { Injector, ViewChild } from '@angular/core';
+import { Injector, ViewChild, Directive } from '@angular/core';
 
 //=>App
 import { BaseRequest } from '@based/classes/base-request';
@@ -8,9 +8,10 @@ import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 import { LayoutTemplateService } from '@app-base/components/layout-template/layout-template.service';
 
 
+@Directive()
 export class BaseClass extends BaseRequest {
 
-    @ViewChild(FormComponent, { static: false }) form?: FormComponent;
+    @ViewChild(FormComponent) form?: FormComponent;
 
     protected layout: LayoutTemplateService;
     protected backoffice: BackofficeService;

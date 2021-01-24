@@ -12,7 +12,7 @@ import { UmManageListComponent } from '@backoffice/um/components/um-manage/compo
 
 export class UmManageComponent extends BaseClass implements OnInit {
 
-  @ViewChild(UmManageListComponent, { static: false }) umList: UmManageListComponent;
+  @ViewChild(UmManageListComponent) umList: UmManageListComponent;
 
   MODE = MODE;
 

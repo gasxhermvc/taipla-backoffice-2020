@@ -1,5 +1,5 @@
 //=>Angular
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
@@ -10,7 +10,7 @@ describe('UmManageListComponent', () => {
   let component: UmManageListComponent;
   let fixture: ComponentFixture<UmManageListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ...moduleConfig,

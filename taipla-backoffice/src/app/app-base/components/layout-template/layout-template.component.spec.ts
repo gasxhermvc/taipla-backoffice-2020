@@ -1,5 +1,5 @@
 //=>Angular
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
@@ -9,7 +9,7 @@ describe('LayoutTemplateComponent', () => {
   let component: LayoutTemplateComponent;
   let fixture: ComponentFixture<LayoutTemplateComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [...moduleConfig],
       declarations: [LayoutTemplateComponent]

@@ -1,5 +1,5 @@
 //=>Angular
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
@@ -10,7 +10,7 @@ describe('CategoryManageEditComponent', () => {
   let component: CategoryManageEditComponent;
   let fixture: ComponentFixture<CategoryManageEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ...moduleConfig,

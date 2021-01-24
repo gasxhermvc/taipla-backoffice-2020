@@ -11,7 +11,7 @@ import { CategoryManageListComponent } from '@backoffice/category/components/cat
 })
 export class CategoryManageComponent extends BaseClass implements OnInit {
 
-  @ViewChild(CategoryManageListComponent, { static: false }) cmList: CategoryManageListComponent;
+  @ViewChild(CategoryManageListComponent) cmList: CategoryManageListComponent;
 
   MODE = MODE;
 

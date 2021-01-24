@@ -12,7 +12,7 @@ import { LocalStorageService } from '@based/services/local-storage.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild(FormComponent, { static: false }) form?: FormComponent;
+  @ViewChild(FormComponent) form?: FormComponent;
 
   //example : https://p.w3layouts.com/demos_new/10-03-2017/techno_login_form-demo_Free/12325293/web/index.html
   formConfigs: FormConfig[] = [
