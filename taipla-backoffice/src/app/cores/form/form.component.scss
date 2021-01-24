@@ -1,3 +1,5 @@
+@import "src/styles.scss";
+
 :host {
   position: relative !important;
 
@@ -18,22 +20,22 @@
       }
 
       input,
-      textarea,
-      nz-select {
+      textarea {
         &.invalid {
           transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
           border: 1px solid red !important;
         }
 
         &:focus {
-          box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25) !important;
+          box-shadow: 0 0 0 0.2rem $border-primary !important;
         }
       }
 
       .ng-invalid {
         .ant-radio-inner,
         .ant-calendar-picker-input,
-        .ant-select-selection {
+        .ant-select-selection,
+        input {
           border-color: red;
         }
       }

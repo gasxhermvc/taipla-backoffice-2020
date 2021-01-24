@@ -39,8 +39,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'FIRST_NAME',
         label: 'ชื่อจริง',
         type: ControlType.text,
+        placeholder: "ชื่อจริง",
         errorMessages: {
-          required: 'กรุณาป้อนชื่อจริง',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
@@ -51,8 +51,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'LAST_NAME',
         label: 'นามสกุล',
         type: ControlType.text,
+        placeholder: "นามสกุล",
         errorMessages: {
-          required: 'กรุณาป้อนนามสกุลจริง',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
         },
@@ -62,9 +62,12 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
       {
         key: 'PHONE',
         label: 'เบอร์โทรศัพท์',
-        type: ControlType.text,
+        type: ControlType.phone,
+        placeholder: "เบอร์โทรศัพท์",
+        required: true,
         errorMessages: {
-          required: 'กรุณาป้อนชื่อผู้ใช้งาน',
+          required: 'กรุณาป้อนเบอร์โทรศัพท์',
+          phone: this.app.message.INPUT.VALIDATOR.PHONE,
           minLength: 'กรุณาป้อนอย่างน้อย 10 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 15 ตัวอักษร',
         },
@@ -75,6 +78,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'EMAIL',
         label: 'อีเมล์',
         type: ControlType.text,
+        placeholder: "Email address",
+        required: true,
         errorMessages: {
           required: 'กรุณาป้อนอีเมล์',
           email: 'กรุณาป้อนรูปแบบ Email เท่านั้น',
@@ -88,6 +93,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'USERNAME',
         label: 'ชื่อผู้ใช้งาน',
         type: ControlType.text,
+        placeholder: "ชื่อผู้ใช้งานระบบ",
+        required: true,
         errorMessages: {
           required: 'กรุณาป้อนชื่อผู้ใช้งาน',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
@@ -100,6 +107,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'PASSWORD',
         label: 'รหัสผ่าน',
         type: ControlType.password,
+        required: true,
+        placeholder: "รหัสผ่าน",
         errorMessages: {
           required: 'กรุณาป้อนรหัสผ่าน',
           minLength: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
@@ -112,10 +121,11 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         key: 'ROLE',
         label: 'สถานะ',
         placeholder: "เลือกสถานะผู้ใช้งาน",
+        required: true,
         type: ControlType.select,
         lookup: this.backoffice.getLookup('ROLES'),
         errorMessages: {
-          required: 'กรุณาป้อนรหัสผ่าน'
+          required: 'กรุณาเลือกสถานะ'
         }
       }
     ]

@@ -1,117 +1,120 @@
 <div *ngIf="_config && control">
-    <ng-container [ngSwitch]="display">
-        <div *ngSwitchCase="'input'">
-            <ng-container *ngTemplateOutlet="input"></ng-container>
-        </div>
-        <div *ngSwitchCase="'readonly'">
-            <ng-container *ngTemplateOutlet="readonly"></ng-container>
-        </div>
-    </ng-container>
+  <ng-container [ngSwitch]="display">
+    <div *ngSwitchCase="'input'">
+      <ng-container *ngTemplateOutlet="input"></ng-container>
+    </div>
+    <div *ngSwitchCase="'readonly'">
+      <ng-container *ngTemplateOutlet="readonly"></ng-container>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #input>
-    <div [ngSwitch]="_config.type" class="input" [ngClass]="{ 'inline': _config.inline }">
-        <label *ngIf="_config.label && _config.type !== CONTROL_TYPE.checkbox"
-            [class.invalid]="control.invalid != null && control.invalid">{{_config.label}}
-            <span *ngIf="_config.required" class="text-danger">*</span></label>
+  <div [ngSwitch]="_config.type" class="input" [ngClass]="{ 'inline': _config.inline }">
+    <label *ngIf="_config.label && _config.type !== CONTROL_TYPE.checkbox"
+      [class.invalid]="control.invalid != null && control.invalid">{{_config.label}}
+      <span *ngIf="_config.required" class="text-danger">*</span></label>
 
-        <div *ngSwitchCase="CONTROL_TYPE.text" class="ctrl">
-            <input [formControl]="control" (blur)="touched()" [required]="_config.required"
-                [placeholder]="_config?.placeholder || ''" [autocomplete]="_config.autocomplete ? 'on' : 'off'"
-                [class.invalid]="control.invalid != null && control.invalid" />
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.password" class="ctrl">
-            <input [formControl]="control" (blur)="touched()" [required]="_config.required"
-                [placeholder]="_config?.placeholder || ''" type="password"
-                [autocomplete]="_config.autocomplete ? 'on' : 'new-password'"
-                [class.invalid]="control.invalid != null && control.invalid" />
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.number" class="ctrl">
-            <input [formControl]="control" [required]="_config.required" [placeholder]="_config?.placeholder || ''"
-                type="number" min="0" [class.invalid]="control.invalid != null && control.invalid" />
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.textarea" class="ctrl">
-            <textarea [formControl]="control" [required]="_config.required" [placeholder]="_config?.placeholder || ''"
-                [class.invalid]="control.invalid != null && control.invalid"></textarea>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.select" class="ctrl">
-            <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
-                [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''"
-                [required]="_config.required" [class.invalid]="control.invalid != null && control.invalid">
-                <div *ngIf="_config.lookup">
-                    <nz-option *ngFor="let item of _config.lookup" [nzLabel]="item.DESCR" [nzValue]="item.CODE">
-                    </nz-option>
-                </div>
-            </nz-select>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.autocomplete" class="ctrl">
-            <input [placeholder]="_config?.placeholder || ''" nz-input [formControl]="control" [nzAutocomplete]="auto"
-                [required]="_config.required" [class.invalid]="control.invalid != null && control.invalid" />
-            <nz-autocomplete nzBackfill #auto>
-                <nz-auto-option *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
-                    {{ item.DESCR }}
-                </nz-auto-option>
-            </nz-autocomplete>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.radio" class="ctrl">
-            <nz-radio-group nz-input [class.invalid]="control.invalid != null && control.invalid"
-                [formControl]="control" [required]="_config.required">
-                <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
-                    {{ item.DESCR }}
-                </label>
-            </nz-radio-group>
-        </div>
-
-
-        <div *ngSwitchCase="CONTROL_TYPE.checkbox" class="ctrl">
-            <label nz-checkbox [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
-                [required]="_config.required">{{_config.label}}
-                <span *ngIf="_config.required" class="text-danger">*</span></label>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.date" class="ctrl">
-            <nz-date-picker [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
-                [nzPlaceHolder]="_config?.placeholder || ''"
-                [nzFormat]="_config.format && _config.format !== '' ? _config.format : 'dd/MM/yyyy'"
-                [required]="_config.required">
-            </nz-date-picker>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.daterange" class="ctrl">
-            <nz-range-picker [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
-                [nzPlaceHolder]="_config?.placeholder || ['เริ่มต้น','สิ้นสุด']"
-                [nzFormat]="_config.format && _config.format !== '' ? _config.format : 'dd/MM/yyyy'"
-                [required]="_config.required">
-            </nz-range-picker>
-        </div>
-
-        <div *ngSwitchCase="CONTROL_TYPE.slider" class="ctrl">
-            <nz-slider #slider [class.invalid]="control.invalid != null && control.invalid" [nzMax]="_config.max"
-                [nzMin]="_config.min" [formControl]="control" [(ngModel)]="slider.value" [nzMarks]="_config.child"
-                [nzStep]="_config.step">
-            </nz-slider>&nbsp;
-            <nz-input-number [nzMin]="_config.min" [nzMax]="_config.max" [(ngModel)]="slider.value"
-                [nzStep]="_config.step">
-            </nz-input-number> <label class="suffix-text">{{_config.unit}}</label>
-        </div>
-
-        <div *ngSwitchDefault class="ctrl">
-            <input [formControl]="control" (blur)="touched()"
-                [class.invalid]="control.invalid != null && control.invalid" />
-        </div>
-        <span *ngIf="control.errors && control.invalid" class="text-error invalid-feedback">{{ errorMessage() }}</span>
+    <div *ngSwitchCase="CONTROL_TYPE.text" class="ctrl">
+      <input [formControl]="control" (blur)="touched()" [required]="_config.required"
+        [placeholder]="_config?.placeholder || ''" [autocomplete]="_config.autocomplete ? 'on' : 'off'"
+        [class.invalid]="control.invalid != null && control.invalid" />
     </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.phone" class="ctrl">
+      <input [formControl]="control" (blur)="touched()" [required]="_config.required"
+        [placeholder]="_config?.placeholder || ''" [class.invalid]="control.invalid != null && control.invalid" />
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.password" class="ctrl">
+      <input [formControl]="control" (blur)="touched()" [required]="_config.required"
+        [placeholder]="_config?.placeholder || ''" type="password"
+        [autocomplete]="_config.autocomplete ? 'on' : 'new-password'"
+        [class.invalid]="control.invalid != null && control.invalid" />
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.number" class="ctrl">
+      <input [formControl]="control" [required]="_config.required" [placeholder]="_config?.placeholder || ''"
+        type="number" min="0" [class.invalid]="control.invalid != null && control.invalid" />
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.textarea" class="ctrl">
+      <textarea [formControl]="control" [required]="_config.required" [placeholder]="_config?.placeholder || ''"
+        [class.invalid]="control.invalid != null && control.invalid"></textarea>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.select" class="ctrl">
+      <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
+        [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
+        [class.invalid]="control.invalid != null && control.invalid">
+        <div *ngIf="_config.lookup">
+          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="item.DESCR" [nzValue]="item.CODE">
+          </nz-option>
+        </div>
+      </nz-select>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.autocomplete" class="ctrl">
+      <input [placeholder]="_config?.placeholder || ''" nz-input [formControl]="control" [nzAutocomplete]="auto"
+        [required]="_config.required" [class.invalid]="control.invalid != null && control.invalid" />
+      <nz-autocomplete nzBackfill #auto>
+        <nz-auto-option *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
+          {{ item.DESCR }}
+        </nz-auto-option>
+      </nz-autocomplete>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.radio" class="ctrl">
+      <nz-radio-group nz-input [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
+        [required]="_config.required">
+        <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
+          {{ item.DESCR }}
+        </label>
+      </nz-radio-group>
+    </div>
+
+
+    <div *ngSwitchCase="CONTROL_TYPE.checkbox" class="ctrl">
+      <label nz-checkbox [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
+        [required]="_config.required">{{_config.label}}
+        <span *ngIf="_config.required" class="text-danger">*</span></label>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.date" class="ctrl">
+      <nz-date-picker [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
+        [nzPlaceHolder]="_config?.placeholder || ''"
+        [nzFormat]="_config.format && _config.format !== '' ? _config.format : 'dd/MM/yyyy'"
+        [required]="_config.required">
+      </nz-date-picker>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.daterange" class="ctrl">
+      <nz-range-picker [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
+        [nzPlaceHolder]="_config?.placeholder || ['เริ่มต้น','สิ้นสุด']"
+        [nzFormat]="_config.format && _config.format !== '' ? _config.format : 'dd/MM/yyyy'"
+        [required]="_config.required">
+      </nz-range-picker>
+    </div>
+
+    <div *ngSwitchCase="CONTROL_TYPE.slider" class="ctrl">
+      <nz-slider #slider [class.invalid]="control.invalid != null && control.invalid" [nzMax]="_config.max"
+        [nzMin]="_config.min" [formControl]="control" [(ngModel)]="slider.value" [nzMarks]="_config.child"
+        [nzStep]="_config.step">
+      </nz-slider>&nbsp;
+      <nz-input-number [nzMin]="_config.min" [nzMax]="_config.max" [(ngModel)]="slider.value" [nzStep]="_config.step">
+      </nz-input-number> <label class="suffix-text">{{_config.unit}}</label>
+    </div>
+
+    <div *ngSwitchDefault class="ctrl">
+      <input [formControl]="control" (blur)="touched()" [class.invalid]="control.invalid != null && control.invalid" />
+    </div>
+    <span *ngIf="control.errors && control.invalid" class="text-error invalid-feedback">{{ errorMessage() }}</span>
+  </div>
 </ng-template>
 
 <ng-template #readonly>
-    <div class="d-col readonly">
-        <label *ngIf="_config.label" class="flex-1">{{_config.label}}</label>
-        <label class="flex-1 pl-3">{{(_config.lookup) ? getLookupData(control.value) : control.value || '-' }}</label>
-    </div>
+  <div class="d-col readonly">
+    <label *ngIf="_config.label" class="flex-1">{{_config.label}}</label>
+    <label class="flex-1 pl-3">{{(_config.lookup) ? getLookupData(control.value) : control.value || '-' }}</label>
+  </div>
 </ng-template>

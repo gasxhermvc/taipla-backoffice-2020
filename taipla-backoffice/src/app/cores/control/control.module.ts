@@ -33,6 +33,7 @@ registerLocaleData(th);
   exports: [
     ControlComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: NZ_I18N, useValue: th_TH }
   ]

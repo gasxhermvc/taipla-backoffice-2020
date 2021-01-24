@@ -37,6 +37,7 @@ export interface ValidatorMessage {
     required?: string;
     regex?: string;
     email?: string;
+    phone?: string;
     minLength?: string;
     maxLength?: string;
     date?: string;
@@ -46,6 +47,8 @@ export enum ControlType {
     text,
     password,
     number,
+    phone,
+    upload,
     textarea,
     select,
     autocomplete,
@@ -61,6 +64,7 @@ export enum ERROR_TYPE_TEXT {
     'required' = 'required',
     'regex' = 'regex',
     'email' = 'email',
+    'phone' = 'phone',
     'minlength' = 'minLength',
     'maxlength' = 'maxLength',
     'date' = 'date'

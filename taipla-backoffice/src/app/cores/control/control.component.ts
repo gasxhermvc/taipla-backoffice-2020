@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators, NG_VALIDATORS } from '@angular/forms';
 import { ControlType, FormConfig, ValidatorMessage, ERROR_TYPE_TEXT } from '@based/interfaces/FormConfig';
 import { DatetimeService } from '@based/services/datetime.service';
 import { debounceTime } from 'rxjs/operators';
+import message from "@assets/messages/message.json";
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-control',
@@ -13,22 +15,28 @@ import { debounceTime } from 'rxjs/operators';
       provide: NG_VALUE_ACCESSOR,
       useExisting: ControlComponent,
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: ControlComponent,
+      multi: true
     }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ControlComponent implements ControlValueAccessor {
+export class ControlComponent implements ControlValueAccessor, Validators {
 
   CONTROL_TYPE = ControlType;
   inputName: string;
 
   defaultMessage: ValidatorMessage = {
-    required: 'กรุณากรอกข้อมูล',
-    regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
-    email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
-    minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-    maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
-    date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
+    required: message.INPUT.VALIDATOR.REQUIRED,
+    regex: message.INPUT.VALIDATOR.REGEX,
+    email: message.INPUT.VALIDATOR.EMAIL,
+    phone: message.INPUT.VALIDATOR.PHONE,
+    minLength: message.INPUT.VALIDATOR.MIN_LENGTH,
+    maxLength: message.INPUT.VALIDATOR.MAX_LENGTH,
+    date: message.INPUT.VALIDATOR.DATE
   };
 
   _config: FormConfig;
@@ -45,23 +53,23 @@ export class ControlComponent implements ControlValueAccessor {
       if (this._config.disable === true) { this.control.disable(); }
       let validators = [];
 
-      if (this._config.errorMessages !== undefined) {
-        Object.keys(this._config.errorMessages).forEach((key: any) => {
-          validators = this.setValidator(validators,
-            key,
-            this._config.errorMessages[key] || this.defaultMessage[key]);
-        });
+      // if (this._config.errorMessages !== undefined) {
+      //   Object.keys(this._config.errorMessages).forEach((key: any) => {
+      //     validators = this.setValidator(validators,
+      //       key,
+      //       this._config.errorMessages[key] || this.defaultMessage[key]);
+      //   });
 
-      } else {
-        if (this._config.required === true) { validators = validators.concat(Validators.required); }
-        if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
-      }
+      // } else {
+      //   if (this._config.required === true) { validators = validators.concat(Validators.required); }
+      //   if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
+      // }
 
-      this.control.setValidators(validators);
+      // this.control.setValidators(validators);
 
       if (this._config.delay !== undefined && this._config.delay > 0) {
         this.control.valueChanges.pipe(debounceTime(this._config.delay)).subscribe((evt) => {
-          if (this.onChange !== undefined) { try { this.onChange(evt); } catch{ } }
+          if (this.onChange !== undefined) { try { this.onChange(evt); } catch { } }
           if (this._config.change !== undefined && this._config.change !== null) {
             this._config.change(evt);
           } else {
@@ -71,7 +79,7 @@ export class ControlComponent implements ControlValueAccessor {
         });
       } else {
         this.control.valueChanges.subscribe((evt) => {
-          if (this.onChange !== undefined) { try { this.onChange(evt); } catch{ } }
+          if (this.onChange !== undefined) { try { this.onChange(evt); } catch { } }
           if (this._config.change !== undefined && this._config.change !== null) {
             this._config.change(evt);
           } else {
@@ -215,8 +223,11 @@ export class ControlComponent implements ControlValueAccessor {
         break;
 
       case "email":
-        // validators = validators.concat(Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/));
         validators = validators.concat(Validators.email);
+        break;
+
+      case "phone":
+        validators = validators.concat(Validators.pattern(/^(?=[0|\+66|66])(([0|\+66|66]|[0-9]){2,10}?).*((((\d){7}|(\d){3}|\-(\d){3})?((\d){4}|\-(\d){4})|(\d){7})?)[+?(\-(\d){3,5})]$/g));
         break;
 
       case "minlength":
@@ -233,5 +244,96 @@ export class ControlComponent implements ControlValueAccessor {
     }
 
     return validators;
+  }
+
+  checkValidator(key: any, value: any): any {
+    let invalid = null;
+
+    switch (key.toLocaleLowerCase()) {
+      case "required":
+        if (value === undefined || value === null || value === '') {
+          invalid = {
+            required: this._config.errorMessages.required,
+            invalid: true
+          };
+        }
+        break;
+      case "regex":
+        if (!this._config.regex.test(value)) {
+          invalid = {
+            regex: this._config.errorMessages.regex,
+            invalid: true
+          };
+        }
+        break;
+
+      case "email":
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/gi;
+        if (!emailPattern.test(value)) {
+          invalid = {
+            email: this._config.errorMessages.email,
+            invalid: true
+          };
+        }
+        break;
+
+      case "phone":
+        let phonePattern = /^(0|\+66|(66)){1,3}([1-9]){1}(?!\-)([1-9]{1})?(-)?([0-9]{3}?(-)?([0-9]{4}?(-)?[0-9]{0,5}))$/gi;
+        if (!phonePattern.test(value)) {
+          invalid = {
+            phone: this._config.errorMessages.phone,
+            invalid: true
+          };
+        }
+        break;
+      case "minlength":
+        if (value) {
+          if (value != '' && value.length < this._config.min) {
+            invalid = {
+              minLength: this._config.errorMessages.minLength,
+              invalid: true
+            };
+          }
+        }
+        break;
+
+      case "maxlength":
+        if (value) {
+          if (value != '' && value.length > this._config.max) {
+            invalid = {
+              maxLength: this._config.errorMessages.maxLength,
+              invalid: true
+            };
+          }
+        }
+        break;
+
+      case "date":
+        let datePattern = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gi;
+        if (!datePattern.test(value)) {
+          invalid = {
+            date: this._config.errorMessages.date,
+            invalid: true
+          };
+        }
+        break;
+    }
+
+    return invalid;
+  }
+
+  validate({ value }: FormControl) {
+    let valid: any = undefined;
+    let inValid: any = null;
+
+    Object.keys(this._config.errorMessages).forEach((key: any) => {
+      if (inValid) return;
+      inValid = this.checkValidator(key, value);
+      if (inValid) valid = true;
+    });
+
+    this.control.setErrors(inValid);
+
+    return inValid;
   }
 }

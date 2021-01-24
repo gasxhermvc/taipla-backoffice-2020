@@ -27,12 +27,13 @@ export class FormComponent {
   }
 
   defaultMessage: ValidatorMessage = {
-    required: 'กรุณากรอกข้อมูล',
-    regex: 'รูปแบบข้อมูลไม่ถูกต้อง',
-    email: 'รองรับเฉพาะรูปแบบอีเมลเท่านั้น',
-    minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-    maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
-    date: 'ป้อนรูปแบบวันที่ YYYY-MM-DD'
+    required: this.app.message.INPUT.VALIDATOR.REQUIRED,
+    regex: this.app.message.INPUT.VALIDATOR.REGEX,
+    email: this.app.message.INPUT.VALIDATOR.EMAIL,
+    phone: this.app.message.INPUT.VALIDATOR.PHONE,
+    minLength: this.app.message.INPUT.VALIDATOR.MIN_LENGTH,
+    maxLength: this.app.message.INPUT.VALIDATOR.MAX_LENGTH,
+    date: this.app.message.INPUT.VALIDATOR.DATE
   };
 
   formGroup: FormGroup;
@@ -52,26 +53,34 @@ export class FormComponent {
     this._configs.forEach(item => {
       formcontrols[item.key] = new FormControl(item.defaultValue || null);
       if (item.disable === true) { formcontrols[item.key].disable(); }
-      let validators = [];
-      if (item.errorMessages !== undefined) {
-        Object.keys(item.errorMessages).forEach((key: any) => {
-          validators = this.setValidator(item, validators,
-            key,
-            item.errorMessages[key] || this.defaultMessage[key]);
-        });
+      // let validators = [];
+      // if (item.errorMessages !== undefined) {
+      //   Object.keys(item.errorMessages).forEach((key: any) => {
+      //     validators = this.setValidator(item, validators,
+      //       key,
+      //       item.errorMessages[key] || this.defaultMessage[key]);
+      //   });
 
-      } else {
-        if (item.required === true) { validators = validators.concat(Validators.required); }
-        if (item.regex) { validators = validators.concat(Validators.pattern(item.regex)); }
-      }
+      // } else {
+      //   if (item.required === true) { validators = validators.concat(Validators.required); }
+      //   if (item.regex) { validators = validators.concat(Validators.pattern(item.regex)); }
+      // }
 
-      formcontrols[item.key].setValidators(validators);
+      // formcontrols[item.key].setValidators(validators);
     });
     this.formGroup = new FormGroup(formcontrols);
   }
 
-  getFormData() {
-    return { ... this.formGroup.getRawValue() };
+  getFormData(allowNull: boolean = false) {
+    let data = { ... this.formGroup.getRawValue() };
+    if (!allowNull) {
+      Object.keys(data).forEach((key) => {
+        if (data[key] === null || data[key] == 'null' || data[key] === undefined) {
+          data[key] = '';
+        }
+      });
+    }
+    return data;
   }
 
   setFormData(data: any) {
@@ -115,6 +124,10 @@ export class FormComponent {
       case "email":
         // validators = validators.concat(Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/));
         validators = validators.concat(Validators.email);
+        break;
+
+      case "phone":
+        validators = validators.concat(Validators.pattern(/^(0|\+66|(66)){1,3}([1-9]){1}(?!\-)([1-9]{1})?(-)?([0-9]{3}?(-)?([0-9]{4}?(-)?[0-9]{0,5}))$/gi));
         break;
 
       case "minlength":
