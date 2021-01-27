@@ -53,20 +53,6 @@ export class FormComponent {
     this._configs.forEach(item => {
       formcontrols[item.key] = new FormControl(item.defaultValue || null);
       if (item.disable === true) { formcontrols[item.key].disable(); }
-      // let validators = [];
-      // if (item.errorMessages !== undefined) {
-      //   Object.keys(item.errorMessages).forEach((key: any) => {
-      //     validators = this.setValidator(item, validators,
-      //       key,
-      //       item.errorMessages[key] || this.defaultMessage[key]);
-      //   });
-
-      // } else {
-      //   if (item.required === true) { validators = validators.concat(Validators.required); }
-      //   if (item.regex) { validators = validators.concat(Validators.pattern(item.regex)); }
-      // }
-
-      // formcontrols[item.key].setValidators(validators);
     });
     this.formGroup = new FormGroup(formcontrols);
   }
@@ -80,6 +66,13 @@ export class FormComponent {
         }
       });
     }
+
+    Object.keys(data).forEach((key) => {
+      if (key === 'UPLOAD' || key === 'UPLOADS') {
+        const ctrl = this.getControl(key);
+        data[key] = ctrl.fileList;
+      }
+    });
     return data;
   }
 

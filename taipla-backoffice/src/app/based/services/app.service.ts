@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment as env } from '@environments/environment';
 
 //=>Libraries
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+// import { NzModalModule } from 'ng-zorro-antd/modal';
+// import { NzMessageModule } from 'ng-zorro-antd/message';
 
 //=>App
 import { environment } from '@environments/environment';
@@ -13,6 +14,8 @@ import message from "@assets/messages/message.json";
 import { ROUTE } from '@app-base/config/routes';
 import { XHttpOptions } from '@based/interfaces/HttpOptions';
 import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +98,22 @@ export class AppService {
 
     Object.keys(parameters).forEach((key) => {
       formData.append(key, parameters[key]);
+
+      if (key === 'UPLOAD') {
+        //=>Single
+        parameters[key].forEach((file) => {
+          if (file instanceof File) {
+            formData.append(key, file);
+          }
+        });
+      } else if (key === 'UPLOADS') {
+        //=>Multiple
+        parameters[key].forEach((file, index) => {
+          if (file instanceof File) {
+            formData.append(`${key}[${index}]`, file);
+          }
+        });
+      }
     });
 
     return formData;

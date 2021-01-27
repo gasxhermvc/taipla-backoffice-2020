@@ -11,4 +11,5 @@ export interface UM {
     CLIENT_ID: string;
     CREATE_DATE?: string;
     UPDATE_DATE?: string;
+    UPLOAD_FILES?: any;
 }

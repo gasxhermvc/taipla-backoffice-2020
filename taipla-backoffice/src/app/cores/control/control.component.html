@@ -16,7 +16,7 @@
       <span *ngIf="_config.required" class="text-danger">*</span></label>
 
     <div *ngSwitchCase="CONTROL_TYPE.text" class="ctrl">
-      <input [formControl]="control" (blur)="touched()" [required]="_config.required"
+      <input ngDefaultControl [formControl]="control" (blur)="touched()" [required]="_config.required"
         [placeholder]="_config?.placeholder || ''" [autocomplete]="_config.autocomplete ? 'on' : 'off'"
         [class.invalid]="control.invalid != null && control.invalid" />
     </div>
@@ -56,19 +56,38 @@
 
     <div *ngSwitchCase="CONTROL_TYPE.upload" class="ctrl">
       <ng-container *ngIf="_config.multiple; else uploadSingle;">
-
+        <nz-upload [nzListType]="_config.listType" [nzMultiple]="_config.multiple" [nzLimit]="_config.limit"
+          [(nzFileList)]="fileList" [nzShowButton]="fileList.length < _config.limit" [nzPreview]="handlePreview"
+          [nzBeforeUpload]="beforeUpload">
+          <div>
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            <div style="margin-top: 8px">Upload</div>
+          </div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+          (nzOnCancel)="previewVisible = false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+          </ng-template>
+        </nz-modal>
       </ng-container>
       <ng-template #uploadSingle>
-        <!-- <nz-upload class="avatar-uploader" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" nzName="avatar"
-          nzListType="picture-card" [nzShowUploadList]="_config.multiple" [nzBeforeUpload]="beforeUpload"
-          (nzChange)="handleChange($event)">
+        <nz-upload class="avatar-uploader" [nzName]="_config.key" [nzListType]="_config.listType"
+          [nzShowUploadList]="_config.multiple" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
+          [nzPreviewIsImage]="_config.preview">
           <ng-container *ngIf="!_config.avatarUrl">
             <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
             <div class="ant-upload-text">Upload</div>
           </ng-container>
           <img *ngIf="_config.avatarUrl" [src]="_config.avatarUrl" style="width: 100%" />
-        </nz-upload> -->
+        </nz-upload>
       </ng-template>
+      <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+        (nzOnCancel)="previewVisible = false">
+        <ng-template #modalContent>
+          <img [src]="_config.avatarUrl" [ngStyle]="{ width: '100%' }" />
+        </ng-template>
+      </nz-modal>
     </div>
 
     <div *ngSwitchCase="CONTROL_TYPE.autocomplete" class="ctrl">

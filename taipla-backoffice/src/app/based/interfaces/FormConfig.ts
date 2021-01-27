@@ -1,3 +1,5 @@
+import { NzUploadFile } from "ng-zorro-antd/upload";
+
 /* Form config */
 export interface FormConfig {
     ngClass?: any;
@@ -7,9 +9,13 @@ export interface FormConfig {
     errorMessages?: ValidatorMessage;
     inline?: boolean;
     multiple?: boolean;
+    preview?: boolean;
+    limit?: any;
     allowFileType?: string;
     size?: Number;
     avatarUrl?: string;
+    listType?: 'text' | 'picture' | 'picture-card';
+    fileList?: NzUploadFile[];
 
     placeholder?: any;
     defaultValue?: any;

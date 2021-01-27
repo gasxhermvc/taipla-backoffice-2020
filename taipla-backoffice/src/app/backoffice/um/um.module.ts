@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //=>Libraries
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 //=>App
 import { ShareModule } from '@app/cores/share.module';
@@ -25,7 +27,10 @@ import { UmManageEditComponent } from '@backoffice/um/components/um-manage/compo
   imports: [
     CommonModule,
     UmRoutingModule,
-    ShareModule
+    ShareModule,
+
+    NzButtonModule,
+    NzIconModule
   ],
   exports: [
     UmManageComponent,

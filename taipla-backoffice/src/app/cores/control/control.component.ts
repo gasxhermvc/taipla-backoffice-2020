@@ -1,11 +1,12 @@
-import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators, NG_VALIDATORS } from '@angular/forms';
 import { ControlType, FormConfig, ValidatorMessage, ERROR_TYPE_TEXT } from '@based/interfaces/FormConfig';
 import { DatetimeService } from '@based/services/datetime.service';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import message from "@assets/messages/message.json";
-import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-control',
@@ -14,12 +15,12 @@ import { Observable, Observer } from 'rxjs';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: ControlComponent,
+      useExisting: forwardRef(() => ControlComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: ControlComponent,
+      useExisting: forwardRef(() => ControlComponent),
       multi: true
     }
   ],
@@ -30,6 +31,9 @@ export class ControlComponent implements ControlValueAccessor, Validators {
   CONTROL_TYPE = ControlType;
   inputName: string;
   loading = false;
+  fileList: NzUploadFile[] = [];
+  previewImage: string | undefined = '';
+  previewVisible = false;
 
   defaultMessage: ValidatorMessage = {
     required: message.INPUT.VALIDATOR.REQUIRED,
@@ -54,22 +58,17 @@ export class ControlComponent implements ControlValueAccessor, Validators {
         this.control = new FormControl(this._config.defaultValue || null);
       }
 
+      if (this._config.fileList && this._config.fileList.length > 0) {
+        this.fileList = [].concat(...this._config.fileList);
+      }
+
       if (this._config.disable === true) { this.control.disable(); }
-      let validators = [];
 
-      // if (this._config.errorMessages !== undefined) {
-      //   Object.keys(this._config.errorMessages).forEach((key: any) => {
-      //     validators = this.setValidator(validators,
-      //       key,
-      //       this._config.errorMessages[key] || this.defaultMessage[key]);
-      //   });
-
-      // } else {
-      //   if (this._config.required === true) { validators = validators.concat(Validators.required); }
-      //   if (this._config.regex) { validators = validators.concat(Validators.pattern(this._config.regex)); }
-      // }
-
-      // this.control.setValidators(validators);
+      if (this._config.type == ControlType.upload) {
+        if (this._config.limit === undefined) {
+          this._config.limit = (this._config.multiple ? 10 : 1);
+        }
+      }
 
       if (this._config.delay !== undefined && this._config.delay > 0) {
         this.control.valueChanges.pipe(debounceTime(this._config.delay)).subscribe((evt) => {
@@ -149,7 +148,7 @@ export class ControlComponent implements ControlValueAccessor, Validators {
   }
 
   options?: [];
-  constructor(private cdr: ChangeDetectorRef, private datetime: DatetimeService) {
+  constructor(private cdr: ChangeDetectorRef, private datetime: DatetimeService, private msg: NzMessageService) {
     this.control = new FormControl();
   }
 
@@ -214,40 +213,6 @@ export class ControlComponent implements ControlValueAccessor, Validators {
     if (!(<ViewRef>this.cdr).destroyed) {
       this.cdr.detectChanges();
     }
-  }
-
-  private setValidator(validators: any[], key: string, message: string): any[] {
-    switch (key.toLocaleLowerCase()) {
-      case "required":
-        validators = validators.concat(Validators.required);
-        break;
-
-      case "regex":
-        validators = validators.concat(Validators.pattern(this._config.regex));
-        break;
-
-      case "email":
-        validators = validators.concat(Validators.email);
-        break;
-
-      case "phone":
-        validators = validators.concat(Validators.pattern(/^(?=[0|\+66|66])(([0|\+66|66]|[0-9]){2,10}?).*((((\d){7}|(\d){3}|\-(\d){3})?((\d){4}|\-(\d){4})|(\d){7})?)[+?(\-(\d){3,5})]$/g));
-        break;
-
-      case "minlength":
-        validators = validators.concat(Validators.minLength(this._config.min || 4));
-        break;
-
-      case "maxlength":
-        validators = validators.concat(Validators.maxLength(this._config.max || 150));
-        break;
-
-      case "date":
-        validators = validators.concat(Validators.pattern(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gi));
-        break;
-    }
-
-    return validators;
   }
 
   checkValidator(key: any, value: any): any {
@@ -330,58 +295,113 @@ export class ControlComponent implements ControlValueAccessor, Validators {
     let valid: any = undefined;
     let inValid: any = null;
 
-    Object.keys(this._config.errorMessages).forEach((key: any) => {
-      if (inValid) return;
-      inValid = this.checkValidator(key, value);
-      if (inValid) valid = true;
-    });
+    if (this._config.errorMessages) {
+      Object.keys(this._config.errorMessages).forEach((key: any) => {
+        if (inValid) return;
+        inValid = this.checkValidator(key, value);
+        if (inValid) valid = true;
+      });
+    }
 
     this.control.setErrors(inValid);
 
     return inValid;
   }
 
-  // beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
-  //   return new Observable((observer: Observer<boolean>) => {
-  //     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  //     if (!isJpgOrPng) {
-  //       this.msg.error('You can only upload JPG file!');
-  //       observer.complete();
-  //       return;
-  //     }
-  //     const isLt2M = file.size! / 1024 / 1024 < 2;
-  //     if (!isLt2M) {
-  //       this.msg.error('Image must smaller than 2MB!');
-  //       observer.complete();
-  //       return;
-  //     }
-  //     observer.next(isJpgOrPng && isLt2M);
-  //     observer.complete();
-  //   });
-  // };
+  beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
+    this.loading = true;
+    this.renderer();
+    return new Observable((observer: Observer<boolean>) => {
+      let fileType = this._config.allowFileType.split(',');
+      let allowFileType = fileType.indexOf(file.type) !== -1;
 
-  // private getBase64(img: File, callback: (img: string) => void): void {
-  //   const reader = new FileReader();
-  //   reader.addEventListener('load', () => callback(reader.result!.toString()));
-  //   reader.readAsDataURL(img);
-  // }
+      if (!allowFileType) {
+        this.msg.error(this._config.errorMessages.uploadFormat);
+        observer.complete();
+        return;
+      }
 
-  // handleChange(info: { file: NzUploadFile }): void {
-  //   switch (info.file.status) {
-  //     case 'uploading':
-  //       this.loading = true;
-  //       break;
-  //     case 'done':
-  //       // Get this url from response in real world.
-  //       this.getBase64(info.file!.originFileObj!, (img: string) => {
-  //         this.loading = false;
-  //         this.avatarUrl = img;
-  //       });
-  //       break;
-  //     case 'error':
-  //       this.msg.error('Network error');
-  //       this.loading = false;
-  //       break;
-  //   }
-  // }
+      let allowFileSize = file.size < this._config.size;
+      if (!allowFileSize) {
+        this.msg.error(this._config.errorMessages.uploadSize);
+        observer.complete();
+        return;
+      }
+
+      const generate = new Promise((resolve: any, reject: any) => {
+        try {
+          this.getBase64(file as any, (img: string) => {
+            file.preview = img;
+            if (!this._config.multiple) {
+              this._config.avatarUrl = img;
+            } else {
+              file.url = img;
+              file.preview = img;
+            }
+            this.fileList = [...this.fileList].concat(file);
+            resolve();
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+
+      generate.then(() => {
+        observer.next(false);
+        observer.complete();
+      }, err => {
+        console.log(err);
+        observer.next(false);
+        observer.complete();
+      });
+    }).pipe(
+      map((success) => {
+        this.loading = false;
+        this.renderer();
+        return success;
+      }));
+  };
+
+  private getBase64(img: File, callback: (img: string) => void): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result!.toString()));
+    reader.readAsDataURL(img);
+  }
+
+  handlePreview = async (file: NzUploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await this.getBase64(file.originFileObj!, (img: string) => {
+        this.loading = false;
+        this._config.avatarUrl = img;
+
+        this.previewImage = file.url || file.preview;
+        this.previewVisible = true;
+      });
+    } else {
+      this.previewImage = file.url || file.preview;
+      this.previewVisible = true;
+    }
+
+    return false;
+  };
+
+
+  handleChange(info: { file: NzUploadFile }): void {
+    switch (info.file.status) {
+      case 'uploading':
+        this.loading = true;
+        break;
+      case 'done':
+        // Get this url from response in real world.
+        this.getBase64(info.file!.originFileObj!, (img: string) => {
+          this.loading = false;
+          this._config.avatarUrl = img;
+        });
+        break;
+      case 'error':
+        this.msg.error('Network error');
+        this.loading = false;
+        break;
+    }
+  }
 }

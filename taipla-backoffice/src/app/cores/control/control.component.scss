@@ -134,6 +134,23 @@
         .ant-calendar-picker-input.ant-input {
             border-radius: 1rem;
         }
+
+        .ant-modal {
+            z-index: 9999;
+            background: white;
+        }
+
+        .ant-modal-close,
+        .ant-modal-close-x,
+        .ant-modal-close-x :focus {
+            outline: none !important;
+            border: none !important;
+        }
+    }
+
+    .ant-modal {
+        z-index: 9999;
+        background: white;
     }
 
     nz-input-number {
@@ -143,5 +160,18 @@
 
     nz-slider {
         flex: 1 60%;
+    }
+
+    .ant-upload {
+        img {
+            width: 104px;
+            height: 104px;
+        }
+    }
+    .ant-modal-close,
+    .ant-modal-close-x,
+    .ant-modal-close-x :focus {
+        outline: none !important;
+        border: none !important;
     }
 }

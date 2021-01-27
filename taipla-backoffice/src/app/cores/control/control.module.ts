@@ -10,6 +10,10 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 //=>App
 import { ControlComponent } from '@cores/control/control.component';
@@ -34,7 +38,12 @@ registerLocaleData(th);
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
-    NzUploadModule
+    NzUploadModule,
+    NzAutocompleteModule,
+    NzRadioModule,
+    NzCheckboxModule,
+    NzModalModule
+    
 
   ],
   exports: [

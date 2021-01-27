@@ -111,6 +111,19 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         max: 100
       },
       {
+        key: 'UPLOAD',
+        label: 'อัพโหลดรูปภาพประจำตัว',
+        placeholder: 'เลือกรูปภาพประจำตัว',
+        type: ControlType.upload,
+        allowFileType: 'image/jpeg,image/jpg,image/png',
+        size: 10485760,
+        listType: "picture-card",
+        errorMessages: {
+          uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
+          uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
+        }
+      },
+      {
         key: 'ROLE',
         label: 'สถานะ',
         placeholder: "เลือกสถานะผู้ใช้งาน",
@@ -136,6 +149,14 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         this.service.UM_INFO.DATA = { ...result.data };
         if (this.form) {
           this.form.setFormData(this.service.UM_INFO.DATA);
+
+          //=>Bind image url
+          if (this.service.UM_INFO.DATA.UPLOAD_FILES && this.service.UM_INFO.DATA.UPLOAD_FILES.length > 0) {
+            const config = this.formConfig.find((config) => config.key === 'UPLOAD');
+            config.fileList = this.service.UM_INFO.DATA.UPLOAD_FILES;
+            config.avatarUrl = this.service.UM_INFO.DATA.UPLOAD_FILES[0].url;
+            this.form.setConfig("UPLOAD", config);
+          }
         }
       } else {
         this.app.showError(this.app.message.ERROR.Default);

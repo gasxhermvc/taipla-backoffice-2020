@@ -129,3 +129,11 @@ html {
     overflow-y: hidden;
     overflow-x: auto;
 }
+
+
+.ant-modal-close,
+.ant-modal-close-x,
+.ant-modal-close-x :focus {
+    outline: none !important;
+    border: none !important;
+}

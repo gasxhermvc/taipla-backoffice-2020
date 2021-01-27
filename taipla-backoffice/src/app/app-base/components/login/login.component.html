@@ -1,30 +1,30 @@
 <div class="d-flex flex-column content">
-    <div class="d-flex flex-row logo">
-        <h2>เข้าสู่ระบบ Taipla</h2>
-    </div>
-    <div class="d-flex flex-column flex-md-row flex-1">
-        <div class="form-area area shadow-lg">
-            <div class="d-flex flex-column flex-sm-row">
-                <div class="col-12 col-sm-6 px-0 image d-sm-block pos-relative">
-                    <img src="./assets/images/bg/web.jpg" class="img-fluid" />
-                </div>
-                <div class="col-12 col-sm-6 px-0 form content flex-column">
-                    <div class="pos-relative p-4 p-sm-4 p-md-5">
-                        <div class="title-container">
-                            <h3>Log In to enter the Web</h3>
-                        </div>
-                        <div class="pos-relative">
-                            <app-form [configs]="formConfigs"></app-form>
-                            <div class="text-center">
-                                <button type="button" (click)="onSubmit()">ล็อกอิน</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="d-flex flex-row logo">
+    <h2>เข้าสู่ระบบ Taipla</h2>
+  </div>
+  <div class="d-flex flex-column flex-md-row flex-1">
+    <div class="form-area area shadow-lg">
+      <div class="d-flex flex-column flex-sm-row">
+        <div class="col-12 col-sm-6 px-0 image d-sm-block pos-relative">
+          <img src="./assets/images/bg/web.jpg" class="img-fluid" />
         </div>
+        <div class="col-12 col-sm-6 px-0 form flex-column">
+          <div class="pos-relative p-4 p-sm-4 p-md-5">
+            <div class="title-container">
+              <h3>Log In to enter the Web</h3>
+            </div>
+            <div class="pos-relative">
+              <app-form [configs]="formConfigs" (keyup.enter)="onSubmit()"></app-form>
+              <div class="text-center">
+                <button type="button" (click)="onSubmit()">ล็อกอิน</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="container-copyright">
-        {{ app.env.copyright.text }}
-    </div>
+  </div>
+  <div class="container-copyright">
+    {{ app.env.copyright.text }}
+  </div>
 </div>

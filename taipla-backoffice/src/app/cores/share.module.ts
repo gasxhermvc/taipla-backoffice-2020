@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+//=>Libraries
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
 //=>App
 import { DatetimeService } from '@based/services/datetime.service';
 import { LoadingModule } from '@cores/loading/loading.module';
@@ -18,6 +23,9 @@ import { ListModule } from '@cores/list/list.module';
     //=>Angular
     CommonModule,
 
+    //=>Lib
+    NzInputModule,
+    NzCheckboxModule,
 
     //=>App
     LoadingModule,

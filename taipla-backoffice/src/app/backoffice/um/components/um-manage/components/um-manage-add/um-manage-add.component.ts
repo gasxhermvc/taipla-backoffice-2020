@@ -125,6 +125,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         multiple: false,
         allowFileType: 'image/jpeg,image/jpg,image/png',
         size: 10485760,
+        preview: false,
+        listType: "picture-card",
         errorMessages: {
           uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
           uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'

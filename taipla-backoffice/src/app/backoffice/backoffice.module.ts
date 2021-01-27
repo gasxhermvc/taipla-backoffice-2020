@@ -14,6 +14,8 @@ import { MediaModule } from '@backoffice/media/media.module';
 import { DashboardModule } from '@backoffice/dashboard/dashboard.module';
 import { BackofficeComponent } from '@backoffice/backoffice.component';
 
+//=>Library
+
 
 @NgModule({
   declarations: [BackofficeComponent],
@@ -29,7 +31,9 @@ import { BackofficeComponent } from '@backoffice/backoffice.component';
     AccountModule,
     RestaurantModule,
     MediaModule,
-    DashboardModule
+    DashboardModule,
+
+    //=>Library
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
