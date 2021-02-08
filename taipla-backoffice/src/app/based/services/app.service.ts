@@ -7,6 +7,8 @@ import { environment as env } from '@environments/environment';
 //=>Libraries
 // import { NzModalModule } from 'ng-zorro-antd/modal';
 // import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 //=>App
 import { environment } from '@environments/environment';
@@ -14,9 +16,7 @@ import message from "@assets/messages/message.json";
 import { ROUTE } from '@app-base/config/routes';
 import { XHttpOptions } from '@based/interfaces/HttpOptions';
 import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
-import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-
+import { PaginationConfig } from '../interfaces/PaginationConfig';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +25,7 @@ export class AppService {
   message: any = message;
   route: any = ROUTE;
   jwt: JsonWebToken;
+  pagination: PaginationConfig;
 
   private _loading: boolean = false;
 
@@ -337,5 +338,13 @@ export class AppService {
 
   randomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  setInitPagination() {
+    this.pagination = {
+      ...this.pagination,
+      currentIndexPage: 1,
+      pageSize: this.env.pagination.pageSize
+    };
   }
 }

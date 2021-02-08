@@ -8,14 +8,21 @@
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts"
+    "src/polyfills.ts",
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.d.ts",
   ],
   "exclude": [
-    "assets/**/*.zip",
-    "test.ts",
-    "src/**/*.spec.ts"
+    "src/test.ts",
+    "src/app/app-base/config/test-config.ts",
+    "src/app/based/configs/test-config.ts",
+    "src/app/based/mocks/login/**/*.ts",
+    "src/environments/environment.prod.ts",
+    "src/assets/**/*.zip",
+    "src/**/*.spec.ts",
+    "src/app/app-base/**/**.ts",
+    "src/app/based/**/**.ts",
   ]
 }

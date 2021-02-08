@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AppBaseModule } from '@app/app-base/app-base.module';
 import { ShareModule } from '@app/cores/share.module';
 import { BackofficeRoutingModule } from '@backoffice/backoffice-routing.module';
-import { CategoryModule } from '@backoffice/category/category.module';
+import { CountryModule } from '@app/backoffice/country/country.module';
 import { FoodCenterModule } from '@backoffice/food-center/food-center.module';
 import { UmModule } from '@backoffice/um/um.module';
 import { AccountModule } from '@backoffice/account/account.module';
@@ -25,7 +25,7 @@ import { BackofficeComponent } from '@backoffice/backoffice.component';
     AppBaseModule,
     ShareModule,
     BackofficeRoutingModule,
-    CategoryModule,
+    CountryModule,
     UmModule,
     FoodCenterModule,
     AccountModule,

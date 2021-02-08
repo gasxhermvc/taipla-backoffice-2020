@@ -14,6 +14,9 @@ export const environment = {
   localStorage: {
     root: 'taipla'
   },
+  pagination: {
+    pageSize: 3
+  },
   copyright: {
     text: '© 2020 TAIPLA.com All Rights Reserved | Design by Dev.awesome.th',
     author: 'Dev.awesome.th'

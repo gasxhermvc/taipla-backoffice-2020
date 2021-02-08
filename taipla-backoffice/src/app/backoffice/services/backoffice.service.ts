@@ -2,7 +2,7 @@ import { Injectable, Injector, Output, EventEmitter } from '@angular/core';
 import { BaseRequest } from '@based/classes/base-request';
 import { DashboardService } from '@backoffice/services/dashboard.service';
 import { UmService } from '@backoffice/services/um.service';
-import { CategoryService } from '@backoffice/services/category.service';
+import { CountryService } from '@app/backoffice/services/country.service';
 import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
@@ -19,7 +19,7 @@ export class BackofficeService extends BaseRequest {
   private injections: any = [
     { key: 'dashboard', class: DashboardService },
     { key: 'um', class: UmService },
-    { key: 'category', class: CategoryService },
+    { key: 'country', class: CountryService },
     { key: 'food_center', class: FoodCenterService },
     { key: 'media', class: MediaService },
     { key: 'restaurant', class: RestaurantService },

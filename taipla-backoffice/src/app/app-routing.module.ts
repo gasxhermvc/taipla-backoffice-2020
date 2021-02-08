@@ -13,12 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: SwitcherComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'backoffice',
-    loadChildren: () => import('@backoffice/backoffice.module').then(m => m.BackofficeModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   }
 ];
 

@@ -5,7 +5,7 @@ import { AuthGuard } from '@based/guards/auth.guard';
 
 const BACKOFFICE_ROUTES: Routes = [
   {
-    path: '',
+    path: 'backoffice',
     component: BackofficeComponent,
     canActivate: [AuthGuard],
     children: [
@@ -20,8 +20,8 @@ const BACKOFFICE_ROUTES: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'category',
-        loadChildren: () => import('@backoffice/category/category.module').then(m => m.CategoryModule),
+        path: 'country',
+        loadChildren: () => import('@app/backoffice/country/country.module').then(m => m.CountryModule),
         canActivate: [AuthGuard],
       },
       {

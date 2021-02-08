@@ -8,56 +8,62 @@
     </button>
   </div>
 </div>
-<div class="table-responsive">
-  <table class="table table-hover table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center align-top">#</th>
-        <th class="text-center align-top">รูปประจำตัว</th>
-        <th class="text-center align-top">ชื่อผู้ใช้งาน</th>
-        <th class="text-center align-top">ชื่อ - นามสกุล</th>
-        <th class="text-center align-top">สถานะ</th>
-        <th class="text-center align-top">จัดการ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of items;let index = index">
+<app-pagination [items]="items" [template]="list" [pageSize]="app.pagination.pageSize"
+  [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
+  (pageSizeChange)="app.pagination.pageSize = $event">
+</app-pagination>
+<ng-template #list let-items="items" let-from="from">
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead>
         <tr>
-          <td class="text-center align-top">
-            {{ (index + 1) }}
-          </td>
-          <td class="text-center align-top">
-            <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
-              <img [src]="item.AVATAR" class="img-fluid avatar rounded-circle" />
-            </ng-container>
-            <ng-template #defaultAvatar>
-              <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar rounded-circle" />
-            </ng-template>
-          </td>
-          <td class="text-center align-top">
-            {{ item.USERNAME }}
-          </td>
-          <td class="text-left align-top">
-            {{ item.FULL_NAME }}
-          </td>
-          <td class="text-left align-top">
-            {{ item.ROLE }}
-          </td>
-          <td class="text-center align-top">
-            <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
-          </td>
+          <th class="text-center align-top">#</th>
+          <th class="text-center align-top">รูปประจำตัว</th>
+          <th class="text-center align-top">ชื่อผู้ใช้งาน</th>
+          <th class="text-center align-top">ชื่อ - นามสกุล</th>
+          <th class="text-center align-top">สถานะ</th>
+          <th class="text-center align-top">จัดการ</th>
         </tr>
-      </ng-container>
-      <ng-container *ngIf="items.length < 1">
-        <tr>
-          <td class="text-center align-top" colspan="6">
-            <div class="not-found"></div>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of items;let index = index">
+          <tr>
+            <td class="text-center align-top">
+              {{ (from + index + 1) }}
+            </td>
+            <td class="text-center align-top">
+              <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
+                <img [src]="item.AVATAR" class="img-fluid avatar rounded-circle" />
+              </ng-container>
+              <ng-template #defaultAvatar>
+                <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar rounded-circle" />
+              </ng-template>
+            </td>
+            <td class="text-center align-top">
+              {{ item.USERNAME }}
+            </td>
+            <td class="text-left align-top">
+              {{ item.FULL_NAME }}
+            </td>
+            <td class="text-left align-top">
+              {{ item.ROLE }}
+            </td>
+            <td class="text-center align-top">
+              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="items.length < 1">
+          <tr>
+            <td class="text-center align-top" colspan="6">
+              <div class="not-found"></div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
 
 <ng-template let-item="item" #btn>
   <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">

@@ -6,7 +6,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'dashboard',
         LABEL: "หน้าแรก",
         ICON: 'home',
-        PATH: 'dashboard',
+        PATH: 'backoffice/dashboard',
         IS_ACTIVE: true,
         IS_MENU: true
     },
@@ -14,15 +14,15 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'um',
         LABEL: 'จัดการผู้ใช้งาน',
         ICON: 'user',
-        PATH: 'um',
+        PATH: 'backoffice/um',
         IS_ACTIVE: false,
         IS_MENU: true
     },
     {
-        NAME: 'category',
-        LABEL: 'ประเภทอาหาร',
+        NAME: 'country',
+        LABEL: 'ประเทศ',
         ICON: 'read',
-        PATH: 'category',
+        PATH: 'backoffice/country',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -30,7 +30,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'food-center',
         LABEL: 'อาหารส่วนกลาง',
         ICON: 'database',
-        PATH: 'food-center',
+        PATH: 'backoffice/food-center',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -38,7 +38,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'restaurant',
         LABEL: 'ร้านอาหาร',
         ICON: 'reconciliation',
-        PATH: 'restaurant',
+        PATH: 'backoffice/restaurant',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -46,7 +46,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'media',
         LABEL: 'ภาพสื่อ',
         ICON: 'cloud-upload',
-        PATH: 'media',
+        PATH: 'backoffice/media',
         IS_ACTIVE: false,
         IS_MENU: true
     },
@@ -54,7 +54,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'report',
         LABEL: 'รายงาน',
         ICON: 'export',
-        PATH: 'report',
+        PATH: 'backoffice/report',
         IS_ACTIVE: false,
         IS_MENU: false
     },
@@ -62,7 +62,7 @@ export let MENU_CONFIGS: MENU[] = [
         NAME: 'account',
         LABEL: 'ข้อมูลส่วนตัว',
         ICON: 'profile',
-        PATH: 'account',
+        PATH: 'backoffice/account',
         IS_ACTIVE: false,
         IS_MENU: false
     },

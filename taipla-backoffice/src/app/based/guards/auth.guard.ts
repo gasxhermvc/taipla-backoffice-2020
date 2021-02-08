@@ -62,7 +62,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   redirect(url: any = '', isRedirect: boolean = false) {
     if (isRedirect) {
       // Store the attempted URL for redirecting
-      this.auth.redirectUrl = url;
+      this.auth.redirectUrl = url.includes(this.app.env.auth.redirects.logout) ? '' : url;
       // Navigate to the login page with extras
       this.router.navigate([this.app.env.auth.redirects.login]).then(() => {
         this.app.hideLoading();

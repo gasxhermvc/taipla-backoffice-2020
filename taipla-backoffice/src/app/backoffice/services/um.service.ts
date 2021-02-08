@@ -15,7 +15,11 @@ export class UmService extends BaseService {
   LISTS: UM_LIST;
   UM_INFO: UM_INFO;
 
-  constructor(private app: AppService) {
+  get app() {
+    return this._app;
+  }
+
+  constructor(private _app: AppService) {
     super();
   }
 

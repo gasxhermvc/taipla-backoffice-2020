@@ -3,18 +3,18 @@ import { TestBed } from '@angular/core/testing';
 
 //=>App
 import { moduleConfig } from '@based/configs/test-config';
-import { CategoryService } from '@backoffice/services/category.service';
+import { CountryService } from '@app/backoffice/services/country.service';
 
-describe('CategoryService', () => {
+describe('CountryService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [...moduleConfig],
     providers: [
-      CategoryService
+      CountryService
     ]
   }));
 
   it('should be created', () => {
-    const service: CategoryService = TestBed.get(CategoryService);
+    const service: CountryService = TestBed.get(CountryService);
     expect(service).toBeTruthy();
   });
 });

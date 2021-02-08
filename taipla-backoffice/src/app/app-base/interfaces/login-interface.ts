@@ -1,7 +1,7 @@
 export interface LoginForm {
-    username: string;
-    password: string;
-    remember_me?: boolean;
+    USERNAME: string;
+    PASSWORD: string;
+    REMEMBER_ME?: boolean;
 }
 
 export interface LoginResult {

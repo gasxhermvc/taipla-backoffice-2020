@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="service.STATE">
+    <app-culture-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)">
+    </app-culture-manage-list>
+    <app-culture-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete()" (back)="onBack()">
+    </app-culture-manage-add>
+    <app-culture-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete()" (back)="onBack()">
+    </app-culture-manage-edit>
+</ng-container>

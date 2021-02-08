@@ -83,6 +83,7 @@ export class BackofficeComponent extends BaseClass implements OnInit {
   private pageChanged() {
     this.pageChangeSub = this.layout.pageChange.subscribe((changed) => {
       console.log('page changed subscribe', changed);
+      this.app.setInitPagination();
       if (changed) {
         this.showLoading();
       } else {

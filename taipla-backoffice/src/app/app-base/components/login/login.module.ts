@@ -14,6 +14,9 @@ import { LoginComponent } from '@app-base/components/login/login.component';
     CommonModule,
     LoginRoutingModule,
     ShareModule
+  ],
+  exports: [
+    LoginComponent
   ]
 })
 export class LoginModule { }

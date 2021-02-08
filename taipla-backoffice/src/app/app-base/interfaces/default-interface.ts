@@ -2,6 +2,7 @@ export interface JsonWebToken {
     access_token: string
     expired: Date,
     payload?: User,
+    client_id?: string,
     remember_me?: boolean,
     authenticated: boolean
 }

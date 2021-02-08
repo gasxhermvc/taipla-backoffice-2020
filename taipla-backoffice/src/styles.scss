@@ -130,10 +130,16 @@ html {
     overflow-x: auto;
 }
 
-
 .ant-modal-close,
 .ant-modal-close-x,
 .ant-modal-close-x :focus {
     outline: none !important;
     border: none !important;
+}
+
+.ant-upload {
+    img {
+        width: 104px;
+        height: 104px;
+    }
 }

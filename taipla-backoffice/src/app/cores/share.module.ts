@@ -14,6 +14,7 @@ import { ControlModule } from '@cores/control/control.module';
 import { StepperModule } from '@cores/stepper/stepper.module';
 import { TableModule } from '@cores/table/table.module';
 import { ListModule } from '@cores/list/list.module';
+import { PaginationModule } from '@cores/pagination/pagination.module';
 
 
 
@@ -34,6 +35,7 @@ import { ListModule } from '@cores/list/list.module';
     StepperModule,
     TableModule,
     ListModule,
+    PaginationModule
 
   ],
   exports: [
@@ -43,6 +45,7 @@ import { ListModule } from '@cores/list/list.module';
     StepperModule,
     TableModule,
     ListModule,
+    PaginationModule
   ],
   providers: [
     DatetimeService

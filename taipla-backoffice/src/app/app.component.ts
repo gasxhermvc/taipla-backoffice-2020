@@ -13,7 +13,12 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log('ok');
+    // console.log('ok');
+    this.init();
+  }
+
+  init() {
+    this.app.setInitPagination();
     this.app.showLoading();
   }
 }
