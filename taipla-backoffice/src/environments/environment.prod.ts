@@ -15,7 +15,7 @@ export const environment = {
     root: 'taipla'
   },
   pagination: {
-    pageSize: 3
+    pageSize: 10
   },
   copyright: {
     text: '© 2020 TAIPLA.com All Rights Reserved | Design by Dev.awesome.th',

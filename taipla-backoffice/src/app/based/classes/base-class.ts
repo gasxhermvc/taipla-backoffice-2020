@@ -6,6 +6,7 @@ import { BaseRequest } from '@based/classes/base-request';
 import { FormComponent } from '@cores/form/form.component';
 import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 import { LayoutTemplateService } from '@app-base/components/layout-template/layout-template.service';
+import { AppService } from '../services/app.service';
 
 
 @Directive()

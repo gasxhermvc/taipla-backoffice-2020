@@ -42,6 +42,7 @@ export class PaginationComponent implements OnInit {
     return this.pageIndex === 1 ? this.items.slice(this.from, this.to) :
       this.items.slice(this.from, this.to);
   }
+
   constructor() { window["pagination"] = this; }
 
   ngOnInit(): void {

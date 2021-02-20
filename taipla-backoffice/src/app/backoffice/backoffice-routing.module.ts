@@ -25,6 +25,11 @@ const BACKOFFICE_ROUTES: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'culture',
+        loadChildren: () => import('@app/backoffice/culture/culture.module').then(m => m.CultureModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'um',
         loadChildren: () => import('@backoffice/um/um.module').then(m => m.UmModule),
         canActivate: [AuthGuard],

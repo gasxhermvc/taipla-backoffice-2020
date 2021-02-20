@@ -159,10 +159,9 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
           }
         }
       } else {
-        this.app.showError(this.app.message.ERROR.Default);
+        this.app.showError(this.app.message.ERROR.DEFAULT);
       }
     } else {
-      this.onBack();
       this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
     }
 

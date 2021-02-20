@@ -1,7 +1,11 @@
 export interface Country {
-    country_id?: number;
-    name?: string;
-    author?: string;
-    created_date?: string;
-    updated_date?: string;
+    COUNTRY_ID?: number;
+    NAME_TH?: string;
+    NAME_EN?: string;
+    DESCRIPTION?: string;
+    THUMBNAIL?: string;
+    AUTHOR?: string;
+    CREATED_DATE?: string;
+    UPDATED_DATE?: string;
+    UPLOAD_FILES?: any;
 }

@@ -1,18 +1,27 @@
 @import "src/styles.scss";
 
 :host {
-    display: block;
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // bottom: 0;
+  display: block;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
 
-    ::ng-deep {
-        .main {
-            background-color: #fff;
-            border-radius: 3px;
-            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-        }
+  ::ng-deep {
+    .main {
+      background-color: #fff;
+      border-radius: 3px;
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
     }
+
+    .table .image,
+    .table .avatar {
+      // max-width: 62px;
+      // max-height: 62px;
+      max-width: none !important;
+      width: 120px;
+      height: 100px;
+    }
+  }
 }

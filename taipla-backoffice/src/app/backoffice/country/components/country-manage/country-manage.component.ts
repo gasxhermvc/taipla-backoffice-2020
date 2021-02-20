@@ -51,6 +51,8 @@ export class CountryManageComponent extends BaseClass implements OnInit {
           this.service.STATE = this.service.STATE_PAGE.LISTS;
           break;
       }
+    }else{
+      this.service.STATE = this.service.STATE_PAGE.LISTS;
     }
   }
 

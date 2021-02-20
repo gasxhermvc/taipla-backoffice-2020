@@ -44,6 +44,7 @@ export class CountryManageListComponent extends BaseClass implements OnInit {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
         const params: any = {};
+
         this.service.LISTS = await this.service.getCountryLists(params);
         this.hideLoading();
       }
@@ -58,26 +59,31 @@ export class CountryManageListComponent extends BaseClass implements OnInit {
     this.app.showConfirm(this.app.message.CONFIRM.DELETE, async (ok: any) => {
       if (ok) {
         this.showLoading();
-        let params: any = {
-          countryLists: [{}]
+
+        let param: any = {
+          COUNTRY_ID: item.COUNTRY_ID
         };
 
-        const result = await this.service.deleteCountry(params);
+        const result = await this.service.deleteCountry(param);
 
         if (result) {
-          this.app.showSuccess(this.app.message.SUCCESS.DELETE);
-          this.onSelected(item, MODE.DELETE);
+          if (result.success) {
+            this.app.showSuccess(result.message || this.app.message.SUCCESS.DELETE);
+            this.onSelected(item, MODE.DELETE);
+          } else {
+            this.app.showError(result.message || this.app.message.ERROR.DELETE);
+          }
         } else {
           this.app.showError(this.app.message.ERROR.DELETE);
         }
         this.hideLoading();
       }
-    })
+    });
   }
 
   onSelected(item: any, mode: MODE = MODE.VIEW) {
     this.selected.emit({
-      ITEM: item,
+      DATA: item,
       MODE: mode
     });
   }

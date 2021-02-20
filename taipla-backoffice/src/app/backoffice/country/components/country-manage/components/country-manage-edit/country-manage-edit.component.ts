@@ -39,36 +39,77 @@ export class CountryManageEditComponent extends BaseClass implements OnInit {
   initConfig() {
     this.formConfig = [
       {
-        key: 'country_id',
+        key: 'COUNTRY_ID',
         invisible: true
       },
       {
-        key: 'name',
-        label: 'ประเภทอาหาร',
+        key: 'NAME_TH',
+        label: 'ชื่อประเทศอาหาร (ภาษาไทย)',
         type: ControlType.text,
+        placeholder: 'ป้อนชื่อประเทศอาหาร (ภาษาไทย)',
         errorMessages: {
-          required: 'กรุณาป้อนประเภทอาหาร',
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
-        },
-        min: 3,
-        max: 150
+          required: 'กรุณาป้อนชื่อประเทศอาหาร'
+        }
+      },
+      {
+        key: 'NAME_EN',
+        label: 'ชื่อประเทศอาหาร (ภาษาอังกฤษ)',
+        type: ControlType.text,
+        placeholder: 'ป้อนชื่อประเทศอาหาร (ภาษาอังกฤษ)',
+        regex: /[A-Za-z0-9]$/gi
+      },
+      {
+        key: 'DESCRIPTION',
+        label: 'คำอธิบาย',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนคำอธิบาย',
+        errorMessages: {
+          required: 'กรุณาป้อนคำอธิบาย'
+        }
+      },
+      {
+        key: 'UPLOAD',
+        label: 'รูปภาพประจำตัวประเทศอาหาร',
+        type: ControlType.upload,
+        placeholder: 'เลือกรูปภาพประจำตัว',
+        allowFileType: 'image/jpeg,image/jpg,/image/png',
+
+        size: 10485760,
+        listType: 'picture-card',
+        errorMessages: {
+          uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
+          uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
+        }
       }
     ]
   }
 
   private async retrieveData() {
     this.showLoading();
-    const param: any = {};
-    const result = await this.service.getCountry(param);
+
+    const result = await this.service.getCountry({
+      COUNTRY_ID: this.service.COUNTRY_INFO.DATA.COUNTRY_ID
+    });
 
     if (result) {
-      this.service.COUNTRY_INFO.DATA = { ...result };
-      if (this.form) {
-        this.form.setFormData(this.service.COUNTRY_INFO.DATA);
+      if (result.success) {
+        this.service.COUNTRY_INFO.DATA = { ...result.data };
+        if (this.form) {
+          this.form.setFormData(this.service.COUNTRY_INFO.DATA);
+
+          //=>Bind image url
+          if (this.service.COUNTRY_INFO.DATA.UPLOAD_FILES && this.service.COUNTRY_INFO.DATA.UPLOAD_FILES.length > 0) {
+            const config = this.formConfig.find((config) => config.key === 'UPLOAD');
+            config.fileList = this.service.COUNTRY_INFO.DATA.UPLOAD_FILES;
+            config.avatarUrl = this.service.COUNTRY_INFO.DATA.UPLOAD_FILES[0].url;
+            this.form.setConfig("UPLOAD", config);
+          }
+        }
+      } else {
+        this.app.showError(this.app.message.ERROR.DEFAULT);
       }
+
     } else {
-      this.onBack();
       this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
     }
 
@@ -78,14 +119,15 @@ export class CountryManageEditComponent extends BaseClass implements OnInit {
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
-      let param: any = [];
-      const data = this.form.getFormData();
-      param.push(data);
+      let param: any = this.form.getFormData();
       const result = await this.service.editCountry(param);
       if (result) {
-        this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
-        this.onBack();
-        this.complete.emit();
+        if (result.success) {
+          this.app.showSuccess(this.app.message.SUCCESS.UPDATE);
+          this.retrieveData();
+        } else {
+          this.app.showError(this.app.message.ERROR.UPDATE);
+        }
       } else {
         this.app.showError(this.app.message.ERROR.UPDATE);
       }

@@ -17,21 +17,21 @@
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
-          <th class="text-center align-top">#</th>
-          <th class="text-center align-top">รูปประจำตัว</th>
-          <th class="text-center align-top">ชื่อผู้ใช้งาน</th>
-          <th class="text-center align-top">ชื่อ - นามสกุล</th>
-          <th class="text-center align-top">สถานะ</th>
-          <th class="text-center align-top">จัดการ</th>
+          <th class="text-center align-top NO">#</th>
+          <th class="text-center align-top AVATAR">รูปประจำตัว</th>
+          <th class="text-center align-top USER_NAME">ชื่อผู้ใช้งาน</th>
+          <th class="text-center align-top FULL_NAME">ชื่อ - นามสกุล</th>
+          <th class="text-center align-top ROLE">สถานะ</th>
+          <th class="text-center align-top MANAGE">จัดการ</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let item of items;let index = index">
           <tr>
-            <td class="text-center align-top">
+            <td class="text-center align-top NO">
               {{ (from + index + 1) }}
             </td>
-            <td class="text-center align-top">
+            <td class="text-center align-top AVATAR">
               <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
                 <img [src]="item.AVATAR" class="img-fluid avatar rounded-circle" />
               </ng-container>
@@ -39,16 +39,16 @@
                 <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar rounded-circle" />
               </ng-template>
             </td>
-            <td class="text-center align-top">
-              {{ item.USERNAME }}
+            <td class="text-center align-top USERNAME">
+              {{ item.USERNAME || '-' }}
             </td>
-            <td class="text-left align-top">
-              {{ item.FULL_NAME }}
+            <td class="text-left align-top FULL_NAME">
+              {{ item.FULL_NAME || '-' }}
             </td>
-            <td class="text-left align-top">
-              {{ item.ROLE }}
+            <td class="text-left align-top ROLE">
+              {{ item.ROLE || '-' }}
             </td>
-            <td class="text-center align-top">
+            <td class="text-center align-top MANAGE">
               <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
             </td>
           </tr>

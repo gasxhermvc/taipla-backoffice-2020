@@ -15,15 +15,20 @@ export class CountryService extends BaseService {
   LISTS: COUNTRY_LIST;
   COUNTRY_INFO: COUNTRY_INFO;
 
-  constructor(private app: AppService) {
+  get app() {
+    return this._app;
+  }
+  constructor(private _app: AppService) {
     super();
   }
 
   async getCountryLists(params: any) {
+    let result;
+
     try {
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.COUNTRY.COUNTRIES}`, {
+        method: 'GET',
+        headers: this.app.header,
         parameters: params
       }, false).toPromise();
 
@@ -31,18 +36,23 @@ export class CountryService extends BaseService {
         this.LISTS = {
           TOTAL: response.data.length,
           LISTS: [...response.data]
-        }
+        };
+        console.log('getCountryLists.response', response);
+      } else {
+        this.app.showError(response.message || this.app.message.ERROR.DEFAULT)
       }
-      console.log('getCountryLists.reponse', response);
 
-    } catch{ }
+
+    } catch (exception) {
+      console.log('getCountryLists.exception', exception);
+    }
 
     //=>Mock
-    const LISTS = [].concat(...MOCK_COUNTRY_LISTS);
-    this.LISTS = {
-      TOTAL: LISTS.length,
-      LISTS: LISTS,
-    }
+    // const LISTS = [].concat(...MOCK_COUNTRY_LISTS);
+    // this.LISTS = {
+    //   TOTAL: LISTS.length,
+    //   LISTS: LISTS,
+    // }
 
     return this.LISTS;
   }
@@ -50,22 +60,19 @@ export class CountryService extends BaseService {
   async getCountry(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.COUNTRY.GET_COUNTRY}/${param.COUNTRY_ID}`, {
+        method: 'GET',
         headers: { ...this.app.header },
         parameters: param
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('getCountry.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_COUNTRY_EDIT };
+    // result = { ...MOCK_COUNTRY_EDIT };
 
     return result
   }
@@ -74,22 +81,20 @@ export class CountryService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.COUNTRY.CREATED}`, {
         method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
+      result = response && response.success ? response : undefined;
 
     } catch (exception) {
       console.log('addCountry.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_COUNTRY_ADD };
+    // result = { ...MOCK_COUNTRY_ADD };
 
     return result;
   }
@@ -98,22 +103,19 @@ export class CountryService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.COUNTRY.UPDATED}`, {
+        method: 'PUT',
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('editCountry.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_COUNTRY_EDIT };
+    // result = { ...MOCK_COUNTRY_EDIT };
 
     return result;
   }
@@ -123,22 +125,20 @@ export class CountryService extends BaseService {
 
     try {
 
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.COUNTRY.DELETED}`, {
+        method: 'DELETE',
+        headers: this.app.header,
         parameters: param
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.success;
-      }
+      result = response && response.success ? response : undefined;
 
     } catch (exception) {
       console.log('deleteCountry.exception', exception);
     }
 
     //=>Mock
-    result = MOCK_COUNTRY_DELETE.success
+    // result = MOCK_COUNTRY_DELETE.success
 
     return result;
   }

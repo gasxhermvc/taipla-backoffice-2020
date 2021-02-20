@@ -4,7 +4,7 @@ import { UmComponent } from '@backoffice/um/um.component';
 import { UmManageComponent } from '@backoffice/um/components/um-manage/um-manage.component';
 
 
-const routes: Routes = [
+const UM_ROUTES: Routes = [
   {
     path: '',
     component: UmComponent,
@@ -23,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(UM_ROUTES)],
   exports: [RouterModule]
 })
 export class UmRoutingModule { }

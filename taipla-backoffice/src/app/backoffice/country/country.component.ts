@@ -14,6 +14,7 @@ import { MODE } from '@app-base/enums/MODE';
 export class CountryComponent extends BaseClass implements OnInit {
 
   public MODE = MODE;
+
   currentSystem: string = 'country';
 
   get service(): CountryService {

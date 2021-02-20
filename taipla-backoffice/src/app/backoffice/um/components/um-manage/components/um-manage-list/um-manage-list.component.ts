@@ -2,13 +2,45 @@ import { Component, OnInit, Injector, Output, EventEmitter } from '@angular/core
 import { BaseClass } from '@based/classes/base-class';
 import { UmService } from '@backoffice/services/um.service';
 import { MODE } from '@app-base/enums/MODE';
-
+import { SimpleTableConfig, SimpleColumnConfig } from '@based/interfaces/SimpleTableConfig';
 @Component({
   selector: 'app-um-manage-list',
   templateUrl: './um-manage-list.component.html',
   styleUrls: ['./um-manage-list.component.scss']
 })
 export class UmManageListComponent extends BaseClass implements OnInit {
+
+  columns: any[] = [
+    {
+      HEADER: '#',
+      CLASS_NAME: 'text-center align-top',
+      KEY: 'NO'
+    } as SimpleColumnConfig,
+    {
+      HEADER: 'รูปประจำตัว',
+      CLASS_NAME: 'text-center align-top',
+      KEY: 'AVATAR'
+    } as SimpleColumnConfig,
+    {
+      HEADER: 'ชื่อผู้ใช้งาน',
+      CLASS_NAME: 'text-center align-top',
+      KEY: 'USERNAME'
+    } as SimpleColumnConfig,
+    {
+      HEADER: 'ชื่อ - นามสกุล',
+      CLASS_NAME: 'text-center align-top',
+      KEY: 'FULL_NAME'
+    } as SimpleColumnConfig, {
+      HEADER: 'สถานะ',
+      CLASS_NAME: 'text-center align-top',
+      KEY: 'ROLE'
+    } as SimpleColumnConfig,
+    {
+      HEADER: 'จัดการ',
+      CLASS_NAME: 'text-center align-top',
+      KEY: ''
+    } as SimpleColumnConfig
+  ]
 
   public MODE = MODE;
 
@@ -72,14 +104,14 @@ export class UmManageListComponent extends BaseClass implements OnInit {
             this.app.showSuccess(result.message || this.app.message.SUCCESS.DELETE);
             this.onSelected(item, MODE.DELETE);
           } else {
-            this.app.showError(this.app.message.Error.DELETE);
+            this.app.showError(result.message || this.app.message.ERROR.DELETE);
           }
         } else {
           this.app.showError(this.app.message.ERROR.DELETE);
         }
         this.hideLoading();
       }
-    })
+    });
   }
 
   onSelected(item: any, mode: MODE = MODE.VIEW) {
