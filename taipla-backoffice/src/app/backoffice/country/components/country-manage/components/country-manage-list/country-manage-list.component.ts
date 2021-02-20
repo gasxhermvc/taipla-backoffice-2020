@@ -44,7 +44,6 @@ export class CountryManageListComponent extends BaseClass implements OnInit {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
         const params: any = {};
-
         this.service.LISTS = await this.service.getCountryLists(params);
         this.hideLoading();
       }

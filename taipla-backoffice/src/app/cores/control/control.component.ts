@@ -202,8 +202,8 @@ export class ControlComponent implements ControlValueAccessor, Validators {
 
   getLookupData(value: any) {
     if (value != null) {
-      const data = this._config.lookup.find(f => f.CODE === value);
-      return data ? data.DESCR : '-';
+      const data = this._config.lookup.find(f => f[(this._config?.lookupKey || 'CODE')] === value);
+      return data ? data[(this._config?.lookupKey || 'DESCR')] : '-';
     } else {
       return '-';
     }

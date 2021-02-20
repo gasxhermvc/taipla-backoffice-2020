@@ -1,9 +1,13 @@
 export interface Culture {
-    culture_id?: number;
-    country_id?: number;
-    country_name?: string;
-    culture_name?: string;
-    author?: string;
-    created_date?: string;
-    updated_date?: string;
+  CULTURE_ID?: number;
+  COUNTRY_ID?: number;
+  COUNTRY_NAME_TH?: string;
+  NAME_TH?: string;
+  NAME_EN?: string;
+  DESCRIPTION?: string;
+  THUMBNAIL?: string;
+  AUTHOR?: string;
+  CREATED_DATE?: string;
+  UPDATED_DATE?: string;
+  UPLOAD_FILES?: any;
 }

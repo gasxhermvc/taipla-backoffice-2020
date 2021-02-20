@@ -44,11 +44,12 @@
     </div>
 
     <div *ngSwitchCase="CONTROL_TYPE.select" class="ctrl">
+      dd
       <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
         [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
         [class.invalid]="control.invalid != null && control.invalid">
         <div *ngIf="_config.lookup">
-          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="item.DESCR" [nzValue]="item.CODE">
+          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])" [nzValue]="(item[_config?.lookupKey || 'CODE'])">
           </nz-option>
         </div>
       </nz-select>
@@ -94,8 +95,8 @@
       <input [placeholder]="_config?.placeholder || ''" nz-input [formControl]="control" [nzAutocomplete]="auto"
         [required]="_config.required" [class.invalid]="control.invalid != null && control.invalid" />
       <nz-autocomplete nzBackfill #auto>
-        <nz-auto-option *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
-          {{ item.DESCR }}
+        <nz-auto-option *ngFor="let item of _config.lookup" [nzValue]="(item[_config?.lookupKey || 'CODE']) ">
+          {{ (item[_config?.lookupLabel || 'DESCR']) }}
         </nz-auto-option>
       </nz-autocomplete>
     </div>
@@ -103,8 +104,8 @@
     <div *ngSwitchCase="CONTROL_TYPE.radio" class="ctrl">
       <nz-radio-group nz-input [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
         [required]="_config.required">
-        <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="item.CODE">
-          {{ item.DESCR }}
+        <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="(item[_config?.lookupKey || 'CODE']) ">
+          {{ (item[_config?.lookupLabel || 'DESCR']) }}
         </label>
       </nz-radio-group>
     </div>

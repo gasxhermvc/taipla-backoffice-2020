@@ -11,7 +11,7 @@ import { CultureManageListComponent } from '@backoffice/culture/components/cultu
 })
 export class CultureManageComponent extends BaseClass implements OnInit {
 
-  @ViewChild(CultureManageListComponent) cmList: CultureManageListComponent;
+  @ViewChild(CultureManageListComponent) ctList: CultureManageListComponent;
 
   MODE = MODE;
 
@@ -21,7 +21,7 @@ export class CultureManageComponent extends BaseClass implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);
-    (window as any).cm = this;
+    (window as any).ct = this;
   }
 
   ngOnInit() {
@@ -41,8 +41,8 @@ export class CultureManageComponent extends BaseClass implements OnInit {
         case MODE.DELETE:
           this.service.CULTURE_INFO = undefined;
           this.service.STATE = this.service.STATE_PAGE.LISTS;
-          if (this.cmList) {
-            this.cmList.retrieveData();
+          if (this.ctList) {
+            this.ctList.retrieveData();
           }
           break;
         case MODE.VIEW:
@@ -51,8 +51,11 @@ export class CultureManageComponent extends BaseClass implements OnInit {
           this.service.STATE = this.service.STATE_PAGE.LISTS;
           break;
       }
+    } else {
+      this.service.STATE = this.service.STATE_PAGE.LISTS;
     }
   }
+
 
   onSelected(item: CULTURE_INFO) {
     this.service.CULTURE_INFO = item;

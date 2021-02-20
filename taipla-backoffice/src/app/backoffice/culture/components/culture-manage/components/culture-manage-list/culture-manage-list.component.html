@@ -1,58 +1,88 @@
 <div class="row flex-column flex-sm-row m-0 p-0 mb-3">
-    <div class="col-12 col-sm-6 px-0">
-        <h3>จัดการประเภทอาหาร</h3>
-    </div>
-    <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
-        <button (click)="createCulture()" class="d-flex align-self-center" nz-button nzType="primary">
-            <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มประเภทอาหาร
-        </button>
-    </div>
+  <div class="col-12 col-sm-6 px-0">
+    <h3>จัดการวัฒนธรรมอาหาร</h3>
+  </div>
+  <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+    <button (click)="createCulture()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
+      <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มวัฒนธรรมอาหาร
+    </button>
+  </div>
 </div>
-<div class="table-responsive">
+<app-pagination [items]="items" [template]="list" [pageSize]="app.pagination.pageSize"
+  [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
+  (pageSizeChange)="app.pagination.pageSize = $event">
+</app-pagination>
+<ng-template #list let-items="items" let-from="from">
+  <div class="table-responsive">
     <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-                <th class="text-center align-top">#</th>
-                <th class="text-center align-top">ประเภทอาหาร</th>
-                <th class="text-center align-top">ผู้สร้างรายการ</th>
-                <th class="text-center align-top">วันที่สร้าง</th>
-                <th class="text-center align-top">วันที่แก้ไข</th>
-                <th class="text-center align-top">จัดการ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let item of items;let index = index">
-                <tr>
-                    <td class="text-center align-top">
-                        {{ (index + 1) }}
-                    </td>
-                    <td class="text-center align-top">
-                        {{ item.name }}
-                    </td>
-                    <td class="text-center align-top">
-                        {{ item.author }}
-                    </td>
-                    <td class="text-left align-top">
-                        {{ item.created_date }}
-                    </td>
-                    <td class="text-left align-top">
-                        {{ item.updated_date }}
-                    </td>
-                    <td class="text-center align-top">
-                        <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
-                    </td>
-                </tr>
-            </ng-container>
-        </tbody>
+      <thead>
+        <tr>
+          <th class="text-center align-top NO">#</th>
+          <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
+          <th class="text-center align-top COUNTRY_NAME_TH">ชื่อประเทศของอาหาร</th>
+          <th class="text-center align-top NAME_TH">ชื่อวัฒนธรรมอาหาร (ภาษาไทย)</th>
+          <th class="text-center align-top NAME_EN">ชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)</th>
+          <th class="text-center align-top AUTHOR">ผู้สร้างรายการ</th>
+          <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
+          <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
+          <th class="text-center align-top MANAGE">จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of items;let index = index">
+          <tr>
+            <td class="text-center align-top NO">
+              {{ (from +index + 1) }}
+            </td>
+            <td class="text-center align-top THUMBNAIL">
+              <ng-container *ngIf="item.THUMBNAIL; else defaultThumbnail;">
+                <img [src]="item.THUMBNAIL" class="img-fluid image rounded-circle" />
+              </ng-container>
+              <ng-template #defaultThumbnail>
+                <img src="./assets/images/defaults/image.png" class="img-fluid image rounded-circle" />
+              </ng-template>
+            </td>
+            <td class="text-center align-top COUNTRY_NAME_TH">
+              {{ item.COUNTRY_NAME_TH || '-' }}
+            </td>
+            <td class="text-center align-top NAME_TH">
+              {{ item.NAME_TH || '-' }}
+            </td>
+            <td class="text-center align-top NAME_EN">
+              {{ item.NAME_ENH || '-' }}
+            </td>
+            <td class="text-center align-top AUTHOR">
+              {{ item.AUTHOR || '-' }}
+            </td>
+            <td class="text-left align-top CREATED_DATE">
+              {{ item.CREATED_DATE || '-' }}
+            </td>
+            <td class="text-left align-top UPDATED_DATE">
+              {{ item.UPDATED_DATE || '-' }}
+            </td>
+            <td class="text-center align-top MANAGE">
+              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="items.length < 1">
+          <tr>
+            <td class="text-center align-top" colspan="9">
+              <div class="not-found"></div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
     </table>
-</div>
+  </div>
+</ng-template>
 
 <ng-template let-item="item" #btn>
-    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
-        แก้ไข
-    </button>
-    <span class="px-1"></span>
-    <button nz-button nzType="danger" (click)="onDelete(item)">
-        ลบ
-    </button>
+  <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+    แก้ไข
+  </button>
+  <span class="px-1"></span>
+  <button nz-button nzType="danger" (click)="onDelete(item)">
+    ลบ
+  </button>
 </ng-template>

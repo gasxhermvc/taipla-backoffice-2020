@@ -34,33 +34,74 @@ export class CultureManageAddComponent extends BaseClass implements OnInit {
   }
 
   initConfig() {
-    this.formConfig = [
+    this.formConfig = this.formConfig = [
       {
-        key: 'name',
-        label: 'ประเภทอาหาร',
-        type: ControlType.text,
+        key: 'COUNTRY_ID',
+        label: 'ประเทศของอาหาร',
+        type: ControlType.select,
+        placeholder: 'เลือกประเทศของอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'VALUE_TH',
+        lookup: this.backoffice.getLookup('COUNTRIES'),
         errorMessages: {
-          required: 'กรุณาป้อนประเภทอาหาร',
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
-        },
-        min: 3,
-        max: 150
+          required: 'กรุณาเลือกประเทศของอาหาร'
+        }
+      },
+      {
+        key: 'NAME_TH',
+        label: 'ชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        type: ControlType.text,
+        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        errorMessages: {
+          required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
+        }
+      },
+      {
+        key: 'NAME_EN',
+        label: 'ชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
+        type: ControlType.text,
+        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
+        regex: /[A-Za-z0-9]$/gi
+      },
+      {
+        key: 'DESCRIPTION',
+        label: 'คำอธิบาย',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนคำอธิบาย',
+        errorMessages: {
+          required: 'กรุณาป้อนคำอธิบาย'
+        }
+      },
+      {
+        key: 'UPLOAD',
+        label: 'รูปภาพประจำตัวประเทศอาหาร',
+        type: ControlType.upload,
+        placeholder: 'เลือกรูปภาพประจำตัว',
+        allowFileType: 'image/jpeg,image/jpg,/image/png',
+        multiple: false,
+        size: 10485760,
+        preview: false,
+        listType: 'picture-card',
+        errorMessages: {
+          uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
+          uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
+        }
       }
     ]
   }
-
   async onSave() {
     this.showLoading();
     if (this.form.isValid(false)) {
-      let param = [];
-      const data = this.form.getFormData();
-      param.push(data);
+      let param: any = this.form.getFormData();
       const result = await this.service.addCulture(param);
       if (result) {
-        this.app.showSuccess(this.app.message.SUCCESS.INSERT);
-        this.onBack();
-        this.complete.emit();
+        if (result.success) {
+          this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
+          this.onBack();
+          this.complete.emit();
+        } else {
+          this.app.showError(result.message || this.app.message.ERROR.INSERT)
+        }
       } else {
         this.app.showError(this.app.message.ERROR.INSERT);
       }

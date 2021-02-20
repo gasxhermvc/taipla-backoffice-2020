@@ -20,6 +20,8 @@ export interface FormConfig {
     placeholder?: any;
     defaultValue?: any;
     lookup?: any[];
+    lookupKey?: string;
+    lookupLabel?: string;
     format?: string;
     change?: any;
     blur?: any;

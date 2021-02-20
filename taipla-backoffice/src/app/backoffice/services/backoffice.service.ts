@@ -3,6 +3,7 @@ import { BaseRequest } from '@based/classes/base-request';
 import { DashboardService } from '@backoffice/services/dashboard.service';
 import { UmService } from '@backoffice/services/um.service';
 import { CountryService } from '@app/backoffice/services/country.service';
+import { CultureService } from '@backoffice/services/culture.service';
 import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
@@ -20,6 +21,7 @@ export class BackofficeService extends BaseRequest {
     { key: 'dashboard', class: DashboardService },
     { key: 'um', class: UmService },
     { key: 'country', class: CountryService },
+    { key: 'culture', class: CultureService },
     { key: 'food_center', class: FoodCenterService },
     { key: 'media', class: MediaService },
     { key: 'restaurant', class: RestaurantService },
@@ -28,6 +30,8 @@ export class BackofficeService extends BaseRequest {
 
   private lookupList = [
     'ROLES',
+    'COUNTRIES',
+    'CULTURES'
   ];
   private lookup: any = {}
 

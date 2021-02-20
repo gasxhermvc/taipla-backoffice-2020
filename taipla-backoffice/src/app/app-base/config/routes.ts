@@ -20,5 +20,12 @@ export const ROUTE: any = {
     CREATED: "country/created",
     UPDATED: "country/updated",
     DELETED: "country/deleted"
+  },
+  CULTURE: {
+    COUNTRIES: "culture/cultures",
+    GET_COUNTRY: "culture/culture",
+    CREATED: "culture/created",
+    UPDATED: "culture/updated",
+    DELETED: "culture/deleted"
   }
 }

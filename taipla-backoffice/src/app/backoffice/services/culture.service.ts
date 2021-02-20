@@ -15,15 +15,21 @@ export class CultureService extends BaseService {
   LISTS: CULTURE_LIST;
   CULTURE_INFO: CULTURE_INFO;
 
-  constructor(private app: AppService) {
+  get app(){
+    return this._app;
+  }
+
+  constructor(private _app: AppService) {
     super();
   }
 
   async getCultureLists(params: any) {
+    let result;
+
     try {
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.COUNTRIES}`, {
+        method: 'GET',
+        headers: this.app.header,
         parameters: params
       }, false).toPromise();
 
@@ -31,18 +37,23 @@ export class CultureService extends BaseService {
         this.LISTS = {
           TOTAL: response.data.length,
           LISTS: [...response.data]
-        }
+        };
+        console.log('getCultureLists.response', response);
+      } else {
+        this.app.showError(response.message || this.app.message.ERROR.DEFAULT)
       }
-      console.log('getCultureLists.reponse', response);
 
-    } catch { }
+
+    } catch (exception) {
+      console.log('getCultureLists.exception', exception);
+    }
 
     //=>Mock
-    const LISTS = [].concat(...MOCK_CULTURE_LISTS);
-    this.LISTS = {
-      TOTAL: LISTS.length,
-      LISTS: LISTS,
-    }
+    // const LISTS = [].concat(...MOCK_CULTURE_LISTS);
+    // this.LISTS = {
+    //   TOTAL: LISTS.length,
+    //   LISTS: LISTS,
+    // }
 
     return this.LISTS;
   }
@@ -50,22 +61,19 @@ export class CultureService extends BaseService {
   async getCulture(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.GET_CULTURE}/${param.COUNTRY_ID}`, {
+        method: 'GET',
         headers: { ...this.app.header },
         parameters: param
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('getCulture.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_CULTURE_EDIT };
+    // result = { ...MOCK_CULTURE_EDIT };
 
     return result
   }
@@ -74,22 +82,20 @@ export class CultureService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.CREATED}`, {
         method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
+      result = response && response.success ? response : undefined;
 
     } catch (exception) {
       console.log('addCulture.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_CULTURE_ADD };
+    // result = { ...MOCK_CULTURE_ADD };
 
     return result;
   }
@@ -98,22 +104,19 @@ export class CultureService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
-        parameters: param
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.UPDATED}`, {
+        method: 'PUT',
+        headers: this.app.headerFormData,
+        parameters: this.app.formData(param)
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.data && response.data.length > 0 ? response.data[0] : undefined;
-      }
-
+      result = response && response.success ? response : undefined;
     } catch (exception) {
       console.log('editCulture.exception', exception);
     }
 
     //=>Mock
-    result = { ...MOCK_CULTURE_EDIT };
+    // result = { ...MOCK_CULTURE_EDIT };
 
     return result;
   }
@@ -123,22 +126,20 @@ export class CultureService extends BaseService {
 
     try {
 
-      const response = await this.app.reqUrl('', {
-        method: 'POST',
-        headers: { ...this.app.header },
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.DELETED}`, {
+        method: 'DELETE',
+        headers: this.app.header,
         parameters: param
       }, false).toPromise();
 
-      if (response && response.success) {
-        result = response.success;
-      }
+      result = response && response.success ? response : undefined;
 
     } catch (exception) {
       console.log('deleteCulture.exception', exception);
     }
 
     //=>Mock
-    result = MOCK_CULTURE_DELETE.success
+    // result = MOCK_CULTURE_DELETE.success
 
     return result;
   }

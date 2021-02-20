@@ -58,15 +58,20 @@ export class CultureManageListComponent extends BaseClass implements OnInit {
     this.app.showConfirm(this.app.message.CONFIRM.DELETE, async (ok: any) => {
       if (ok) {
         this.showLoading();
-        let params: any = {
-          cultureLists: [{}]
+        let param: any = {
+          COUNTRY_ID: item.COUNTRY_ID,
+          CULTURE_ID: item.CULTURE_ID
         };
 
-        const result = await this.service.deleteCulture(params);
+        const result = await this.service.deleteCulture(param);
 
         if (result) {
-          this.app.showSuccess(this.app.message.SUCCESS.DELETE);
-          this.onSelected(item, MODE.DELETE);
+          if (result.success) {
+            this.app.showSuccess(result.message || this.app.message.SUCCESS.DELETE);
+            this.onSelected(item, MODE.DELETE);
+          } else {
+            this.app.showError(result.message || this.app.message.ERROR.DELETE);
+          }
         } else {
           this.app.showError(this.app.message.ERROR.DELETE);
         }
@@ -77,7 +82,7 @@ export class CultureManageListComponent extends BaseClass implements OnInit {
 
   onSelected(item: any, mode: MODE = MODE.VIEW) {
     this.selected.emit({
-      ITEM: item,
+      DATA: item,
       MODE: mode
     });
   }
