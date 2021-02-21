@@ -1,15 +1,15 @@
-<div class="row m-0 p-0 mb-3">
+<div class="d-row m-0 p-0 mb-3">
     <button nz-button nzType="danger" (click)="onBack()">
         ย้อนกลับ
     </button>
 </div>
 <ng-container *ngIf="formConfig">
-    <app-form [configs]="formConfig"></app-form>
-    <button nz-button nzType="primary" (click)="onSave()">
-        บันทึก
-    </button>
-    <span class="p-1"></span>
-    <button nz-button nzType="danger" (click)="onClear()">
-        ล้างค่า
-    </button>
+  <app-form [configs]="formConfig" [isMultipart]="true"></app-form>
+  <button nz-button nzType="primary" (click)="onSave()">
+      บันทึก
+  </button>
+  <span class="p-1"></span>
+  <button nz-button nzDanger nzType="primary" (click)="onClear()">
+      ล้างค่า
+  </button>
 </ng-container>

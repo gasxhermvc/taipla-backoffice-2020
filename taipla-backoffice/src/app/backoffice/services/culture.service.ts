@@ -27,7 +27,7 @@ export class CultureService extends BaseService {
     let result;
 
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.COUNTRIES}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.CULTURES}`, {
         method: 'GET',
         headers: this.app.header,
         parameters: params
@@ -61,7 +61,7 @@ export class CultureService extends BaseService {
   async getCulture(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.GET_CULTURE}/${param.COUNTRY_ID}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.CULTURE.GET_CULTURE}/${param.COUNTRY_ID}/${param.CULTURE_ID}`, {
         method: 'GET',
         headers: { ...this.app.header },
         parameters: param

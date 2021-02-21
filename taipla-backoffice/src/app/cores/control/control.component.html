@@ -44,7 +44,6 @@
     </div>
 
     <div *ngSwitchCase="CONTROL_TYPE.select" class="ctrl">
-      dd
       <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
         [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
         [class.invalid]="control.invalid != null && control.invalid">
