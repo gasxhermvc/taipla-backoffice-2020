@@ -39,7 +39,7 @@ export class CountryService extends BaseService {
         };
         console.log('getCountryLists.response', response);
       } else {
-        this.app.showError(response.message || this.app.message.ERROR.DEFAULT)
+        this.app.showError(response.message || this.app.message.ERROR.DEFAULT);
       }
 
 
