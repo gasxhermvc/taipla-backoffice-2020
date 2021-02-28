@@ -56,7 +56,7 @@ export class CountryManageEditComponent extends BaseClass implements OnInit {
         label: 'ชื่อประเทศอาหาร (ภาษาอังกฤษ)',
         type: ControlType.text,
         placeholder: 'ป้อนชื่อประเทศอาหาร (ภาษาอังกฤษ)',
-        regex: /[A-Za-z0-9\ ]$/gi,
+        regex: /^([a-zA-Z0-9 _-]+)$/,
         errorMessages: {
           regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
         }
