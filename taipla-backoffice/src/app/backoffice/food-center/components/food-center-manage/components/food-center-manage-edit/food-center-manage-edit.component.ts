@@ -39,8 +39,14 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
   initConfig() {
     this.formConfig = [
       {
-        key: 'CULTURE_ID',
-        invisible: true
+        key: 'FOOD_ID',
+        invisible: true,
+        required: true
+      },
+      {
+        key: 'CODE',
+        invisible: true,
+        required: true
       },
       {
         key: 'COUNTRY_ID',
@@ -55,8 +61,20 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
         }
       },
       {
+        key: 'CULTURE_ID',
+        label: 'วัฒนธรรมอาหาร',
+        type: ControlType.select,
+        placeholder: 'เลือกวัฒนธรรมของอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'VALUE_TH',
+        lookup: this.backoffice.getLookup('CULTURES'),
+        errorMessages: {
+          required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
+        }
+      },
+      {
         key: 'NAME_TH',
-        label: 'ชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        label: 'ชื่ออาหาร (ภาษาไทย)',
         type: ControlType.text,
         placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
         errorMessages: {
@@ -65,10 +83,13 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
       },
       {
         key: 'NAME_EN',
-        label: 'ชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
+        label: 'ชื่ออาหาร (ภาษาอังกฤษ)',
         type: ControlType.text,
         placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
-        regex: /[A-Za-z0-9]$/gi
+        regex: /[A-Za-z0-9]$/gi,
+        errorMessages: {
+          regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
+        }
       },
       {
         key: 'DESCRIPTION',
@@ -80,8 +101,20 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
         }
       },
       {
+        key: 'COOKING_FOOD',
+        label: 'วิธีการปรุง',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนวิธีการปรุง'
+      },
+      {
+        key: 'DIETETIC_FOOD',
+        label: 'โภชนาการอาหาร',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนโภชนาการอาหาร'
+      },
+      {
         key: 'UPLOAD',
-        label: 'รูปภาพประจำตัวประเทศอาหาร',
+        label: 'รูปภาพประจำตัวอาหาร',
         type: ControlType.upload,
         placeholder: 'เลือกรูปภาพประจำตัว',
         allowFileType: 'image/jpeg,image/jpg,/image/png',
@@ -102,7 +135,8 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
 
     const result = await this.service.getFoodCenter({
       COUNTRY_ID: this.service.FOOD_CENTER_INFO.DATA.COUNTRY_ID,
-      CULTURE_ID: this.service.FOOD_CENTER_INFO.DATA.CULTURE_ID
+      CULTURE_ID: this.service.FOOD_CENTER_INFO.DATA.CULTURE_ID,
+      FOOD_ID: this.service.FOOD_CENTER_INFO.DATA.FOOD_ID
     });
 
     if (result) {

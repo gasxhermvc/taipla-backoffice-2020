@@ -23,11 +23,13 @@ export class LoginComponent implements OnInit {
       min: 4,
       max: 150,
       placeholder: 'Username',
+      regex: /[A-Za-z0-9]$/gi,
       errorMessages: {
         required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
         // email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
         minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
         maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+        regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
       }
     },
     {

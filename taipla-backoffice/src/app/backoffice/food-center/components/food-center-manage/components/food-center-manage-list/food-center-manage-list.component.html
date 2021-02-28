@@ -4,7 +4,7 @@
   </div>
   <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
     <button (click)="createFoodCenter()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
-      <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มข้อมูลอาหารส่วนกลาง
+      <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มอาหารส่วนกลาง
     </button>
   </div>
 </div>
@@ -19,9 +19,10 @@
         <tr>
           <th class="text-center align-top NO">#</th>
           <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
-          <th class="text-center align-top COUNTRY_NAME_TH">ชื่อประเทศของอาหาร</th>
-          <th class="text-center align-top NAME_TH">ชื่อวัฒนธรรมอาหาร (ภาษาไทย)</th>
-          <th class="text-center align-top NAME_EN">ชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)</th>
+          <th class="text-center align-top COUNTRY_NAME_TH">ประเทศของอาหาร</th>
+          <th class="text-center align-top CULTURE_NAME_TH">วัฒนธรรมอาหาร</th>
+          <th class="text-center align-top NAME_TH">ชื่ออาหาร (ภาษาไทย)</th>
+          <th class="text-center align-top NAME_EN">ชื่อาหาร (ภาษาอังกฤษ)</th>
           <th class="text-center align-top AUTHOR">ผู้สร้างรายการ</th>
           <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
           <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
@@ -45,6 +46,9 @@
             <td class="text-center align-top COUNTRY_NAME_TH">
               {{ item.COUNTRY_NAME_TH || '-' }}
             </td>
+            <td class="text-center align-top CULTURE_NAME_TH">
+              {{ item.CULTURE_NAME_TH || '-' }}
+            </td>
             <td class="text-center align-top NAME_TH">
               {{ item.NAME_TH || '-' }}
             </td>
@@ -67,7 +71,7 @@
         </ng-container>
         <ng-container *ngIf="items.length < 1">
           <tr>
-            <td class="text-center align-top" colspan="9">
+            <td class="text-center align-top" colspan="10">
               <div class="not-found"></div>
             </td>
           </tr>

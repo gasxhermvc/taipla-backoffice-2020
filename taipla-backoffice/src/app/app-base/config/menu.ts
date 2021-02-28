@@ -35,7 +35,7 @@ export let MENU_CONFIGS: MENU[] = [
     IS_MENU: true
   },
   {
-    NAME: 'food-center',
+    NAME: 'food_center',
     LABEL: 'อาหารส่วนกลาง',
     ICON: 'database',
     PATH: 'backoffice/food-center',

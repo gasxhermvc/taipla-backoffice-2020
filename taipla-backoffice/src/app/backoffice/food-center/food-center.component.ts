@@ -13,7 +13,7 @@ import { MODE } from '@app-base/enums/MODE';
 export class FoodCenterComponent extends BaseClass implements OnInit {
 
   public MODE = MODE;
-  currentSystem: string = 'food-center';
+  currentSystem: string = 'food_center';
 
   get service(): FoodCenterService {
     return this.store[this.currentSystem] || {};

@@ -102,10 +102,12 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         placeholder: "ชื่อผู้ใช้งานระบบ",
         required: true,
+        regex: /[A-Za-z0-9]$/gi,
         errorMessages: {
           required: 'กรุณาป้อนชื่อผู้ใช้งาน',
           minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
           maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร',
+          regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
         },
         min: 3,
         max: 100

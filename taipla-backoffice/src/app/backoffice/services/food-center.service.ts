@@ -76,7 +76,7 @@ export class FoodCenterService extends BaseService {
     let result;
     try {
       const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.CREATED}`, {
-        method: 'GET',
+        method: 'POST',
         headers: this.app.headerFormData,
         parameters: this.app.formData(param)
       }, false).toPromise();

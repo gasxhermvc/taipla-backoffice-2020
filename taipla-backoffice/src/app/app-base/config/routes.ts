@@ -28,9 +28,9 @@ export const ROUTE: any = {
     UPDATED: "culture/updated",
     DELETED: "culture/deleted"
   },
-  FOOD: {
+  FOOD_CENTER: {
     FOODS: "food/foods",
-    GET_FOOD: "food/food",
+    GET_FOOD_CENTER: "food/food",
     CREATED: "food/created",
     UPDATED: "food/updated",
     DELETED: "food/deleted"

@@ -15,7 +15,7 @@ export class FoodCenterManageComponent extends BaseClass implements OnInit {
   MODE = MODE;
 
   get service(): FoodCenterService {
-    return this.store['culture'];
+    return this.store['food_center'];
   }
 
   constructor(injector: Injector) {
