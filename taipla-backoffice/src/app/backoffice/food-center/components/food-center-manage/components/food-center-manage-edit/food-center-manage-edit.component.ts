@@ -86,7 +86,7 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
         label: 'ชื่ออาหาร (ภาษาอังกฤษ)',
         type: ControlType.text,
         placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
-        regex: /[A-Za-z0-9]$/gi,
+        regex: /[A-Za-z0-9\ ]$/gi,
         errorMessages: {
           regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
         }

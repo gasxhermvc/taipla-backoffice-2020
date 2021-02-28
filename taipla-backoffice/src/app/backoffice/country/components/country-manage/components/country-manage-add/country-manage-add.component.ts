@@ -88,7 +88,7 @@ export class CountryManageAddComponent extends BaseClass implements OnInit {
       const result = await this.service.addCountry(param);
       if (result) {
         if (result.success) {
-          this.backoffice.reloadLookup('COUNTRIES');
+          this.backoffice.reloadLookup(['COUNTRIES']);
           this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
           this.onBack();
           this.complete.emit();

@@ -61,7 +61,7 @@ export class CultureManageAddComponent extends BaseClass implements OnInit {
         label: 'ชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
         type: ControlType.text,
         placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
-        regex: /[A-Za-z0-9]$/gi,
+        regex: /[A-Za-z0-9\ ]$/gi,
         errorMessages: {
           regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
         }
@@ -99,11 +99,10 @@ export class CultureManageAddComponent extends BaseClass implements OnInit {
       const result = await this.service.addCulture(param);
       if (result) {
         if (result.success) {
-          this.backoffice.reloadLookup(['COUNTRIES', 'CULTURES']).then(() => {
-            this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
-            this.onBack();
-            this.complete.emit();
-          })
+          this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
+          this.backoffice.reloadLookup(['COUNTRIES', 'CULTURES']);
+          this.onBack();
+          this.complete.emit();
         } else {
           this.app.showError(result.message || this.app.message.ERROR.INSERT)
         }

@@ -68,8 +68,8 @@ export class BackofficeService extends BaseRequest {
     this.init();
   }
 
-  public async reloadLookup(key: any) {
-    const reqLookup = await Promise.all([...key].map(async (LUT) => {
+  public async reloadLookup(keys: any) {
+    const reqLookup: any = await Promise.all([].concat(...keys).map(async (LUT) => {
       return await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/lut/${LUT}`, {
         method: 'GET',
         headers: this.app.headerFormData,
