@@ -1,1 +1,8 @@
-<p>food-center-manage works!</p>
+<ng-container [ngSwitch]="service.STATE">
+  <app-food-center-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)">
+  </app-food-center-manage-list>
+  <app-food-center-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete()" (back)="onBack()">
+  </app-food-center-manage-add>
+  <app-food-center-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete()" (back)="onBack()">
+  </app-food-center-manage-edit>
+</ng-container>

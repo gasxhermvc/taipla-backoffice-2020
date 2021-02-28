@@ -33,6 +33,6 @@ export const ROUTE: any = {
     GET_FOOD: "food/food",
     CREATED: "food/created",
     UPDATED: "food/updated",
-    DELETED: "food/deleted"s
+    DELETED: "food/deleted"
   }
 }

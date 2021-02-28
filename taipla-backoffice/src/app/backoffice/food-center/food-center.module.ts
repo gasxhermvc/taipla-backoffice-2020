@@ -1,19 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FoodCenterRoutingModule } from '@backoffice/food-center/food-center-routing.module';
-import { FoodCenterComponent } from '@backoffice/food-center/food-center.component';
-import { FoodCenterManageComponent } from './components/food-center-manage/food-center-manage.component';
-import { FoodCenterManageAddComponent } from './components/food-center-manage/components/food-center-manage-add/food-center-manage-add.component';
-import { FoodCenterManageEditComponent } from './components/food-center-manage/components/food-center-manage-edit/food-center-manage-edit.component';
-import { FoodCenterManageListComponent } from './components/food-center-manage/components/food-center-manage-list/food-center-manage-list.component';;
+//=>Libraries
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon'
+
+import { FoodCenterRoutingModule } from '@app/backoffice/food-center/food-center-routing.module';
+import { FoodCenterComponent } from '@app/backoffice/food-center/food-center.component';
+import { FoodCenterManageComponent } from '@app/backoffice/food-center/components/food-center-manage/food-center-manage.component';
+import { FoodCenterManageAddComponent } from '@app/backoffice/food-center/components/food-center-manage/components/food-center-manage-add/food-center-manage-add.component';
+import { FoodCenterManageEditComponent } from '@app/backoffice/food-center/components/food-center-manage/components/food-center-manage-edit/food-center-manage-edit.component';
+import { FoodCenterManageListComponent } from '@app/backoffice/food-center/components/food-center-manage/components/food-center-manage-list/food-center-manage-list.component'; import { ShareModule } from '@app/cores/share.module';
+;
 
 
 @NgModule({
-  declarations: [FoodCenterComponent, FoodCenterManageComponent, FoodCenterManageAddComponent, FoodCenterManageEditComponent, FoodCenterManageListComponent],
+  declarations: [
+    FoodCenterComponent,
+    FoodCenterManageComponent,
+    FoodCenterManageAddComponent,
+    FoodCenterManageEditComponent,
+    FoodCenterManageListComponent
+  ],
   imports: [
     CommonModule,
-    FoodCenterRoutingModule
+    FoodCenterRoutingModule,
+    ShareModule,
+
+    NzButtonModule,
+    NzIconModule
+  ],
+  exports: [
+    FoodCenterComponent,
+    FoodCenterManageComponent,
+    FoodCenterManageAddComponent,
+    FoodCenterManageEditComponent,
+    FoodCenterManageListComponent
   ]
 })
 export class FoodCenterModule { }

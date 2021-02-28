@@ -19,7 +19,7 @@ export class FoodCenterService extends BaseService {
     super();
   }
 
-  async getFoodterCenterLists(params: any) {
+  async getFoodCenterLists(params: any) {
     try {
       const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.FOODS}`, {
         method: 'GET',
@@ -32,13 +32,13 @@ export class FoodCenterService extends BaseService {
           TOTAL: response.data.length,
           LISTS: [...response.data]
         }
-        console.log('getFoodterCenterLists.response', response);
+        console.log('getFoodCenterLists.response', response);
       } else {
         this.app.showError(response.message || this.app.message.ERROR.DEFAULT);
       }
 
     } catch (exception) {
-      console.log('getFoodterLists.exception', exception);
+      console.log('getFoodLists.exception', exception);
 
     }
 
@@ -51,7 +51,7 @@ export class FoodCenterService extends BaseService {
 
     return this.LISTS;
   }
-  async getFoodterCenter(param: any) {
+  async getFoodCenter(param: any) {
     let result;
     try {
 
