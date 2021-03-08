@@ -41,8 +41,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         placeholder: "ชื่อจริง",
         errorMessages: {
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรอกข้อมูลชื่อจริงอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลชื่อจริงไม่เกิน 150 ตัวอักษร'
         },
         min: 3,
         max: 150
@@ -53,23 +53,23 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         placeholder: "นามสกุล",
         errorMessages: {
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร'
+          minLength: 'กรอกข้อมูลนามสกุลอย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลนามสกุลไม่เกิน 150 ตัวอักษร'
         },
         min: 3,
         max: 150
       },
       {
         key: 'PHONE',
-        label: 'เบอร์โทรศัพท์',
+        label: 'เบอร์มือถือ',
         type: ControlType.phone,
-        placeholder: "เบอร์โทรศัพท์",
+        placeholder: "เบอร์มือถือ",
         required: true,
         errorMessages: {
-          required: 'กรุณาป้อนเบอร์โทรศัพท์',
+          required: 'กรอกข้อมูลเบอร์มือถือ 10 หลัก (0899999999)',
           phone: this.app.message.INPUT.VALIDATOR.PHONE,
-          minLength: 'กรุณาป้อนอย่างน้อย 10 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 15 ตัวอักษร',
+          minLength: 'กรอกข้อมูลเบอร์มือถืออย่างน้อย 10 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลเบอร์มือถือไม่เกิน 15 ตัวอักษร',
         },
         min: 10,
         max: 15
@@ -81,10 +81,10 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         placeholder: "Email address",
         required: true,
         errorMessages: {
-          required: 'กรุณาป้อนอีเมล์',
-          email: 'กรุณาป้อนรูปแบบ Email เท่านั้น',
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
+          required: 'กรอกรูปแบบอีเมล์เท่านั้น',
+          email: 'กรอกรูปแบบอีเมล์เท่านั้น',
+          minLength: 'กรอกข้อมูลอีเมล์อย่างน้อย 3 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลอีเมล์ไม่เกิน 150 ตัวอักษร',
         },
         min: 3,
         max: 150
@@ -97,13 +97,13 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         required: true,
         regex: /^([a-zA-Z0-9 _-]+)$/,
         errorMessages: {
-          required: 'กรุณาป้อนชื่อผู้ใช้งาน',
-          minLength: 'กรุณาป้อนอย่างน้อย 3 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร',
-          regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
+          required: 'กรอกชื่อผู้ใช้งาน',
+          minLength: 'กรอกข้อมูลชื่อผู้ใช้งานอย่างน้อย 4 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลชื่อผู้ใช้งานไม่เกิน 20 ตัวอักษร',
+          regex: 'กรอกเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
         },
-        min: 3,
-        max: 100
+        min: 4,
+        max: 20
       },
       {
         key: 'PASSWORD',
@@ -112,12 +112,12 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         required: true,
         placeholder: "รหัสผ่าน",
         errorMessages: {
-          required: 'กรุณาป้อนรหัสผ่าน',
-          minLength: 'กรุณาป้อนอย่างน้อย 6 ตัวอักษร',
-          maxLength: 'กรุณาป้อนไม่เกิน 100 ตัวอักษร'
+          required: 'กรอกรหัสผ่าน',
+          minLength: 'กรอกข้อมูลรหัสผ่านอย่างน้อย 6 ตัวอักษร',
+          maxLength: 'กรอกข้อมูลรหัสผ่านไม่เกิน 20 ตัวอักษร'
         },
         min: 6,
-        max: 100
+        max: 20
       },
       {
         key: 'UPLOAD',
@@ -142,7 +142,7 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.select,
         lookup: this.backoffice.getLookup('ROLES'),
         errorMessages: {
-          required: 'กรุณาเลือกสถานะ'
+          required: 'เลือกสถานะ'
         }
       }
     ]

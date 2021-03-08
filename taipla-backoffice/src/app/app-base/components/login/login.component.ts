@@ -25,11 +25,11 @@ export class LoginComponent implements OnInit {
       placeholder: 'Username',
       regex: /^([a-zA-Z0-9 _-]+)$/,
       errorMessages: {
-        required: 'กรุณาป้อนรหัสชื่อผู้ใช้งาน',
+        required: 'กรอกรหัสชื่อผู้ใช้งาน',
         // email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',
-        minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        maxLength: 'กรุณาป้อนไม่เกิน 150 ตัวอักษร',
-        regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
+        minLength: 'กรอกข้อมูลชื่อผู้ใช้งานอย่างน้อย 4 ตัวอักษร',
+        maxLength: 'กรอกข้อมูลชื่อผู้ใช้งานไม่เกิน 20 ตัวอักษร',
+        regex: 'กรอกเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
       }
     },
     {
@@ -41,9 +41,9 @@ export class LoginComponent implements OnInit {
       placeholder: 'Password',
       autocomplete: false,
       errorMessages: {
-        required: 'กรุณาป้อนรหัสผ่าน',
-        minLength: 'กรุณาป้อนอย่างน้อย 4 ตัวอักษร',
-        maxLength: 'กรุณาป้อนไม่เกิน 20 ตัวอักษร',
+        required: 'กรอกรหัสผ่าน',
+        minLength: 'กรอกข้อมูลรหัสผ่านอย่างน้อย 6 ตัวอักษร',
+        maxLength: 'กรอกข้อมูลรหัสผ่านไม่เกิน 20 ตัวอักษร',
       }
     },
     {
