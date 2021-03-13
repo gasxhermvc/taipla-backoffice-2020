@@ -8,11 +8,13 @@ import { SwitcherComponent } from '@app-base/components/switcher/switcher.compon
 import { LoginModule } from '@app-base/components/login/login.module';
 import { LayoutTemplateModule } from '@app-base/components/layout-template/layout-template.module';
 import { AuthService } from '@app/based/services/auth.service';
+import { ImageComponent } from '@app-base/components/image/image.component';
 
 
 @NgModule({
   declarations: [
-    SwitcherComponent
+    SwitcherComponent,
+    ImageComponent
   ],
   imports: [
     //=>Angular
@@ -25,7 +27,8 @@ import { AuthService } from '@app/based/services/auth.service';
   ],
   exports: [
     LayoutTemplateModule,
-    LoginModule
+    LoginModule,
+    ImageComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

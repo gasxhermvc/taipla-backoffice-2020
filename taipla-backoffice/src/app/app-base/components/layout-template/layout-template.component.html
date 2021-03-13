@@ -5,14 +5,14 @@
 </div>
 <div class="row p-0 m-0 main-content flex-nowrap">
     <div class="px-0 pos-relative slider" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible
-        [ngClass]="{'slider-hide': !layout.isCollapsed }">
-        <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': !layout.isCollapsed }">
-            <div class="logo" [ngClass]="{ 'd-none': !layout.isCollapsed }">
+        [ngClass]="{'slider-hide': layout.isCollapsed }">
+        <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': layout.isCollapsed }">
+            <div class="logo" [ngClass]="{ 'd-none': layout.isCollapsed }">
                 <ng-container *ngIf="profile">
                     <ng-container *ngTemplateOutlet="profile"></ng-container>
                 </ng-container>
             </div>
-            <ul [ngClass]="{ 'd-none': !layout.isCollapsed }" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible>
+            <ul [ngClass]="{ 'd-none': layout.isCollapsed }" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible>
                 <ng-container *ngIf="isShowMenu">
                     <ng-container *ngFor="let menu of menus; let index = index">
                         <li *ngIf="menu.IS_MENU" nz-menu-item (click)="onClickMenu(index)"
@@ -25,7 +25,7 @@
             </ul>
         </div>
     </div>
-    <div class="col-12 px-0" [ngClass]="{'col': layout.isCollapsed , 'col-12': !layout.isCollapsed }">
+    <div class="col-12 px-0" [ngClass]="{'col': !layout.isCollapsed , 'col-12': layout.isCollapsed }">
         <span class="ant-layout-sider-zero-width-trigger" (click)="layout.isCollapsed = !layout.isCollapsed">
             <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
         </span>

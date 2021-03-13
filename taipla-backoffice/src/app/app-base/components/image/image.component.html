@@ -1,0 +1,10 @@
+<ng-container *ngIf="loaded;else default;">
+  <i nz-icon nzType="loading" nzTheme="outline"></i>
+</ng-container>
+<ng-template #default>
+  <img #image [class]="className" />
+</ng-template>
+
+<!-- <img [attr.src]="src" (load)="onImageLoaded($event)" (change)="onImageChange($event)" (error)="onImageError($event)"
+  [class]="className" [hidden]="!loaded" />
+<img [attr.src]="imageDefault" [class]="className" [hidden]="loaded" /> -->

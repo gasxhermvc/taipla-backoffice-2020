@@ -21,7 +21,7 @@ export let MENU_CONFIGS: MENU[] = [
   {
     NAME: 'country',
     LABEL: 'ประเทศ',
-    ICON: 'read',
+    ICON: 'flag',
     PATH: 'backoffice/country',
     IS_ACTIVE: false,
     IS_MENU: true

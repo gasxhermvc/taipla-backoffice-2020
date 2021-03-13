@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
       min: 4,
       max: 150,
       placeholder: 'Username',
-      regex: /^([a-zA-Z0-9 _-]+)$/,
+      regex: /^([a-zA-Z0-9\!\@\#\$\%\&\_\-\ \.]+)$/i,
       errorMessages: {
         required: 'กรอกรหัสชื่อผู้ใช้งาน',
         // email: 'รองรับเฉพาะรูปแบบ Email เท่านั้น',

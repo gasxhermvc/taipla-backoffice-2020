@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 //=>App
+import { AppBaseModule } from '@app-base/app-base.module';
 import { ShareModule } from '@app/cores/share.module';
 import { UmRoutingModule } from '@backoffice/um/um-routing.module';
 import { UmComponent } from '@backoffice/um/um.component';
@@ -26,6 +27,7 @@ import { UmManageEditComponent } from '@backoffice/um/components/um-manage/compo
   ],
   imports: [
     CommonModule,
+    AppBaseModule,
     UmRoutingModule,
     ShareModule,
 

@@ -32,12 +32,16 @@
               {{ (from + index + 1) }}
             </td>
             <td class="text-center align-top AVATAR">
-              <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
-                <img [src]="item.AVATAR" class="img-fluid avatar rounded-circle" />
+              <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
+              </app-image>
+              <!-- <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
+                <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
+                </app-image>
               </ng-container>
               <ng-template #defaultAvatar>
-                <img src="./assets/images/defaults/avatar.png" class="img-fluid avatar rounded-circle" />
-              </ng-template>
+                <app-image src="./assets/images/defaults/avatar.png" className="img-fluid avatar rounded-circle"
+                  imageType="avatar"></app-image>
+              </ng-template> -->
             </td>
             <td class="text-center align-top USERNAME">
               {{ item.USERNAME || '-' }}
