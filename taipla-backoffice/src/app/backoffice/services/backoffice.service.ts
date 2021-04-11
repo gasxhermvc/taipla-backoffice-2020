@@ -76,7 +76,10 @@ export class BackofficeService extends BaseRequest {
         parameters: {}
       }, false).toPromise()
     }));
-    this.lookupList.forEach((it, i) => { if (reqLookup[i] && reqLookup[i].data) { this.lookup[`${it}`] = reqLookup[i].data; } });
+
+    if (reqLookup && reqLookup.success) {
+      this.lookup[keys] = reqLookup[0] && reqLookup[0].data;
+    }
   }
   private async init() {
     console.log('backoffice.service.init');
