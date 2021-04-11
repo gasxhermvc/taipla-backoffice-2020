@@ -21,7 +21,7 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);
-    (window as any).cme = this;
+    (window as any).fce = this;
   }
 
   ngOnInit() {
@@ -100,18 +100,18 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
           required: 'กรุณาป้อนคำอธิบาย'
         }
       },
-      {
-        key: 'COOKING_FOOD',
-        label: 'วิธีการปรุง',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนวิธีการปรุง'
-      },
-      {
-        key: 'DIETETIC_FOOD',
-        label: 'โภชนาการอาหาร',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนโภชนาการอาหาร'
-      },
+      // {
+      //   key: 'COOKING_FOOD',
+      //   label: 'วิธีการปรุง',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนวิธีการปรุง'
+      // },
+      // {
+      //   key: 'DIETETIC_FOOD',
+      //   label: 'โภชนาการอาหาร',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนโภชนาการอาหาร'
+      // },
       {
         key: 'UPLOAD',
         label: 'รูปภาพประจำตัวอาหาร',
@@ -126,6 +126,13 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
           uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
           uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
         }
+      },
+      {
+        key: 'LEGEND',
+        label: 'ตำนานอาหาร',
+        type: ControlType.legend,
+        limit: 3,
+        multiple: true
       }
     ]
   }
@@ -152,6 +159,43 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
             config.avatarUrl = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES[0].url;
             this.form.setConfig("UPLOAD", config);
           }
+
+          //=>Bind legend
+          const config = this.formConfig.find((config) => config.key === 'LEGEND');
+          if (this.service.FOOD_CENTER_INFO.DATA.LEGENDS && this.service.FOOD_CENTER_INFO.DATA.LEGENDS.length > 0) {
+            // config.legendValues =
+          } else {
+            //=>ยังไม่เคยมีการเพิ่มตำนาน
+            // config.useDefault = true;
+          }
+
+          config.legendValues = [[
+            {
+              key: 'ID',
+              defaultValue: '1'
+            },
+            {
+              key: 'LEGEND_TYPE',
+              defaultValue: '1'
+            }
+            ,
+            {
+              key: 'DESCRIPTION',
+              defaultValue: 'ABC'
+            }
+            ,
+            {
+              key: 'CODE',
+              defaultValue: '1234567890'
+            }
+            ,
+            {
+              key: 'ID',
+              defaultValue: '1'
+            }
+          ]]
+
+          this.form.setConfig("LEGEND", config);
         }
       } else {
         this.app.showError(this.app.message.ERROR.DEFAULT);
@@ -198,5 +242,4 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
   onBack() {
     this.back.emit();
   }
-
 }

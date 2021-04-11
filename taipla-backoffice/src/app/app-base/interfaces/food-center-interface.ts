@@ -17,4 +17,7 @@ export interface FoodCenter {
   CREATED_DATE?: string;
   UPDATED_DATE?: string;
   UPLOAD_FILES?: any;
+
+  //=>Legend
+  LEGENDS?: any;
 }

@@ -42,6 +42,7 @@ export class ControlComponent implements ControlValueAccessor, Validators {
     phone: message.INPUT.VALIDATOR.PHONE,
     uploadFormat: message.INPUT.VALIDATOR.UPLOAD_FORMAT,
     uploadSize: message.INPUT.VALIDATOR.UPLOAD_SIZE,
+    // uploadLimit: message.INPUT.VALIDATOR.UPLOAD_LIMIT,
     minLength: message.INPUT.VALIDATOR.MIN_LENGTH,
     maxLength: message.INPUT.VALIDATOR.MAX_LENGTH,
     date: message.INPUT.VALIDATOR.DATE
@@ -132,9 +133,12 @@ export class ControlComponent implements ControlValueAccessor, Validators {
   }
 
 
-  get display(): 'input' | 'readonly' {
+  get display(): 'input' | 'legend' | 'readonly' {
     if (this._config) {
       switch (this._config.type) {
+        case ControlType.legend:
+          return 'legend';
+          break;
         default:
           if (this._config.readonly || this._config.view) {
             return 'readonly';

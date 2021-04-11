@@ -51,14 +51,15 @@ export class FoodCenterService extends BaseService {
 
     return this.LISTS;
   }
-  async getFoodCenter(param: any) {
+  async getFoodCenter(params: any) {
     let result;
     try {
 
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_FOOD_CENTER}/${param.FOOD_ID}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_FOOD_CENTER}/${params.FOOD_ID}`, {
         method: 'GET',
-        headers: { ...this.app.header },
-        parameters: param
+        headers: this.app.header,
+        parameters: params,
+        responseType: 'json'
       }, false).toPromise();
 
       result = response && response.success ? response : undefined;

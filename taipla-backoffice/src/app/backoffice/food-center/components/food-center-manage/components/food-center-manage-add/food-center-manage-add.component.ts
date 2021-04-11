@@ -88,18 +88,18 @@ export class FoodCenterManageAddComponent extends BaseClass implements OnInit {
           required: 'กรุณาป้อนคำอธิบาย'
         }
       },
-      {
-        key: 'COOKING_FOOD',
-        label: 'วิธีการปรุง',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนวิธีการปรุง'
-      },
-      {
-        key: 'DIETETIC_FOOD',
-        label: 'โภชนาการอาหาร',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนโภชนาการอาหาร'
-      },
+      // {
+      //   key: 'COOKING_FOOD',
+      //   label: 'วิธีการปรุง',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนวิธีการปรุง'
+      // },
+      // {
+      //   key: 'DIETETIC_FOOD',
+      //   label: 'โภชนาการอาหาร',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนโภชนาการอาหาร'
+      // },
       {
         key: 'UPLOAD',
         label: 'รูปภาพประจำตัวอาหาร',
@@ -125,7 +125,12 @@ export class FoodCenterManageAddComponent extends BaseClass implements OnInit {
       if (result) {
         if (result.success) {
           this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
-          this.onBack();
+          this.service.FOOD_CENTER_INFO.DATA = {
+            COUNTRY_ID: param.COUNTRY_ID,
+            CULTURE_ID: param.CULTURE_ID,
+            FOOD_ID: result.data.FOOD_ID
+          }
+          // this.onBack();
           this.complete.emit();
         } else {
           this.app.showError(result.message || this.app.message.ERROR.INSERT)

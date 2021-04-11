@@ -143,3 +143,31 @@ html {
         height: 104px;
     }
 }
+
+nz-select-search {
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none !important;
+        border: none !important;
+
+        .ant-select-selection-search-input {
+            outline: none !important;
+            border: none !important;
+        }
+    }
+}
+
+.validate {
+    .invalid.ant-select {
+        border: 1px solid red !important;
+
+        &:hover {
+            outline: none;
+            nz-select-top-control {
+                outline: none;
+                border: none;
+            }
+        }
+    }
+}

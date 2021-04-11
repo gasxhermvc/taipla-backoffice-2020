@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 //=>App
+import { AppBaseModule } from '@app-base/app-base.module';
 import { ShareModule } from '@cores/share.module';
 import { CultureRoutingModule } from '@app/backoffice/culture/culture-routing.module';
 import { CultureComponent } from '@app/backoffice/culture/culture.component';
@@ -27,6 +28,7 @@ import { CultureManageEditComponent } from '@app/backoffice/culture/components/c
   imports: [
     CommonModule,
     CultureRoutingModule,
+    AppBaseModule,
     ShareModule,
 
     NzButtonModule,

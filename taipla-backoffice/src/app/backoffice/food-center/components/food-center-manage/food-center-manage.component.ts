@@ -62,7 +62,15 @@ export class FoodCenterManageComponent extends BaseClass implements OnInit {
   }
 
   onComplete() {
-    this.service.FOOD_CENTER_INFO = undefined;
+    const doMODE = this.service.FOOD_CENTER_INFO !== undefined ? this.service.FOOD_CENTER_INFO.MODE : undefined;
+    switch (doMODE) {
+      case MODE.ADD:
+        this.service.STATE = this.service.STATE_PAGE.EDIT;
+        this.service.FOOD_CENTER_INFO.MODE = MODE.EDIT;
+        break;
+      default:
+        break;
+    }
     this.initMode();
   }
 

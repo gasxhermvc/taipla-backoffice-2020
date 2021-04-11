@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AppService } from '@app/based/services/app.service';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -9,8 +9,9 @@ import { catchError, map } from 'rxjs/operators';
   styleUrls: ['./image.component.scss']
 })
 export class ImageComponent implements OnInit {
-  @ViewChild('image', { static: false }) image: Element;
+  @ViewChild('image', { static: true, read: ElementRef }) image: ElementRef;
 
+  url: any = `${window.location.protocol}//${window.location.host}/`;
   _loaded: boolean = false;
   set loaded(loaded: boolean) {
     setTimeout(() => {
@@ -25,63 +26,66 @@ export class ImageComponent implements OnInit {
   @Input() src: any;
   @Input() className: any;
   @Input() imageType: "avatar" | "image";
+  @Input() draggable: boolean = false;
 
   imageDefault: any;
+
+
 
   constructor(private app: AppService) { }
 
   ngOnInit(): void {
     switch (this.imageType) {
       case "avatar":
-        this.imageDefault = "assets/images/defaults/avatar.png";
+        this.imageDefault = this.url + "assets/images/defaults/avatar.png";
         break;
       case "image":
-        this.imageDefault = "assets/images/defaults/image.png";
+        this.imageDefault = this.url + "assets/images/defaults/image.png";
         break;
     }
 
-    let contentType = '';
 
-    if (this.src && this.src !== '') {
-      if (this.src.indexOf('.png') !== -1 || this.src.indexOf('.PNG') !== -1) {
-        contentType = 'image/png';
-      } else if ((this.src.indexOf('.jpg') !== -1 || this.src.indexOf('.jpeg') !== -1) ||
-        (this.src.indexOf('.JPG') !== -1 || this.src.indexOf('.JPEG') !== -1)) {
-        contentType = 'image/jpeg';
-      } else if (this.src.indexOf('.gif') !== -1 || this.src.indexOf('.GIF') !== -1) {
-        contentType = 'image/gif';
-      } else if (this.src.indexOf('.svg') !== -1 || this.src.indexOf('.SVG') !== -1) {
-        contentType = 'image/svg';
-      }
+
+    if (!this.src || this.src === undefined || this.src === '') {
+      this.src = this.imageDefault;
+    }
+    this.retriveImage(this.src);
+  }
+
+  private retriveImage(imageUrl: string) {
+    this.loaded = false;
+    let contentType = '';
+    if (imageUrl.indexOf('.png') !== -1 || imageUrl.indexOf('.PNG') !== -1) {
+      contentType = 'image/png';
+    } else if ((imageUrl.indexOf('.jpg') !== -1 || imageUrl.indexOf('.jpeg') !== -1) ||
+      (imageUrl.indexOf('.JPG') !== -1 || imageUrl.indexOf('.JPEG') !== -1)) {
+      contentType = 'image/jpeg';
+    } else if (imageUrl.indexOf('.gif') !== -1 || imageUrl.indexOf('.GIF') !== -1) {
+      contentType = 'image/gif';
+    } else if (imageUrl.indexOf('.svg') !== -1 || imageUrl.indexOf('.SVG') !== -1) {
+      contentType = 'image/svg';
     }
 
-    this.app.reqUrl(this.src, {
+    this.app.reqUrl(imageUrl, {
       method: 'GET',
       headers: {
-        'content-type': contentType
+        'Content-Type': contentType
       },
-      parameters: {}
-    }, false).subscribe((response: any) => {
-      // console.log('image', image);
-      console.log(this.image)
-    }, (error: any) => {
-      console.log('image', error);
+      parameters: {},
+      responseType: 'blob'
+    }, false).subscribe({
+      next: (response: any) => {
+        if (response instanceof Blob) {
+          this.image.nativeElement.src = window.URL.createObjectURL(response);
+        } else {
+          this.image.nativeElement.src = this.imageDefault;
+        }
+        this.loaded = true;
+      },
+      error: (error: any) => {
+        this.retriveImage(this.imageDefault);
+        this.loaded = true;
+      }
     });
-  }
-
-  ngAfterViewInit() {
-    this.loaded = true;
-  }
-
-  onImageLoaded(evt) {
-    console.log('loaded', evt);
-    // evt.target.src = this.src;
-  }
-
-  onImageChange(evt) {
-    console.log('change', evt);
-  }
-  onImageError(evt) {
-    evt.target.src = this.imageDefault;
   }
 }

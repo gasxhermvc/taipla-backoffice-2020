@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LegendManageAddComponent } from './legend-manage-add.component';
+import { LegendManagerComponent } from './legend-manager.component';
 
-describe('LegendManageAddComponent', () => {
-  let component: LegendManageAddComponent;
-  let fixture: ComponentFixture<LegendManageAddComponent>;
+describe('LegendManagerComponent', () => {
+  let component: LegendManagerComponent;
+  let fixture: ComponentFixture<LegendManagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LegendManageAddComponent ]
+      declarations: [ LegendManagerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LegendManageAddComponent);
+    fixture = TestBed.createComponent(LegendManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment as env } from '@environments/environment';
 
 //=>Libraries
@@ -175,7 +175,7 @@ export class AppService {
 
     if (options && options.headers) {
       Object.keys(options.headers).forEach(key => {
-        if (key.toLowerCase() === 'content-type' && options.headers[key] && options.headers[key].indexOf('form-data')) {
+        if (key.toLowerCase() === 'content-type' && options.headers[key] && options.headers[key].indexOf('form-data') !== -1) {
           delete options.headers[key];
           isMultipart = true;
           formData = options.parameters;
@@ -192,11 +192,14 @@ export class AppService {
       params = this.buildParams(options);
     }
 
+    let responseType: any = options.responseType ? { responseType: options.responseType } : {};
     switch (options.method) {
       case "get":
         req = this.http.get(url, {
           headers: headers,
-          params: { ...params }
+          // params: { ...params },
+          ...params,
+          ...responseType
         });
         break;
 
@@ -215,7 +218,7 @@ export class AppService {
       case "delete":
         req = this.http.delete(url, {
           headers: headers,
-          params: { ...params }
+          ...params
         });
         break;
 

@@ -1,8 +1,10 @@
 @import "src/app/backoffice/styles.scss";
 
 :host {
-    .avatar {
-        width: 80px !important;
-        height: 80px !important;
+    ::ng-deep {
+        .avatar {
+            width: 60px !important;
+            height: 60px !important;
+        }
     }
 }

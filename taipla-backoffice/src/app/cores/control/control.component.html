@@ -3,6 +3,9 @@
     <div *ngSwitchCase="'input'">
       <ng-container *ngTemplateOutlet="input"></ng-container>
     </div>
+    <div *ngSwitchCase="'legend'">
+      <ng-container *ngTemplateOutlet="legend"></ng-container>
+    </div>
     <div *ngSwitchCase="'readonly'">
       <ng-container *ngTemplateOutlet="readonly"></ng-container>
     </div>
@@ -48,7 +51,8 @@
         [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
         [class.invalid]="control.invalid != null && control.invalid">
         <div *ngIf="_config.lookup">
-          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])" [nzValue]="(item[_config?.lookupKey || 'CODE'])">
+          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])"
+            [nzValue]="(item[_config?.lookupKey || 'CODE'])">
           </nz-option>
         </div>
       </nz-select>
@@ -152,5 +156,13 @@
   <div class="d-col readonly">
     <label *ngIf="_config.label" class="flex-1">{{_config.label}}</label>
     <label class="flex-1 pl-3">{{(_config.lookup) ? getLookupData(control.value) : control.value || '-' }}</label>
+  </div>
+</ng-template>
+
+<ng-template #legend>
+  <div [ngSwitch]="_config.type">
+    <div *ngSwitchCase="CONTROL_TYPE.legend" class="ctrl">
+      <app-legend-manager [formControl]="control" [config]="_config"></app-legend-manager>
+    </div>
   </div>
 </ng-template>

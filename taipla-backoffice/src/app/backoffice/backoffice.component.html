@@ -1,25 +1,26 @@
 <app-loading *ngIf="isShowLoading"></app-loading>
 <app-layout-template [menu]="menus" [current]="currentSystem" [profile]="profileTemp">
-    <ng-container inner-header *ngTemplateOutlet="headerTemp"></ng-container>
-    <router-outlet inner-content></router-outlet>
+  <ng-container inner-header *ngTemplateOutlet="headerTemp"></ng-container>
+  <router-outlet inner-content></router-outlet>
 </app-layout-template>
 
 <ng-template #headerTemp>
-    <div class="logo px-3">TAIPLA BACKOFFICE</div>
+  <div class="logo px-3">TAIPLA BACKOFFICE</div>
 </ng-template>
 
 <ng-template #profileTemp>
-    <ng-container *ngIf="user">
-        <div class="px-3 m-auto profile-menu">
-            <ng-container *ngIf="user.imageProfile; else defaultAvatar;">
+  <ng-container *ngIf="user">
+    <div class="px-3 m-auto profile-menu">
+      <!-- <ng-container *ngIf="user.imageProfile; else defaultAvatar;">
                 <img [src]="user.imageProfile" class="img-fluid profile-image" draggable="false" />
             </ng-container>
             <ng-template #defaultAvatar>
                 <img src="./assets/images/defaults/avatar.png" class="img-fluid profile-image" draggable="false" />
-            </ng-template>
-            <p class="profile-text">
-                {{ user.displayName }}
-            </p>
-        </div>
-    </ng-container>
+            </ng-template> -->
+      <app-image [src]="user.imageProfile" className="img-fluid profile-image" imageType="avatar"></app-image>
+      <p class="profile-text">
+        {{ user.displayName }}
+      </p>
+    </div>
+  </ng-container>
 </ng-template>

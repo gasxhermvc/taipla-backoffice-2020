@@ -1,4 +1,10 @@
 @import "src/app/backoffice/styles.scss";
 
 :host {
+    ::ng-deep {
+        .image {
+            width: 60px !important;
+            height: 60px !important;
+        }
+    }
 }

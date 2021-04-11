@@ -43,6 +43,11 @@ export interface FormConfig {
     child?: any;
     unit?: string;
     step?: number;
+
+
+    //=>legend
+    useDefault?: boolean;
+    legendValues?: any;
 }
 
 export interface ValidatorMessage {
@@ -52,6 +57,7 @@ export interface ValidatorMessage {
     phone?: string;
     uploadFormat?: string;
     uploadSize?: string;
+    uploadLimit?: string;
     minLength?: string;
     maxLength?: string;
     date?: string;
@@ -71,7 +77,8 @@ export enum ControlType {
     date,
     daterange,
     modal,
-    slider
+    slider,
+    legend
 }
 
 export enum ERROR_TYPE_TEXT {
@@ -80,6 +87,7 @@ export enum ERROR_TYPE_TEXT {
     'email' = 'email',
     'uploadFormat' = 'uploadFormat',
     'uploadSize' = 'uploadSize',
+    'uploadLimit' = 'uploadLimit',
     'phone' = 'phone',
     'minlength' = 'minLength',
     'maxlength' = 'maxLength',

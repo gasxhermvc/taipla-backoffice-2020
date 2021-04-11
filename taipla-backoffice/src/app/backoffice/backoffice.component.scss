@@ -7,19 +7,43 @@
         color: $color-dark;
     }
 
-    .profile-menu {
-        margin-top: 1rem !important;
-        text-align: center;
+    ::ng-deep {
+        .profile-menu {
+            margin-top: 1rem !important;
+            text-align: center;
 
-        .profile-image {
-            cursor: pointer;
-            margin: 0.5rem auto;
-            max-width: 100px;
-            border-radius: 50%;
+            .profile-image {
+                cursor: pointer;
+                margin: 0.5rem auto;
+                max-width: 100px;
+                border-radius: 50%;
+            }
+            .profile-text {
+                color: white;
+                margin: 1rem 0;
+            }
         }
-        .profile-text {
-            color: white;
-            margin: 1rem 0;
+
+        .backoffice-table {
+            thead {
+                tr {
+                    white-space: pre-line;
+                    color: rgba(255, 255, 255, 0.65);
+                    background: #001529;
+
+                    th,
+                    td {
+                        padding: 0.5rem;
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    white-space: pre-line;
+                    padding: 0.5rem;
+                }
+            }
         }
     }
 }

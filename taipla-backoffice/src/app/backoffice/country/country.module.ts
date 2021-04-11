@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 //=>App
+import { AppBaseModule } from '@app-base/app-base.module';
 import { ShareModule } from '@cores/share.module';
 import { CountryRoutingModule } from '@app/backoffice/country/country-routing.module';
 import { CountryComponent } from '@app/backoffice/country/country.component';
@@ -27,6 +28,7 @@ import { CountryManageEditComponent } from '@app/backoffice/country/components/c
   imports: [
     CommonModule,
     CountryRoutingModule,
+    AppBaseModule,
     ShareModule,
 
     NzButtonModule,

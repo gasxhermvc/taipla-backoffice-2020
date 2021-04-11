@@ -14,6 +14,8 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
 
   @Output() back = new EventEmitter<any>();
   @Output() complete = new EventEmitter<any>();
+  @Output() error = new EventEmitter<any>();
+  @Output() duplicate = new EventEmitter<any>();
 
   get service(): UmService {
     return this.store['um'];
@@ -95,12 +97,12 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
         type: ControlType.text,
         placeholder: "ชื่อผู้ใช้งานระบบ",
         required: true,
-        regex: /^([a-zA-Z0-9 _-]+)$/,
+        regex: /^([a-zA-Z0-9 _-|\.]+)$/,
         errorMessages: {
           required: 'กรอกชื่อผู้ใช้งาน',
           minLength: 'กรอกข้อมูลชื่อผู้ใช้งานอย่างน้อย 4 ตัวอักษร',
           maxLength: 'กรอกข้อมูลชื่อผู้ใช้งานไม่เกิน 20 ตัวอักษร',
-          regex: 'กรอกเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
+          regex: 'กรอกเป็นภาษาอังกฤษ หรือตัวเลข และจุดเท่านั้น'
         },
         min: 4,
         max: 20
@@ -155,17 +157,31 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
       const result = await this.service.addUser(param);
       if (result) {
         if (result.success) {
-          this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT);
-          this.onBack();
-          this.complete.emit();
+          switch (result.statusCode) {
+            case 200:
+              this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT_DUPLICATE);
+              this.duplicate.emit();
+              break;
+            case 201:
+              this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT);
+              this.complete.emit();
+              this.onBack();
+              break;
+            default:
+              this.error.emit();
+              break;
+          }
         } else {
           this.app.showError(result.message || this.app.message.ERROR.INSERT);
+          this.error.emit();
         }
       } else {
         this.app.showError(this.app.message.ERROR.INSERT);
+        this.error.emit();
       }
     } else {
       this.app.showError(this.app.message.ERROR.INVALID);
+      this.error.emit();
     }
 
     this.hideLoading();

@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LegendManageModule } from '@backoffice/cores/components/legend-manage/legend-manage.module';
 
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
+  declarations: [
 
-    LegendManageModule
+  ],
+  imports: [
+    CommonModule
   ],
   exports: [
-    LegendManageModule
   ]
 })
 export class BackofficeShareModule { }

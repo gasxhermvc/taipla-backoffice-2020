@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LegendManageEditComponent } from './legend-manage-edit.component';
+import { DisplayDatetimeComponent } from './display-datetime.component';
 
-describe('LegendManageEditComponent', () => {
-  let component: LegendManageEditComponent;
-  let fixture: ComponentFixture<LegendManageEditComponent>;
+describe('DisplayDatetimeComponent', () => {
+  let component: DisplayDatetimeComponent;
+  let fixture: ComponentFixture<DisplayDatetimeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LegendManageEditComponent ]
+      declarations: [ DisplayDatetimeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LegendManageEditComponent);
+    fixture = TestBed.createComponent(DisplayDatetimeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

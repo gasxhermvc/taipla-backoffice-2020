@@ -14,7 +14,7 @@
 </app-pagination>
 <ng-template #list let-items="items" let-from="from">
   <div class="table-responsive">
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover backoffice-table">
       <thead>
         <tr>
           <th class="text-center align-top NO">#</th>
@@ -22,6 +22,8 @@
           <th class="text-center align-top USER_NAME">ชื่อผู้ใช้งาน</th>
           <th class="text-center align-top FULL_NAME">ชื่อ - นามสกุล</th>
           <th class="text-center align-top ROLE">สถานะ</th>
+          <th class="text-center align-top CREATE_DATE">วันที่สร้าง</th>
+          <th class="text-center align-top UPDATE_DATE">วันที่แก้ไข</th>
           <th class="text-center align-top MANAGE">จัดการ</th>
         </tr>
       </thead>
@@ -34,14 +36,6 @@
             <td class="text-center align-top AVATAR">
               <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
               </app-image>
-              <!-- <ng-container *ngIf="item.AVATAR; else defaultAvatar;">
-                <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
-                </app-image>
-              </ng-container>
-              <ng-template #defaultAvatar>
-                <app-image src="./assets/images/defaults/avatar.png" className="img-fluid avatar rounded-circle"
-                  imageType="avatar"></app-image>
-              </ng-template> -->
             </td>
             <td class="text-center align-top USERNAME">
               {{ item.USERNAME || '-' }}
@@ -52,6 +46,14 @@
             <td class="text-left align-top ROLE">
               {{ item.ROLE || '-' }}
             </td>
+            <td class="text-center align-top CREATE_DATE">
+              <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY HH:mm:ss">
+              </app-display-datetime>
+            </td>
+            <td class="text-center align-top CREATE_DATE">
+              <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY HH:mm:ss">
+              </app-display-datetime>
+            </td>
             <td class="text-center align-top MANAGE">
               <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
             </td>
@@ -59,7 +61,7 @@
         </ng-container>
         <ng-container *ngIf="items.length < 1">
           <tr>
-            <td class="text-center align-top" colspan="6">
+            <td class="text-center align-top" colspan="8">
               <div class="not-found"></div>
             </td>
           </tr>

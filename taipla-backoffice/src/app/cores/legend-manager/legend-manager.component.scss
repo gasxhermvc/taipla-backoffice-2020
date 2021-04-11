@@ -1,0 +1,14 @@
+// @import "src/styles.scss";
+
+:host {
+    position: relative !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .title {
+        font-size: 1.1rem;
+        font-weight: 400;
+        margin-bottom: 0.8rem;
+    }
+}
