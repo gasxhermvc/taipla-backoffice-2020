@@ -13,7 +13,7 @@
     "test-backoffice": "ng test --watch --include=./app/backoffice/**/**.spec.ts",
     "e2e": "ng e2e",
     "run-prod": "ng serve --prod --base-href=./ --deploy-url=./ --sourceMap=false --vendorChunk=false --commonChunk=false --watch",
-    "prod": "ng build --prod --aot --base-href=./ --deploy-url=./ --output-path=./dist --delete-output-path=true --sourceMap=true --vendorChunk=false --commonChunk=false  --outputHashing=all --buildOptimizer=true"
+    "prod": "ng build --prod --aot --base-href=/ --deploy-url=/ --output-path=./dist --delete-output-path=true --sourceMap=true --vendorChunk=false --commonChunk=false  --outputHashing=all --buildOptimizer=true"
   },
   "private": true,
   "dependencies": {

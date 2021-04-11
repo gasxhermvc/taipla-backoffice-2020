@@ -13,8 +13,8 @@
     </ng-container>
     <div class="mb-3">
       <ng-container *ngFor="let data of values; let index = index;">
-        <div [ngClass]="{ 'mb-3': index < (values.length - 1) }">
-          <div class="border-bottom" [ngClass]="{ 'border-bottom': index < (values.length - 1) }">
+        <div [ngClass]="{ 'mb-3': !isLastest(index,values.length) }">
+          <div class="border-bottom" [ngClass]="{ 'border-bottom': !isLastest(index,values.length) }">
             <div class="d-flex flex-column">
               <ng-container *ngIf="isMultiple">
                 <div class="d-flex justify-content-end mb-3">
@@ -26,7 +26,8 @@
                 </div>
               </ng-container>
               <div *ngFor="let c of data; let innerIdx = index;"
-                [ngClass]="{ 'mb-3': innerIdx < (data.length - 1), 'mb-3': index < (values.length - 1) }">
+                [class]="!isLastest(innerIdx,data.length) ? 'mb-3' : ''"
+                [ngClass]="{ 'mb-3': !isLastest(index,values.length) }">
                 <app-control *ngIf="!c.invisible" [config]="c"></app-control>
               </div>
             </div>

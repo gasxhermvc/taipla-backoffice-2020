@@ -226,4 +226,8 @@ export class LegendManagerComponent implements ControlValueAccessor, Validators 
 
     this.renderer();
   }
+
+  isLastest(index: number, len: number) {
+    return index < (len - 1)
+  }
 }
