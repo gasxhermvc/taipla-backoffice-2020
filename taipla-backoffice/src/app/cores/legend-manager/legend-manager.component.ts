@@ -63,7 +63,7 @@ export class LegendManagerComponent implements ControlValueAccessor, Validators 
       label: 'รูปภาพตำนาน',
       type: ControlType.upload,
       placeholder: 'เลือกรูปภาพตำนาน',
-      allowFileType: 'image/jpeg,image/jpg,/image/png',
+      allowFileType: 'image/jpeg,image/jpg,image/png',
       multiple: true,
       limit: 5,
       size: 10485760,

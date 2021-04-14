@@ -68,7 +68,7 @@ export class CountryManageAddComponent extends BaseClass implements OnInit {
         label: 'รูปภาพประจำตัวประเทศอาหาร',
         type: ControlType.upload,
         placeholder: 'เลือกรูปภาพประจำตัว',
-        allowFileType: 'image/jpeg,image/jpg,/image/png',
+        allowFileType: 'image/jpeg,image/jpg,image/png',
         multiple: false,
         size: 10485760,
         preview: false,
