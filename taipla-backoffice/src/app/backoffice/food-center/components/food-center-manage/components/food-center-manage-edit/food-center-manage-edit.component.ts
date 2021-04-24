@@ -96,22 +96,28 @@ export class FoodCenterManageEditComponent extends BaseClass implements OnInit {
         label: 'คำอธิบาย',
         type: ControlType.textarea,
         placeholder: 'ป้อนคำอธิบาย',
-        errorMessages: {
-          required: 'กรุณาป้อนคำอธิบาย'
-        }
+        // errorMessages: {
+        //   required: 'กรุณาป้อนคำอธิบาย'
+        // }
       },
-      // {
-      //   key: 'COOKING_FOOD',
-      //   label: 'วิธีการปรุง',
-      //   type: ControlType.textarea,
-      //   placeholder: 'ป้อนวิธีการปรุง'
-      // },
-      // {
-      //   key: 'DIETETIC_FOOD',
-      //   label: 'โภชนาการอาหาร',
-      //   type: ControlType.textarea,
-      //   placeholder: 'ป้อนโภชนาการอาหาร'
-      // },
+      {
+        key: 'COOKING_FOOD',
+        label: 'วิธีการปรุง',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนวิธีการปรุง'
+      },
+      {
+        key: 'INGREDIENT',
+        label: 'วัตถุดิบ',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนข้อมูลวัตถุดิบ'
+      },
+      {
+        key: 'DIETETIC_FOOD',
+        label: 'โภชนาการอาหาร',
+        type: ControlType.textarea,
+        placeholder: 'ป้อนโภชนาการอาหาร'
+      },
       {
         key: 'UPLOAD',
         label: 'รูปภาพประจำตัวอาหาร',
