@@ -4,7 +4,7 @@ import { NzUploadFile } from "ng-zorro-antd/upload";
 export interface FormConfig {
     ngClass?: any;
     label?: string;
-    key: string;
+    key?: string;
     type?: ControlType;
     errorMessages?: ValidatorMessage;
     inline?: boolean;
@@ -49,6 +49,8 @@ export interface FormConfig {
     useDefault?: boolean;
     legendValues?: any;
     defaultType?: any;
+
+    coordinate?: CoordinateConfig;
 }
 
 export interface ValidatorMessage {
@@ -79,8 +81,26 @@ export enum ControlType {
     daterange,
     modal,
     slider,
+    coordinates,
     legend
 }
+
+export interface CoordinateConfig {
+    LAT: string;
+    LONG: string;
+    defaultValue?: CoordinateValue;
+    coordinateValidate?: boolean;
+    coordinateThaiValidate?: boolean;
+    decimalPlaces?: number;
+    change?: any;
+    blur?: any;
+}
+
+export interface CoordinateValue {
+    LAT?: number;
+    LONG?: number;
+}
+
 
 export enum ERROR_TYPE_TEXT {
     'required' = 'required',

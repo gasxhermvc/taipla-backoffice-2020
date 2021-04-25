@@ -18,6 +18,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 //=>App
 import { ControlComponent } from '@cores/control/control.component';
 import { LegendManagerComponent } from '@cores/legend-manager/legend-manager.component';
+import { LatLongComponent } from '@cores/lat-long/lat-long.component';
 
 /* Calendar thai */
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
@@ -28,7 +29,8 @@ registerLocaleData(th);
 @NgModule({
   declarations: [
     ControlComponent,
-    LegendManagerComponent
+    LegendManagerComponent,
+    LatLongComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ registerLocaleData(th);
   ],
   exports: [
     ControlComponent,
-    LegendManagerComponent
+    LegendManagerComponent,
+    LatLongComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

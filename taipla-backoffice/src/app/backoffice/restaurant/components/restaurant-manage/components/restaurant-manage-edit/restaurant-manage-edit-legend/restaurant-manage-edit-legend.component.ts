@@ -20,7 +20,7 @@ export class RestaurantManageEditLegendComponent  extends BaseClass implements O
 
   constructor(injector: Injector) {
     super(injector);
-    (window as any).fce = this;
+    (window as any).rmel = this;
   }
 
   ngOnInit() {

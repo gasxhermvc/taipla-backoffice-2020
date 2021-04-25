@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { MODE } from '@app/app-base/enums/MODE';
 import { FoodCenterService } from '@app/backoffice/services/food-center.service';
+import { RestaurantService } from '@app/backoffice/services/restaurant.service';
 import { BaseClass } from '@app/based/classes/base-class';
 
 @Component({
@@ -12,7 +13,7 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
 
   public MODE = MODE;;
 
-  get service(): FoodCenterService {
+  get service(): RestaurantService {
     return this.store['restaurant'];
   }
 
@@ -25,7 +26,7 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
   constructor(injector: Injector) {
     super(injector);
 
-    (window as any).fcml = this;
+    (window as any).rml = this;
   }
 
   ngOnInit() {
@@ -44,7 +45,7 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
         const params: any = {};
-        this.service.LISTS = await this.service.getFoodCenterLists(params);
+        this.service.LISTS = await this.service.getRestaurantLists(params);
         this.hideLoading();
       }
     }
@@ -60,11 +61,10 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
         this.showLoading();
         let param: any = {
           COUNTRY_ID: item.COUNTRY_ID,
-          CULTURE_ID: item.CULTURE_ID,
-          FOOD_ID: item.FOOD_ID
+          RES_ID: item.RES_ID
         };
 
-        const result = await this.service.deleteFoodCenter(param);
+        const result = await this.service.deleteRestaurant(param);
 
         if (result) {
           if (result.success) {

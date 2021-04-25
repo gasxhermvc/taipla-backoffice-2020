@@ -1,0 +1,25 @@
+<ng-container *ngIf="!readonly; else view;">
+  <div class="content input">
+    <label [ngClass]="{'invalid': hasError , 'invalid': hasError }">{{_config?.label || 'พิกัด' }}
+      <span *ngIf="_config && _config.required" class="text-danger">*</span>
+    </label>
+
+    <div class="latitude d-flex flex-1">
+      <input [formControl]="controls[0]" [required]="_config?.required" [placeholder]="placeholderLat" step="any"
+        type="text" class="not-wheelmouse" mouseWheel [ngClass]="{'invalid': latitudeError }" (blur)="touched($event)"
+        (paste)="checkOnPaste($event)" (keypress)="allowInput($event)" />
+    </div>
+    <div class="longitude d-flex flex-1">
+      <input [formControl]="controls[1]" [required]="_config?.required" [placeholder]="placeholderLong" step="any"
+        type="text" class="not-wheelmouse" mouseWheel [ngClass]="{'invalid': longitudeError }" (blur)="touched($event)"
+        (paste)="checkOnPaste($event)" (keypress)="allowInput($event)" />
+    </div>
+  </div>
+</ng-container>
+<ng-template #view>
+  <div class=" d-col readonly" [ngClass]="{ 'd-row': _config.inline }">
+    <label *ngIf="_config.label" class="flex-1">{{ _config?.label || 'พิกัด' }}</label>
+    <label class="flex-1 pl-3">Lat : {{ controls[0].value || '-' }}</label>
+    <label class="flex-1 pl-3">Long : {{ controls[1].value || '-' }}</label>
+  </div>
+</ng-template>

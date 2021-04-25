@@ -37,5 +37,12 @@ export const ROUTE: any = {
     CREATED: "food/created",
     UPDATED: "food/updated",
     DELETED: "food/deleted"
+  },
+  RESTAURANT: {
+    RESTAURANTS: "restaurant/restaurants",
+    GET_RESTAURANT: "restaurant/restaurant",
+    CREATED: "restaurant/created",
+    UPDATED: "restaurant/updated",
+    DELETED: "restaurant/deleted"
   }
 }

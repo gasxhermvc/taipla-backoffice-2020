@@ -11,6 +11,7 @@ import { AccountService } from '@backoffice/services/account.service';
 
 import { MENU_CONFIGS } from '@app/app-base/config/menu';
 import { MENU } from '@app/app-base/interfaces/menu-config';
+import { ControlComponent } from '@app/cores/control/control.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -125,4 +126,25 @@ export class BackofficeService extends BaseRequest {
   getLookup(key: string): any[] {
     return this.lookup[`${key}`] || [];
   }
+
+  //=>ใช้กับการอัพเดต Lat-Long จาก Event draw-point
+  afterRender(evt: any, form: any, key: any = { LAT: 'LAT', LONG: 'LONG' }, decimalPlaces: number = 6) {
+    form.setFormData({
+      [`${key.LAT}`]: this.formatDecimal(evt['LAT'], decimalPlaces),
+      [`${key.LONG}`]: this.formatDecimal(evt['LONG'], decimalPlaces)
+    });
+  }
+
+  formatDecimal(value: number, decimalPlaces?: number) {
+    if (value === null) {
+      return value;
+    }
+
+    if (decimalPlaces) {
+      return Number(value).toFixed(decimalPlaces);
+    }
+
+    return value;
+  }
+  
 }

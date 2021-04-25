@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators, NG_VALIDATORS } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, ViewRef, ChangeDetectorRef, Output, EventEmitter, Input, forwardRef, ViewChild, ElementRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators, NG_VALIDATORS, FormGroup } from '@angular/forms';
 import { ControlType, FormConfig, ValidatorMessage, ERROR_TYPE_TEXT } from '@based/interfaces/FormConfig';
 import { DatetimeService } from '@based/services/datetime.service';
 import { debounceTime, map } from 'rxjs/operators';
@@ -47,6 +47,47 @@ export class ControlComponent implements ControlValueAccessor, Validators {
     maxLength: message.INPUT.VALIDATOR.MAX_LENGTH,
     date: message.INPUT.VALIDATOR.DATE
   };
+
+  _ctrl: any;
+  @ViewChild('ctrl', { static: false })
+  set ctrl(ctrl: any) {
+    if (ctrl) {
+      this._ctrl = ctrl;
+      if (this._config.type === ControlType.coordinates) {
+        this._formGroup.controls[this._config.coordinate.LAT].valueChanges.subscribe(evt => {
+          this.ctrl.writeValue({
+            LAT: evt
+          });
+        });
+        this._formGroup.controls[this._config.coordinate.LONG].valueChanges.subscribe(evt => {
+          this.ctrl.writeValue({
+            LONG: evt
+          })
+        });
+        this._ctrl.formGroup = this._formGroup;
+      }
+    }
+  }
+
+  @ViewChild('inputCtrl', { static: false }) elementRef: ElementRef;
+
+  allowClear?: boolean;
+
+  get ctrl() {
+    return this._ctrl || undefined;
+  }
+
+  _formGroup: FormGroup;
+  @Input()
+  set formGroup(formGroup: FormGroup) {
+    if (formGroup !== null && formGroup !== undefined) {
+      this._formGroup = formGroup;
+    }
+  }
+
+  get formGroup() {
+    return this._formGroup || undefined;
+  }
 
   _config: FormConfig;
   @Input('config')
@@ -139,11 +180,14 @@ export class ControlComponent implements ControlValueAccessor, Validators {
   }
 
 
-  get display(): 'input' | 'legend' | 'readonly' {
+  get display(): 'input' | 'legend' | 'coordinates' | 'readonly' {
     if (this._config) {
       switch (this._config.type) {
         case ControlType.legend:
           return 'legend';
+          break;
+        case ControlType.coordinates:
+          return 'coordinates';
           break;
         default:
           if (this._config.readonly || this._config.view) {

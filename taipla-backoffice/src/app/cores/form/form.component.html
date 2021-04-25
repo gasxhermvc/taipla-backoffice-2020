@@ -3,14 +3,34 @@
     <form *ngIf="formGroup" [formGroup]="formGroup" enctype="multipart/form-data" class="d-col"
       [ngClass]="{ 'validate was-validated': isSubmited }">
       <div *ngFor="let config of _configs">
-        <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config"></app-control>
+        <ng-container [ngSwitch]="config.type">
+          <ng-container *ngSwitchCase="ControlType.coordinates">
+            <app-control *ngIf="!config.invisible" [formGroup]="formGroup" [config]="config">
+            </app-control>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config">
+            </app-control>
+          </ng-container>
+        </ng-container>
+        <!-- <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config"></app-control> -->
       </div>
     </form>
   </ng-container>
   <ng-container *ngIf="!isMultipart">
     <form *ngIf="formGroup" [formGroup]="formGroup" class="d-col" [ngClass]="{ 'validate was-validated': isSubmited }">
       <div *ngFor="let config of _configs">
-        <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config"></app-control>
+        <ng-container [ngSwitch]="config.type">
+          <ng-container *ngSwitchCase="ControlType.coordinates">
+            <app-control *ngIf="!config.invisible" [formGroup]="formGroup" [config]="config">
+            </app-control>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config">
+            </app-control>
+          </ng-container>
+        </ng-container>
+        <!-- <app-control *ngIf="!config.invisible" [formControlName]="config.key" [config]="config"></app-control> -->
       </div>
     </form>
   </ng-container>

@@ -21,7 +21,7 @@ export class RestaurantManageComponent extends BaseClass implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);
-    (window as any).ct = this;
+    (window as any).rm = this;
   }
 
   ngOnInit() {

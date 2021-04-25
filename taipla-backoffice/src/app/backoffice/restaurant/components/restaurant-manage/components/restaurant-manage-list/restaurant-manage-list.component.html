@@ -1,93 +1,88 @@
 <div class="row flex-column flex-sm-row m-0 p-0 mb-3">
-    <div class="col-12 col-sm-6 px-0">
-      <h3>จัดการอาหารส่วนกลาง</h3>
-    </div>
-    <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
-      <button (click)="createFoodCenter()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
-        <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มอาหารส่วนกลาง
-      </button>
-    </div>
+  <div class="col-12 col-sm-6 px-0">
+    <h3>จัดการร้านอาหาร</h3>
   </div>
-  <app-pagination [items]="items" [template]="list" [pageSize]="app.pagination.pageSize"
-    [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
-    (pageSizeChange)="app.pagination.pageSize = $event">
-  </app-pagination>
-  <ng-template #list let-items="items" let-from="from">
-    <div class="table-responsive">
-      <table class="table table-hover backoffice-table">
-        <thead>
+  <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+    <button (click)="createFoodCenter()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
+      <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มข้อมูลร้านอาหาร
+    </button>
+  </div>
+</div>
+<app-pagination [items]="items" [template]="list" [pageSize]="app.pagination.pageSize"
+  [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
+  (pageSizeChange)="app.pagination.pageSize = $event">
+</app-pagination>
+<ng-template #list let-items="items" let-from="from">
+  <div class="table-responsive">
+    <table class="table table-hover backoffice-table">
+      <thead>
+        <tr>
+          <th class="text-center align-top NO">#</th>
+          <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
+          <th class="text-center align-top COUNTRY_NAME_TH">ประเทศของอาหาร</th>
+          <th class="text-center align-top NAME" [innerHTML]="'ชื่อร้านอาหาร'"></th>
+          <th class="text-center align-top OWNER">ชื่อเจ้าของร้าน</th>
+          <th class="text-center align-top AUTHOR">ชื่อผู้สร้างรายการ</th>
+          <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
+          <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
+          <th class="text-center align-top MANAGE">จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of items;let index = index">
           <tr>
-            <th class="text-center align-top NO">#</th>
-            <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
-            <th class="text-center align-top COUNTRY_NAME_TH">ประเทศของอาหาร</th>
-            <th class="text-center align-top CULTURE_NAME_TH">วัฒนธรรมอาหาร</th>
-            <th class="text-center align-top NAME_TH" [innerHTML]="'ชื่ออาหาร \n(ภาษาไทย)'"></th>
-            <th class="text-center align-top NAME_EN" [innerHTML]="'ชื่อาหาร \n(ภาษาอังกฤษ)'"></th>
-            <th class="text-center align-top AUTHOR">ผู้สร้างรายการ</th>
-            <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
-            <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
-            <th class="text-center align-top MANAGE">จัดการ</th>
+            <td class="text-center align-top NO">
+              {{ (from +index + 1) }}
+            </td>
+            <td class="text-center align-top THUMBNAIL">
+              <app-image [src]="item.THUMBNAIL" imageType="image" className="img-fluid image rounded-circle">
+              </app-image>
+            </td>
+            <td class="text-center align-top COUNTRY_NAME_TH">
+              {{ item.COUNTRY_NAME_TH || '-' }}
+            </td>
+            <td class="text-left align-top NAME">
+              {{ item.NAME || '-' }}
+            </td>
+            <td class="text-left align-top OWNER">
+              {{ item.OWNER || '-' }}
+            </td>
+            <td class="text-center align-top AUTHOR">
+              {{ item.AUTHOR || '-' }}
+            </td>
+            <td class="text-center align-top CREATED_DATE">
+              <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YY <br />HH:mm:ss">
+              </app-display-datetime>
+            </td>
+            <td class="text-center align-top UPDATED_DATE">
+              <app-display-datetime [datetime]="item.UPDATED_DATE" format="DD MMM YY <br />H:mm:ss">
+              </app-display-datetime>
+            </td>
+            <td class="text-center align-top MANAGE">
+              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let item of items;let index = index">
-            <tr>
-              <td class="text-center align-top NO">
-                {{ (from +index + 1) }}
-              </td>
-              <td class="text-center align-top THUMBNAIL">
-                <app-image [src]="item.THUMBNAIL" imageType="image" className="img-fluid image rounded-circle">
-                </app-image>
-              </td>
-              <td class="text-center align-top COUNTRY_NAME_TH">
-                {{ item.COUNTRY_NAME_TH || '-' }}
-              </td>
-              <td class="text-center align-top CULTURE_NAME_TH">
-                {{ item.CULTURE_NAME_TH || '-' }}
-              </td>
-              <td class="text-left align-top NAME_TH">
-                {{ item.NAME_TH || '-' }}
-              </td>
-              <td class="text-left align-top NAME_EN">
-                {{ item.NAME_EN || '-' }}
-              </td>
-              <td class="text-center align-top AUTHOR">
-                {{ item.AUTHOR || '-' }}
-              </td>
-              <td class="text-center align-top CREATED_DATE">
-                <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YY <br />HH:mm:ss">
-                </app-display-datetime>
-              </td>
-              <td class="text-center align-top UPDATED_DATE">
-                <app-display-datetime [datetime]="item.UPDATED_DATE" format="DD MMM YY <br />H:mm:ss">
-                </app-display-datetime>
-              </td>
-              <td class="text-center align-top MANAGE">
-                <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
-              </td>
-            </tr>
-          </ng-container>
-          <ng-container *ngIf="items.length < 1">
-            <tr>
-              <td class="text-center align-top" colspan="10">
-                <div class="not-found"></div>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </ng-template>
-  
-  <ng-template let-item="item" #btn>
-    <div class="d-flex flex-row flex-nowrap justify-content-center">
-      <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
-        แก้ไข
-      </button>
-      <span class="px-1"></span>
-      <button nz-button nzDanger (click)="onDelete(item)">
-        ลบ
-      </button>
-    </div>
-  </ng-template>
-  
+        </ng-container>
+        <ng-container *ngIf="items.length < 1">
+          <tr>
+            <td class="text-center align-top" colspan="9">
+              <div class="not-found"></div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+<ng-template let-item="item" #btn>
+  <div class="d-flex flex-row flex-nowrap justify-content-center">
+    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+      แก้ไข
+    </button>
+    <span class="px-1"></span>
+    <button nz-button nzDanger (click)="onDelete(item)">
+      ลบ
+    </button>
+  </div>
+</ng-template>

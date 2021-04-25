@@ -23,7 +23,7 @@ export class RestaurantComponent extends BaseClass implements OnInit {
   constructor(injector: Injector) {
     super(injector);
     this.backoffice.currentSystem = this.currentSystem;
-    (window as any).food_center = this;
+    (window as any).restaurant = this;
   }
 
   ngOnInit() {

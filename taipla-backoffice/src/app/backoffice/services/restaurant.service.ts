@@ -22,7 +22,7 @@ export class RestaurantService extends BaseService {
 
   async getRestaurantLists(params: any) {
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.FOODS}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.RESTAURANTS}`, {
         method: 'GET',
         headers: this.app.header,
         parameters: params
@@ -56,7 +56,7 @@ export class RestaurantService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_FOOD_CENTER}/${params.FOOD_ID}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_RESTAURANT}/${params.RES_ID}`, {
         method: 'GET',
         headers: this.app.header,
         parameters: params,
@@ -77,7 +77,7 @@ export class RestaurantService extends BaseService {
   async addRestaurant(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.CREATED}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.CREATED}`, {
         method: 'POST',
         headers: this.app.headerFormData,
         parameters: this.app.formData(param)
@@ -97,7 +97,7 @@ export class RestaurantService extends BaseService {
   async editRestaurant(param: any) {
     let result;
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.UPDATED}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.UPDATED}`, {
         method: 'PUT',
         headers: this.app.headerFormData,
         parameters: this.app.formData(param)
@@ -118,7 +118,7 @@ export class RestaurantService extends BaseService {
     let result;
 
     try {
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.DELETED}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.DELETED}`, {
         method: 'DELETE',
         headers: this.app.header,
         parameters: param

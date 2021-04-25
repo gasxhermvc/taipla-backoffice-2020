@@ -26,6 +26,11 @@ export class FormComponent {
     }
   }
 
+
+  hasCoord: boolean = false;
+
+  ControlType = ControlType;
+
   defaultMessage: ValidatorMessage = {
     required: this.app.message.INPUT.VALIDATOR.REQUIRED,
     regex: this.app.message.INPUT.VALIDATOR.REGEX,
@@ -51,10 +56,36 @@ export class FormComponent {
     this.isSubmited = false;
     const formcontrols = {};
     this._configs.forEach(item => {
-      formcontrols[item.key] = new FormControl(item.defaultValue || null);
-      if (item.disable === true) { formcontrols[item.key].disable(); }
+      if (item.type !== ControlType.coordinates) {
+        formcontrols[item.key] = new FormControl(item.defaultValue || null);
+        if (item.disable === true) { formcontrols[item.key].disable(); }
+      } else {
+        const keys = ['LAT', 'LONG'];
+        keys.forEach((key, index) => {
+          formcontrols[item.coordinate[key]] = new FormControl(item.coordinate.defaultValue && item.coordinate.defaultValue[key] ? item.coordinate.defaultValue[key] : null);
+          if (item.disable === true) { formcontrols[item.coordinate[key]].disable(); }
+          let validators = [];
+          if (item.required === true) { validators = validators.concat(Validators.required); }
+          formcontrols[item.coordinate[key]].setValidators(validators);
+        });
+        item.key = `${item.coordinate['LAT']}_${item.coordinate['LONG']}`;
+        this.hasCoord = true;
+      }
     });
     this.formGroup = new FormGroup(formcontrols);
+
+    //=>Custom Coordinates
+    if (this.hasCoord && this.controls) {
+      const coords = this._configs.filter(cfg => cfg.type === ControlType.coordinates)
+      if (coords && coords.length > 0) {
+        coords.forEach(f => {
+          const config = this.getControl(f.key);
+          config.formGroup = this.formGroup;
+          config.ctrl.formGroup = this.formGroup;
+        });
+      }
+    }
+
   }
 
   getFormData(allowNull: boolean = false) {

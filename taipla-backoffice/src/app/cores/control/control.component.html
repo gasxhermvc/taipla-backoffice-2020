@@ -6,6 +6,9 @@
     <div *ngSwitchCase="'legend'">
       <ng-container *ngTemplateOutlet="legend"></ng-container>
     </div>
+    <div *ngSwitchCase="'coordinates'">
+      <ng-container *ngTemplateOutlet="coordinates"></ng-container>
+    </div>
     <div *ngSwitchCase="'readonly'">
       <ng-container *ngTemplateOutlet="readonly"></ng-container>
     </div>
@@ -176,5 +179,13 @@
     <div *ngSwitchCase="CONTROL_TYPE.legend" class="ctrl">
       <app-legend-manager [formControl]="control" [config]="_config"></app-legend-manager>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #coordinates>
+  <div [ngSwitch]="_config.type">
+      <div *ngSwitchCase="CONTROL_TYPE.coordinates" class="ctrl">
+          <app-lat-long [formControl]="control" [config]="_config" #ctrl></app-lat-long>
+      </div>
   </div>
 </ng-template>

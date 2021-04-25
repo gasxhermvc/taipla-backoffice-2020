@@ -1,0 +1,102 @@
+@import "src/styles.scss";
+
+$border-width-input: 0.1rem;
+
+:host {
+    position: relative !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    input {
+        flex: 1;
+        margin-bottom: 0.2rem;
+        border: $border-width-input solid $color-gray-light;
+        border-radius: 1rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+        //padding-top: 0.3rem;
+        resize: none;
+    }
+
+    ::placeholder {
+        color: $color-gray-light;
+    }
+
+    input {
+        height: 2rem;
+    }
+
+    input:focus {
+        outline: none !important;
+        outline-offset: 0px !important;
+        box-shadow: 0 2px 4px $color-shadow;
+    }
+
+    .readonly {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            flex: 1;
+        }
+
+        .display-labe {
+            margin-bottom: 0.5rem;
+        }
+
+        .display-value {
+            margin-left: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    ::ng-deep {
+        .not-wheelmouse {
+            -webkit-appearance: none !important; /*Google chrome*/
+
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none !important; /*Google chrome*/
+            }
+
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none !important; /*Google chrome*/
+            }
+
+            -moz-appearance: textfield !important; /*Firefox*/
+            margin: 0;
+        }
+
+        input {
+            padding-top: none !important;
+        }
+    }
+
+    .validate {
+        .ng-invalid {
+            border: $border-width-input solid red !important;
+        }
+    }
+
+    ::ng-deep {
+        .validate {
+            input:invalid {
+                &.invalid {
+                    border: $border-width-input solid red !important;
+                }
+            }
+
+            .ng-invalid {
+                border: $border-width-input solid red !important;
+            }
+
+            input,
+            .latitude,
+            .longitude {
+                .invalid {
+                    border: $border-width-input solid red !important;
+                }
+            }
+        }
+    }
+}

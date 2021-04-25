@@ -22,7 +22,7 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);
-    (window as any).cma = this;
+    (window as any).rma = this;
   }
 
   ngOnInit() {
@@ -44,81 +44,89 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         lookupKey: 'CODE',
         lookupLabel: 'VALUE_TH',
         lookup: this.backoffice.getLookup('COUNTRIES'),
-        change: (evt: any) => {
-          let related = 'CULTURE_ID'
-          let config = this.formConfig.find((item: any) => item.key === related);
-          if (config) {
-            config.lookup = [].concat(...this.backoffice.getLookup('CULTURES')).filter((item: any) => item.COUNTRY_ID === evt);
-
-            if (evt == undefined || evt == null || evt == 0 || evt == '') {
-              config.disable = true;
-            } else {
-              config.disable = false;
-            }
-            this.form.setConfig(related, config);
-          }
-        },
         errorMessages: {
           required: 'กรุณาเลือกประเทศของอาหาร'
         }
       },
       {
-        key: 'CULTURE_ID',
-        label: 'วัฒนธรรมอาหาร',
-        type: ControlType.select,
-        placeholder: 'เลือกวัฒนธรรมของอาหาร',
-        lookupKey: 'CODE',
-        lookupLabel: 'VALUE_TH',
-        // lookup: this.backoffice.getLookup('CULTURES'),
-        errorMessages: {
-          required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
-        }
-      },
-      {
-        key: 'NAME_TH',
-        label: 'ชื่ออาหาร (ภาษาไทย)',
+        key: 'NAME',
+        label: 'ชื่อร้านอาหาร',
         type: ControlType.text,
-        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        placeholder: 'ป้อนชื่อร้านอาหาร',
         errorMessages: {
           required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
         }
       },
       {
-        key: 'NAME_EN',
-        label: 'ชื่ออาหาร (ภาษาอังกฤษ)',
-        type: ControlType.text,
-        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
-        regex: /^([a-zA-Z0-9 _-]+)$/,
-        errorMessages: {
-          regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
-        }
-      },
-      {
-        key: 'DESCRIPTION',
-        label: 'คำอธิบาย',
+        key: 'ADDRESS',
+        label: 'ชื่อที่อยู่',
         type: ControlType.textarea,
-        placeholder: 'ป้อนคำอธิบาย',
+        placeholder: 'ป้อนชื่อที่อยู่',
         // errorMessages: {
         //   required: 'กรุณาป้อนคำอธิบาย'
         // }
       },
       {
-        key: 'COOKING_FOOD',
-        label: 'วิธีการปรุง',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนวิธีการปรุง'
+        key: 'GOOGLE_MAP',
+        label: 'แผนที่',
+        type: ControlType.text,
+        placeholder: 'ป้อน Link แผนที่่ Google map'
       },
       {
-        key: 'INGREDIENT',
-        label: 'วัตถุดิบ',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนข้อมูลวัตถุดิบ'
+        label: 'พิกัด',
+        type: ControlType.coordinates,
+        placeholder: ['LATITUDE', 'LONGITUDE'],
+        coordinate: {
+          LAT: 'LATITUDE',
+          LONG: 'LONGITUDE',
+          decimalPlaces: 6,
+          coordinateValidate: true,
+          coordinateThaiValidate: true,
+          blur: (evt: any) => this.afterRender(evt)
+        }
       },
       {
-        key: 'DIETETIC_FOOD',
-        label: 'โภชนาการอาหาร',
+        key: 'WEBSITE',
+        label: 'เว็บไซต์',
+        type: ControlType.text,
+        placeholder: 'ป้อน Web site'
+      },
+      {
+        key: 'FACEBOOK',
+        label: 'Social media (Facebook)',
+        type: ControlType.text,
+        placeholder: 'ป้อน Link Facebook'
+      },
+      {
+        key: 'LINE',
+        label: 'Social media (Line)',
+        type: ControlType.text,
+        placeholder: 'ป้อน ID Line, Line phone number'
+      },
+      {
+        key: 'PHONE',
+        label: 'เบอร์โทรศัพท์',
+        type: ControlType.text,
+        placeholder: 'ป้อน Link แผนที่่ Google map'
+      },
+      {
+        key: 'OPEN_TIME',
+        label: 'เวลาที่เปิดทำการ',
+        type: ControlType.text,
+        placeholder: 'ป้อน Link แผนที่่ Google map'
+      },
+      {
+        key: 'TAGS',
+        label: 'แปะป้ายสำหรับค้นหา',
         type: ControlType.textarea,
-        placeholder: 'ป้อนโภชนาการอาหาร'
+        placeholder: 'ป้อน Link แผนที่่ Google map'
+      },
+      {
+        key: 'CAR_PARK',
+        label: 'แผนที่',
+        type: ControlType.radio,
+        lookup: [{ CODE: 0, DESCR: 'ไม่มีที่จอด' }, { CODE: 1, DESCR: 'มีที่จอดรอด' }],
+        placeholder: 'ป้อน Link แผนที่่ Google map'
       },
       {
         key: 'UPLOAD',
@@ -174,4 +182,17 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
   onBack() {
     this.back.emit();
   }
+
+  async onLatLongBlur(evt: any) {
+    console.log('evt', evt);
+    // this.order.onLatLongBlur(evt, this.form, this.gis, this.gp);
+  }
+
+  afterRender(evt: any) {
+    this.backoffice.afterRender(evt, this.form, {
+      LAT: 'LATITUDE',
+      LONG: 'LONGITUDE'
+    });
+  }
+
 }
