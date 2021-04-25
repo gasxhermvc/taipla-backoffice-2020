@@ -59,11 +59,17 @@ export class ControlComponent implements ControlValueAccessor, Validators {
         this.control = new FormControl(this._config.defaultValue || null);
       }
 
+      if (this._config.defaultValue) {
+        this.control.setValue(this._config.defaultType);
+      }
+
       if (this._config.fileList && this._config.fileList.length > 0) {
         this.fileList = [].concat(...this._config.fileList);
       }
 
-      if (this._config.disable === true) { this.control.disable(); }
+      // if (this._config.disable === true) { this.control.disable(); }
+      // if (this._config.disable === false) { this.control.enable(); }
+      this.setDisabledState(this._config.disable);
 
       if (this._config.type == ControlType.upload) {
         if (this._config.limit === undefined) {

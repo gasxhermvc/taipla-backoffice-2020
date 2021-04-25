@@ -14,50 +14,116 @@
 </app-pagination>
 <ng-template #list let-items="items" let-from="from">
   <div class="table-responsive">
-    <table class="table table-hover backoffice-table">
+    <nz-table #nzTable class="table table-hover backoffice-table" [nzData]="items" [nzFrontPagination]="false">
       <thead>
         <tr>
-          <th class="text-center align-top NO">#</th>
-          <th class="text-center align-top AVATAR">รูปประจำตัว</th>
-          <th class="text-center align-top USER_NAME">ชื่อผู้ใช้งาน</th>
-          <th class="text-center align-top FULL_NAME">ชื่อ - นามสกุล</th>
-          <th class="text-center align-top ROLE">สถานะ</th>
-          <th class="text-center align-top CREATE_DATE">วันที่สร้าง</th>
-          <th class="text-center align-top UPDATE_DATE">วันที่แก้ไข</th>
-          <th class="text-center align-top MANAGE">จัดการ</th>
+          <ng-container *ngFor="let col of columns" nzTableLayout="fixed">
+            <ng-container *ngIf="col.KEY === 'EXPAND'; else headerNormal">
+              <th [nzWidth]="col.WIDTH" [class]="col.CLASS" *ngIf="detect.has(col.HIDE)">
+                {{ col.HEADER }}
+              </th>
+            </ng-container>
+            <ng-template #headerNormal>
+              <th [nzWidth]="col.WIDTH" [class]="col.CLASS" *ngIf="!detect.has(col.HIDE)">
+                {{ col.HEADER }}
+              </th>
+            </ng-template>
+          </ng-container>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let item of items;let index = index">
           <tr>
-            <td class="text-center align-top NO">
-              {{ (from + index + 1) }}
-            </td>
-            <td class="text-center align-top AVATAR">
-              <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
-              </app-image>
-            </td>
-            <td class="text-center align-top USERNAME">
-              {{ item.USERNAME || '-' }}
-            </td>
-            <td class="text-left align-top FULL_NAME">
-              {{ item.FULL_NAME || '-' }}
-            </td>
-            <td class="text-left align-top ROLE">
-              {{ item.ROLE || '-' }}
-            </td>
-            <td class="text-center align-top CREATE_DATE">
-              <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY HH:mm:ss">
-              </app-display-datetime>
-            </td>
-            <td class="text-center align-top CREATE_DATE">
-              <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY HH:mm:ss">
-              </app-display-datetime>
-            </td>
-            <td class="text-center align-top MANAGE">
-              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
-            </td>
+            <ng-container *ngFor="let col of columns">
+              <ng-container *ngIf="col.KEY === 'EXPAND'; else normal">
+                <td [(nzExpand)]="item[col.KEY]" [class]="col.CLASS" *ngIf="detect.has(col.HIDE)"></td>
+              </ng-container>
+              <ng-template #normal>
+                <td [class]="col.CLASS" *ngIf="!detect.has(col.HIDE)">
+                  <ng-container [ngSwitch]="col.KEY">
+                    <ng-container *ngSwitchCase="'EXPAND'"></ng-container>
+                    <ng-container *ngSwitchCase="'AVATAR'">
+                      <app-image [src]="item.AVATAR" className="img-fluid avatar rounded-circle" imageType="avatar">
+                      </app-image>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'CREATE_DATE'">
+                      <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'UPDATE_DATE'">
+                      <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'MANAGE'">
+                      <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      {{ (item[col.KEY]) }}
+                    </ng-container>
+                  </ng-container>
+                </td>
+              </ng-template>
+            </ng-container>
           </tr>
+          <tr *ngIf="detect.has(getColumnConfig('EXPAND','HIDE'))" [nzExpand]="item.EXPAND">
+            <div class="d-flex flex-column">
+              <ng-container *ngFor="let col of columns">
+                <ng-container *ngIf="col.RESPONSIVE">
+                  <div class="d-flex ml-5 mb-1 DETAIL"
+                    [ngClass]="{ 'flex-column': col.ACTION,'flex-row': !col.ACTION }">
+                    <strong class="mb-1">
+                      {{ col.HEADER }}
+                    </strong>
+                    <div class="ml-3" [ngClass]="col.KEY">
+                      <ng-container [ngSwitch]="col.KEY">
+                        <ng-container *ngSwitchCase="'CREATE_DATE'">
+                          <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY HH:mm:ss">
+                          </app-display-datetime>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'UPDATE_DATE'">
+                          <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY HH:mm:ss">
+                          </app-display-datetime>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'MANAGE'">
+                          <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                          {{ (item[col.KEY]) }}
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </tr>
+          <!-- <tr *ngIf="detect.has(getColumnConfig('EXPAND','HIDE'))" [nzExpand]="item.EXPAND">
+            <div class="d-flex flex-column">
+              <ng-container *ngFor="let col of columns">
+                <ng-container *ngIf="detect.has(col.HIDE)">
+                  <div class="d-flex flex-row mb-1">
+                    <div>
+                      {{ col.HEADER }}:
+                    </div>
+                    <ng-container *ngSwitchCase="'CREATE_DATE'">
+                      <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'UPDATE_DATE'">
+                      <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'MANAGE'">
+                      <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      {{ (item[col.KEY]) }}
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </tr> -->
         </ng-container>
         <ng-container *ngIf="items.length < 1">
           <tr>
@@ -67,16 +133,18 @@
           </tr>
         </ng-container>
       </tbody>
-    </table>
+    </nz-table>
   </div>
 </ng-template>
 
 <ng-template let-item="item" #btn>
-  <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
-    แก้ไข
-  </button>
-  <span class="px-1"></span>
-  <button nz-button nzDanger nzType="primary" (click)="onDelete(item)">
-    ลบ
-  </button>
+  <div class="d-flex flex-row flex-nowrap justify-content-center">
+    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+      แก้ไข
+    </button>
+    <span class="px-1"></span>
+    <button nz-button nzDanger nzType="primary" (click)="onDelete(item)">
+      ลบ
+    </button>
+  </div>
 </ng-template>

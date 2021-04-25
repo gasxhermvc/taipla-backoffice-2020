@@ -1,4 +1,7 @@
 export const ROUTE: any = {
+  MENU:{
+    LISTS: "menu/lists"
+  },
   LUT: {
     ROLE: "lut/roles",
   },

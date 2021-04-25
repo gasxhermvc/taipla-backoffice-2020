@@ -4,6 +4,7 @@ import { AppBaseModule } from '@app-base/app-base.module';
 import { SwitcherComponent } from '@app-base/components/switcher/switcher.component';
 import { AuthGuard } from '@based/guards/auth.guard';
 import { environment as env } from '@environments/environment';
+import { ApplyMenuGuard } from './based/guards/apply-menu.guard';
 
 //example1 => /path1/ output => path1
 //example2 => /path1/path2/ output => path1/path2
@@ -13,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: SwitcherComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ApplyMenuGuard],
   }
 ];
 
@@ -22,6 +23,9 @@ const routes: Routes = [
     AppBaseModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    ApplyMenuGuard
+  ]
 })
 export class AppRoutingModule { }

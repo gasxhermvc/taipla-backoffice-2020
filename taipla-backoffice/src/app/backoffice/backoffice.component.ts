@@ -2,7 +2,6 @@
 import { Component, OnInit, Injector, Output } from '@angular/core';
 
 //=>App
-import { MENU_CONFIGS } from '@app/app-base/config/menu';
 import { MENU } from '@app/app-base/interfaces/menu-config';
 import { BaseClass } from '@app/based/classes/base-class';
 import { Subscription } from 'rxjs';
@@ -42,7 +41,7 @@ export class BackofficeComponent extends BaseClass implements OnInit {
 
   ngOnInit() {
     console.log('backoffice.component');
-    this.menus = MENU_CONFIGS;
+    this.menus = this.backoffice.menus;
     this.init();
   }
 
@@ -64,6 +63,8 @@ export class BackofficeComponent extends BaseClass implements OnInit {
       this.pageChangeSub.unsubscribe();
       this.pageChangeSub = undefined;
     }
+
+    this.backoffice.lookup = undefined;
   }
 
   private init() {

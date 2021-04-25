@@ -47,17 +47,29 @@
     </div>
 
     <div *ngSwitchCase="CONTROL_TYPE.select" class="ctrl">
-      <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
-        [nzDisabled]="_config.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
-        [class.invalid]="control.invalid != null && control.invalid">
-        <div *ngIf="_config.lookup">
-          <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])"
-            [nzValue]="(item[_config?.lookupKey || 'CODE'])">
-          </nz-option>
-        </div>
-      </nz-select>
+      <ng-container *ngIf="_config?.disable;else selectEnable;">
+        <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
+          [nzDisabled]="_config?.disable" [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
+          [class.invalid]="control.invalid != null && control.invalid">
+          <div *ngIf="_config.lookup">
+            <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])"
+              [nzValue]="(item[_config?.lookupKey || 'CODE'])">
+            </nz-option>
+          </div>
+        </nz-select>
+      </ng-container>
+      <ng-template #selectEnable>
+        <nz-select [formControl]="control" [nzAllowClear]="control.value != ''" nzShowSearch
+          [nzPlaceHolder]="_config?.placeholder || ''" [required]="_config.required"
+          [class.invalid]="control.invalid != null && control.invalid">
+          <div *ngIf="_config.lookup">
+            <nz-option *ngFor="let item of _config.lookup" [nzLabel]="(item[_config?.lookupLabel || 'DESCR'])"
+              [nzValue]="(item[_config?.lookupKey || 'CODE'])">
+            </nz-option>
+          </div>
+        </nz-select>
+      </ng-template>
     </div>
-
     <div *ngSwitchCase="CONTROL_TYPE.upload" class="ctrl">
       <ng-container *ngIf="_config.multiple; else uploadSingle;">
         <nz-upload [nzListType]="_config.listType" [nzMultiple]="_config.multiple" [nzLimit]="_config.limit"

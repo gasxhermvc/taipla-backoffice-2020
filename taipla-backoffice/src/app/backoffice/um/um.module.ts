@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 //=>Libraries
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTableModule, NzTableStyleService } from 'ng-zorro-antd/table';
 
 //=>App
 import { AppBaseModule } from '@app-base/app-base.module';
@@ -32,13 +33,17 @@ import { UmManageEditComponent } from '@backoffice/um/components/um-manage/compo
     ShareModule,
 
     NzButtonModule,
-    NzIconModule
+    NzIconModule,
+    NzTableModule
   ],
   exports: [
     UmManageComponent,
     UmManageListComponent,
     UmManageAddComponent,
     UmManageEditComponent
+  ],
+  providers: [
+    NzTableStyleService
   ]
 })
 export class UmModule { }

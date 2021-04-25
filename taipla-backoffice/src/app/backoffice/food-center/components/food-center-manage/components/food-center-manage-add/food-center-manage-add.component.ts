@@ -44,6 +44,20 @@ export class FoodCenterManageAddComponent extends BaseClass implements OnInit {
         lookupKey: 'CODE',
         lookupLabel: 'VALUE_TH',
         lookup: this.backoffice.getLookup('COUNTRIES'),
+        change: (evt: any) => {
+          let related = 'CULTURE_ID'
+          let config = this.formConfig.find((item: any) => item.key === related);
+          if (config) {
+            config.lookup = [].concat(...this.backoffice.getLookup('CULTURES')).filter((item: any) => item.COUNTRY_ID === evt);
+
+            if (evt == undefined || evt == null || evt == 0 || evt == '') {
+              config.disable = true;
+            } else {
+              config.disable = false;
+            }
+            this.form.setConfig(related, config);
+          }
+        },
         errorMessages: {
           required: 'กรุณาเลือกประเทศของอาหาร'
         }
@@ -55,7 +69,7 @@ export class FoodCenterManageAddComponent extends BaseClass implements OnInit {
         placeholder: 'เลือกวัฒนธรรมของอาหาร',
         lookupKey: 'CODE',
         lookupLabel: 'VALUE_TH',
-        lookup: this.backoffice.getLookup('CULTURES'),
+        // lookup: this.backoffice.getLookup('CULTURES'),
         errorMessages: {
           required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
         }

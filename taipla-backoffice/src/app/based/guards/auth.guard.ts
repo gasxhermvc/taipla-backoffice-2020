@@ -5,13 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { AppService } from '@based/services/app.service';
 import { AuthService } from '@based/services/auth.service';
+import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
 
   isLoggedOut: boolean = false;
 
-  constructor(private app: AppService, private auth: AuthService, private router: Router) {
+  constructor(private app: AppService, private auth: AuthService, private backoffice: BackofficeService, private router: Router) {
     (window as any).auth_guard = this;
   }
 
@@ -23,6 +24,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         if (!this.isLoggedOut) { //=>ทำงานเมื่อไม่ใช่การล็อกเอ้าท์
           this.app.hideLoading();
         }
+
         return response;
       }));
   }

@@ -36,6 +36,13 @@
                         padding: 0.5rem;
                     }
                 }
+
+                tr,
+                th,
+                td {
+                    color: rgba(255, 255, 255, 0.65);
+                    background: #001529;
+                }
             }
 
             tbody {

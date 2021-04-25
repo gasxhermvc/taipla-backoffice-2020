@@ -9,6 +9,8 @@ import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
 import { AccountService } from '@backoffice/services/account.service';
 
+import { MENU_CONFIGS } from '@app/app-base/config/menu';
+import { MENU } from '@app/app-base/interfaces/menu-config';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,12 +30,19 @@ export class BackofficeService extends BaseRequest {
     { key: 'account', class: AccountService },
   ];
 
+  public menus: MENU[] = undefined;
+
+  get MENUS() {
+    return this.menus && this.menus.length > 0 ? this.menus : [];
+  }
+
   private lookupList = [
     'ROLES',
     'COUNTRIES',
-    'CULTURES'
+    'CULTURES',
+    'LEGEND-TYPES'
   ];
-  private lookup: any = {}
+  lookup: any = undefined;
 
   @Output() public isLoaded = new EventEmitter<any>();
 
@@ -65,7 +74,7 @@ export class BackofficeService extends BaseRequest {
 
   constructor(private injector: Injector) {
     super(injector);
-    this.init();
+    // this.init();
   }
 
   public async reloadLookup(keys: any) {
@@ -81,21 +90,28 @@ export class BackofficeService extends BaseRequest {
       this.lookup[keys] = reqLookup[0] && reqLookup[0].data;
     }
   }
-  private async init() {
+
+  init() {
     console.log('backoffice.service.init');
 
     this.autoMapperInjection();
     // setTimeout(() => {
     //   this.isLoaded.emit(true);
     // }, 2000);
-    const reqLookup = await Promise.all(this.lookupList.map(async (LUT) => {
-      return await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/lut/${LUT}`, {
-        method: 'GET',
-        headers: this.app.headerFormData,
-        parameters: {}
-      }, false).toPromise()
-    }));
-    this.lookupList.forEach((it, i) => { this.lookup[`${it}`] = reqLookup[i].data; });
+    if (!this.lookup) {
+      this.lookup = {};
+      const reqLookup = Promise.all(this.lookupList.map(async (LUT) => {
+        return await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/lut/${LUT}`, {
+          method: 'GET',
+          headers: this.app.header,
+          parameters: {}
+        }, false).toPromise()
+      }));
+
+      reqLookup.then((lookupList: any) => {
+        this.lookupList.forEach((it, i) => { this.lookup[`${it}`] = lookupList[i].data; });
+      })
+    }
   }
 
   private async autoMapperInjection() {

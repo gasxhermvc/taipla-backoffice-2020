@@ -69,6 +69,10 @@ export class LayoutTemplateComponent implements OnInit {
   onClickMenu(index: number) {
     const menu = this.menus[index] || null;
 
+    if(menu.IS_ACTIVE){
+      return;
+    }
+
     if (menu) {
       this.layout.setActiveMenu(menu.NAME);
       this.layout.pageChange.emit(true);

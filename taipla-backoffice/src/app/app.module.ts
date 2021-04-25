@@ -16,6 +16,7 @@ import { AppComponent } from '@app/app.component';
 import { AppBaseModule } from '@app-base/app-base.module';
 import { ShareModule } from '@cores/share.module';
 import { BackofficeModule } from '@backoffice/backoffice.module';
+import { DetectService } from './based/services/detect.service';
 
 const ngZorroConfig: NzConfig = {
   message: { nzMaxStack: 1 },
@@ -46,6 +47,7 @@ const ngZorroConfig: NzConfig = {
   ],
   providers: [
     AppService,
+    DetectService,
     { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
   bootstrap: [AppComponent]

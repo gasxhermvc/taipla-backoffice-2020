@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnInit, ViewRef } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
 
 
@@ -34,16 +35,6 @@ export class LegendManagerComponent implements ControlValueAccessor, Validators 
       label: 'ประเภทตำนาน',
       type: ControlType.select,
       placeholder: 'ประเภทตำนาน',
-      lookup: [
-        {
-          CODE: 1,
-          DESCR: 'ตำนานอาหาร'
-        },
-        {
-          CODE: 2,
-          DESCR: 'ตำนานอาหารของร้านอาหาร'
-        }
-      ],
       errorMessages: {
         required: 'เลือกประเภทตำนาน'
       }
@@ -92,6 +83,8 @@ export class LegendManagerComponent implements ControlValueAccessor, Validators 
       this._config = value;
       this.control = new FormControl(value.defaultValue || null);
       this.readonly = value.readonly || value.view || false;
+      if (this._config.lookup) this.formConfig[1].lookup = value.lookup;
+      if (this._config.defaultType) this.formConfig[1].defaultValue = value.defaultType;
 
       //=>Single
       if (!this._config.multiple) {

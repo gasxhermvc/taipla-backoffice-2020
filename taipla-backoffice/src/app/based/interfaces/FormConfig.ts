@@ -48,6 +48,7 @@ export interface FormConfig {
     //=>legend
     useDefault?: boolean;
     legendValues?: any;
+    defaultType?: any;
 }
 
 export interface ValidatorMessage {

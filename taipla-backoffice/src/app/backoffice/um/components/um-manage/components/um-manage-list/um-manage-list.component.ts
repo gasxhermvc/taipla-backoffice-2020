@@ -3,49 +3,21 @@ import { BaseClass } from '@based/classes/base-class';
 import { UmService } from '@backoffice/services/um.service';
 import { MODE } from '@app-base/enums/MODE';
 import { SimpleTableConfig, SimpleColumnConfig } from '@based/interfaces/SimpleTableConfig';
+import { UM_LIST_CONFIG } from '@based/configs/table-config';
 @Component({
   selector: 'app-um-manage-list',
   templateUrl: './um-manage-list.component.html',
   styleUrls: ['./um-manage-list.component.scss']
 })
 export class UmManageListComponent extends BaseClass implements OnInit {
-
-  columns: any[] = [
-    {
-      HEADER: '#',
-      CLASS_NAME: 'text-center align-top',
-      KEY: 'NO'
-    } as SimpleColumnConfig,
-    {
-      HEADER: 'รูปประจำตัว',
-      CLASS_NAME: 'text-center align-top',
-      KEY: 'AVATAR'
-    } as SimpleColumnConfig,
-    {
-      HEADER: 'ชื่อผู้ใช้งาน',
-      CLASS_NAME: 'text-center align-top',
-      KEY: 'USERNAME'
-    } as SimpleColumnConfig,
-    {
-      HEADER: 'ชื่อ - นามสกุล',
-      CLASS_NAME: 'text-center align-top',
-      KEY: 'FULL_NAME'
-    } as SimpleColumnConfig, {
-      HEADER: 'สถานะ',
-      CLASS_NAME: 'text-center align-top',
-      KEY: 'ROLE'
-    } as SimpleColumnConfig,
-    {
-      HEADER: 'จัดการ',
-      CLASS_NAME: 'text-center align-top',
-      KEY: ''
-    } as SimpleColumnConfig
-  ]
-
   public MODE = MODE;
 
   get service(): UmService {
     return this.store['um'];
+  }
+
+  get columns(): any {
+    return UM_LIST_CONFIG;
   }
 
   get items(): any {
@@ -53,6 +25,15 @@ export class UmManageListComponent extends BaseClass implements OnInit {
   }
 
   @Output() selected = new EventEmitter<any>();
+
+  expandSet = new Set<number>();
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
+  }
 
   constructor(injector: Injector) {
     super(injector);
@@ -119,5 +100,9 @@ export class UmManageListComponent extends BaseClass implements OnInit {
       DATA: item,
       MODE: mode
     });
+  }
+
+  getColumnConfig(key: string, useProps: string = '') {
+    return this.app.getColumnConfig(UM_LIST_CONFIG, key, useProps)
   }
 }

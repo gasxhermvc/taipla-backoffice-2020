@@ -11,6 +11,7 @@ import { LocalStorageService } from '@based/services/local-storage.service';
 import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
 import { MOCK_USER } from '@based/mocks/defaults/mock-user';
 import { LoginForm } from '@app/app-base/interfaces/login-interface';
+import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 
 @Injectable()
 export class AuthService {
@@ -18,11 +19,12 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   public redirectUrl: string;
 
-  constructor(private app: AppService, private localStorage: LocalStorageService) { }
+  constructor(private app: AppService, private backoffice: BackofficeService, private localStorage: LocalStorageService) { }
 
   isLoggedIn(): Observable<boolean> {
     this.app.showLoading();
     if (this.app.user !== undefined) {
+      this.backoffice.init();
       return of(true);
     } else {
       const jwt = this.localStorage.exsit('jwt') ? this.localStorage.get('jwt') : undefined;
@@ -31,6 +33,8 @@ export class AuthService {
       if (!jwt) {
         return of(false);
       }
+
+      this.backoffice.init();
 
       return this.getUserInfo();
     }
@@ -78,7 +82,9 @@ export class AuthService {
         if (response && response.success) {
           this.app.jwt = undefined;
           this.localStorage.remove('jwt');
+          this.backoffice.menus = undefined;
           this.app.showSuccess(this.app.message.SUCCESS.LOGOUT);
+          window.location.reload();
         } else {
           window.location.reload();
         }

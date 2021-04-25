@@ -1,0 +1,9 @@
+<ng-container [ngSwitch]="service.STATE">
+    <app-restaraunt-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)">
+    </app-restaraunt-manage-list>
+    <app-restaraunt-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete()" (back)="onBack()">
+    </app-restaraunt-manage-add>
+    <app-restaraunt-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete()" (back)="onBack()">
+    </app-restaraunt-manage-edit>
+  </ng-container>
+  

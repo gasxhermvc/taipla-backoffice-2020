@@ -45,20 +45,22 @@
             <td class="text-center align-top CULTURE_NAME_TH">
               {{ item.CULTURE_NAME_TH || '-' }}
             </td>
-            <td class="text-center align-top NAME_TH">
+            <td class="text-left align-top NAME_TH">
               {{ item.NAME_TH || '-' }}
             </td>
-            <td class="text-center align-top NAME_EN">
+            <td class="text-left align-top NAME_EN">
               {{ item.NAME_EN || '-' }}
             </td>
             <td class="text-center align-top AUTHOR">
               {{ item.AUTHOR || '-' }}
             </td>
-            <td class="text-left align-top CREATED_DATE">
-              <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YYYY HH:mm:ss"></app-display-datetime>
+            <td class="text-center align-top CREATED_DATE">
+              <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YY <br />HH:mm:ss">
+              </app-display-datetime>
             </td>
-            <td class="text-left align-top UPDATED_DATE">
-              <app-display-datetime [datetime]="item.UPDATED_DATE" format="DD MMM YYYY HH:mm:ss"></app-display-datetime>
+            <td class="text-center align-top UPDATED_DATE">
+              <app-display-datetime [datetime]="item.UPDATED_DATE" format="DD MMM YY <br />H:mm:ss">
+              </app-display-datetime>
             </td>
             <td class="text-center align-top MANAGE">
               <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
@@ -78,11 +80,13 @@
 </ng-template>
 
 <ng-template let-item="item" #btn>
-  <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
-    แก้ไข
-  </button>
-  <span class="px-1"></span>
-  <button nz-button nzDanger (click)="onDelete(item)">
-    ลบ
-  </button>
+  <div class="d-flex flex-row flex-nowrap justify-content-center">
+    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+      แก้ไข
+    </button>
+    <span class="px-1"></span>
+    <button nz-button nzDanger (click)="onDelete(item)">
+      ลบ
+    </button>
+  </div>
 </ng-template>

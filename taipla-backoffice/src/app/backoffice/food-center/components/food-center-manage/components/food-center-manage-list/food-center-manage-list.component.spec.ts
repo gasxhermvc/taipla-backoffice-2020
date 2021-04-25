@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FoodCenterManageListComponent } from './food-center-manage-list.component';
+import { FoodCenterManageListComponent } from '@backoffice/food-center/components/food-center-manage/components/food-center-manage-list/food-center-manage-list.component';
 
 describe('FoodCenterManageListComponent', () => {
   let component: FoodCenterManageListComponent;

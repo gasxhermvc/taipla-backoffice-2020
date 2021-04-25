@@ -350,4 +350,16 @@ export class AppService {
       pageSize: this.env.pagination.pageSize
     };
   }
+
+  getColumnConfig(columns: any, key: string, useProp: string = '') {
+    let column: any = columns.filter((item:any) => item && item.KEY == key);
+
+    if(column && column.length > 0){
+      if(useProp != '') return column[0][useProp];
+
+      return column;
+    }
+    
+    return undefined;
+  }
 }

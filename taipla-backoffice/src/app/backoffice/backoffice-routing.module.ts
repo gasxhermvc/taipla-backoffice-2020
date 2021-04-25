@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ApplyMenuGuard } from '@app/based/guards/apply-menu.guard';
 import { BackofficeComponent } from '@backoffice/backoffice.component';
 import { AuthGuard } from '@based/guards/auth.guard';
 
@@ -7,7 +8,7 @@ const BACKOFFICE_ROUTES: Routes = [
   {
     path: 'backoffice',
     component: BackofficeComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ApplyMenuGuard],
     children: [
       {
         path: '',
@@ -62,6 +63,9 @@ const BACKOFFICE_ROUTES: Routes = [
   imports: [
     RouterModule.forChild(BACKOFFICE_ROUTES)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[
+    ApplyMenuGuard
+  ]
 })
 export class BackofficeRoutingModule { }
