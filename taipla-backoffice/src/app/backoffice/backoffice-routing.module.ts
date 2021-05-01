@@ -64,7 +64,7 @@ const BACKOFFICE_ROUTES: Routes = [
     RouterModule.forChild(BACKOFFICE_ROUTES)
   ],
   exports: [RouterModule],
-  providers:[
+  providers: [
     ApplyMenuGuard
   ]
 })

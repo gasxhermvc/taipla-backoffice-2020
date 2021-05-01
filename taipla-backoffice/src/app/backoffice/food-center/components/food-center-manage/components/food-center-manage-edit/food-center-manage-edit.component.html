@@ -10,16 +10,16 @@
       <ng-container [ngSwitch]="tab.VALUE">
         <div class="content p-0">
           <ng-container *ngSwitchCase="1">
-            <app-food-center-manage-edit-main *ngIf="currentTab === 1"></app-food-center-manage-edit-main>
+            <app-food-center-manage-edit-main></app-food-center-manage-edit-main>
           </ng-container>
           <ng-container *ngSwitchCase="2">
-            <app-food-center-manage-edit-legend *ngIf="currentTab === 2"></app-food-center-manage-edit-legend>
+            <app-food-center-manage-edit-legend></app-food-center-manage-edit-legend>
           </ng-container>
           <ng-container *ngSwitchCase="3">
-            <app-food-center-manage-edit-media *ngIf="currentTab === 3"></app-food-center-manage-edit-media>
+            <app-food-center-manage-edit-media></app-food-center-manage-edit-media>
           </ng-container>
           <ng-container *ngSwitchDefault>
-            <app-food-center-manage-edit-main *ngIf="currentTab === 1"></app-food-center-manage-edit-main>
+            <app-food-center-manage-edit-main></app-food-center-manage-edit-main>
           </ng-container>
         </div>
       </ng-container>

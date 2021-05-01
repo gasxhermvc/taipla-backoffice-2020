@@ -33,9 +33,6 @@ export class AuthService {
       if (!jwt) {
         return of(false);
       }
-
-      this.backoffice.init();
-
       return this.getUserInfo();
     }
   }
@@ -102,6 +99,7 @@ export class AuthService {
         switch (response.statusCode) {
           case 200:
             this.app.jwt.payload = response.data;
+            this.backoffice.init();
             break;
           default:
             this.app.showError(response.message || this.app.message.ERROR.DEFAULT);

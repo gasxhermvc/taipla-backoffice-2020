@@ -11,7 +11,7 @@ import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
 export class FoodCenterManageEditMainComponent extends BaseClass implements OnInit {
   formConfig: FormConfig[];
 
-  
+
   @Output() complete = new EventEmitter<any>();
 
   get service(): FoodCenterService {
@@ -27,10 +27,11 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
   }
 
   ngAfterViewInit() {
-    if (this.service.FOOD_CENTER_INFO) {
+    if (this.service.FOOD_CENTER_INFO && !this.service.tabLoad.one) {
       setTimeout(() => {
         this.initConfig();
         this.retrieveData();
+        this.service.tabLoad.one = true;
       }, 0);
     }
   }

@@ -1,1 +1,5 @@
-<p>food-center-manage-edit-media works!</p>
+<div class="d-row m-0 p-0 mb-3">
+  <ng-container *ngIf="formConfig">
+    <app-form [configs]="formConfig" [isMultipart]="true"></app-form>
+  </ng-container>
+</div>

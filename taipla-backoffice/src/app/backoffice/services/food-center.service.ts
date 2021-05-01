@@ -11,6 +11,13 @@ export class FoodCenterService extends BaseService {
   LISTS: FOOD_CENTER_LIST;
   FOOD_CENTER_INFO: FOOD_CENTER_INFO;
 
+  //=>Tabs
+  tabLoad: any = {
+    one: false,
+    two: false,
+    three: false
+  }
+
   get app() {
     return this._app;
   }
