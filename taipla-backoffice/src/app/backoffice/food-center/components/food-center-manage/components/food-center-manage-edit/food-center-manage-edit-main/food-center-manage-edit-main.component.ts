@@ -1,21 +1,28 @@
-import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
-import { FoodCenterService } from '@app/backoffice/services/food-center.service';
-import { BaseClass } from '@app/based/classes/base-class';
-import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FoodCenterService } from "@app/backoffice/services/food-center.service";
+import { BaseClass } from "@app/based/classes/base-class";
+import { ControlType, FormConfig } from "@app/based/interfaces/FormConfig";
 
 @Component({
-  selector: 'app-food-center-manage-edit-main',
-  templateUrl: './food-center-manage-edit-main.component.html',
-  styleUrls: ['./food-center-manage-edit-main.component.scss']
+  selector: "app-food-center-manage-edit-main",
+  templateUrl: "./food-center-manage-edit-main.component.html",
+  styleUrls: ["./food-center-manage-edit-main.component.scss"],
 })
-export class FoodCenterManageEditMainComponent extends BaseClass implements OnInit {
+export class FoodCenterManageEditMainComponent
+  extends BaseClass
+  implements OnInit {
   formConfig: FormConfig[];
-
 
   @Output() complete = new EventEmitter<any>();
 
   get service(): FoodCenterService {
-    return this.store['food_center'];
+    return this.store["food_center"];
   }
 
   constructor(injector: Injector) {
@@ -23,8 +30,7 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
     (window as any).fce = this;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     if (this.service.FOOD_CENTER_INFO && !this.service.tabLoad.one) {
@@ -35,34 +41,42 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
       }, 0);
     }
   }
+s
+  ngOnDestroy() {
+    // this.service.tabLoad.one = false;
+  }
 
   initConfig() {
     this.formConfig = [
       {
-        key: 'FOOD_ID',
+        key: "FOOD_ID",
         invisible: true,
-        required: true
+        required: true,
       },
       {
-        key: 'CODE',
+        key: "CODE",
         invisible: true,
-        required: true
+        required: true,
       },
       {
-        key: 'COUNTRY_ID',
-        label: 'ประเทศของอาหาร',
+        key: "COUNTRY_ID",
+        label: "ประเทศของอาหาร",
         type: ControlType.select,
-        placeholder: 'เลือกประเทศของอาหาร',
-        lookupKey: 'CODE',
-        lookupLabel: 'VALUE_TH',
-        lookup: this.backoffice.getLookup('COUNTRIES'),
+        placeholder: "เลือกประเทศของอาหาร",
+        lookupKey: "CODE",
+        lookupLabel: "VALUE_TH",
+        lookup: this.backoffice.getLookup("COUNTRIES"),
         change: (evt: any) => {
-          let related = 'CULTURE_ID'
-          let config = this.formConfig.find((item: any) => item.key === related);
+          let related = "CULTURE_ID";
+          let config = this.formConfig.find(
+            (item: any) => item.key === related
+          );
           if (config) {
-            config.lookup = [].concat(...this.backoffice.getLookup('CULTURES')).filter((item: any) => item.COUNTRY_ID === evt);
+            config.lookup = []
+              .concat(...this.backoffice.getLookup("CULTURES"))
+              .filter((item: any) => item.COUNTRY_ID === evt);
 
-            if (evt == undefined || evt == null || evt == 0 || evt == '') {
+            if (evt == undefined || evt == null || evt == 0 || evt == "") {
               config.disable = true;
             } else {
               config.disable = false;
@@ -71,81 +85,81 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
           }
         },
         errorMessages: {
-          required: 'กรุณาเลือกประเทศของอาหาร'
-        }
+          required: "กรุณาเลือกประเทศของอาหาร",
+        },
       },
       {
-        key: 'CULTURE_ID',
-        label: 'วัฒนธรรมอาหาร',
+        key: "CULTURE_ID",
+        label: "วัฒนธรรมอาหาร",
         type: ControlType.select,
-        placeholder: 'เลือกวัฒนธรรมของอาหาร',
-        lookupKey: 'CODE',
-        lookupLabel: 'VALUE_TH',
-        lookup: this.backoffice.getLookup('CULTURES'),
+        placeholder: "เลือกวัฒนธรรมของอาหาร",
+        lookupKey: "CODE",
+        lookupLabel: "VALUE_TH",
+        lookup: this.backoffice.getLookup("CULTURES"),
         errorMessages: {
-          required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
-        }
+          required: "กรุณาเลือกวัฒนธรรมของอาหาร",
+        },
       },
       {
-        key: 'NAME_TH',
-        label: 'ชื่ออาหาร (ภาษาไทย)',
+        key: "NAME_TH",
+        label: "ชื่ออาหาร (ภาษาไทย)",
         type: ControlType.text,
-        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        placeholder: "ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)",
         errorMessages: {
-          required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
-        }
+          required: "กรุณาป้อนชื่อวัฒนธรรมอาหาร",
+        },
       },
       {
-        key: 'NAME_EN',
-        label: 'ชื่ออาหาร (ภาษาอังกฤษ)',
+        key: "NAME_EN",
+        label: "ชื่ออาหาร (ภาษาอังกฤษ)",
         type: ControlType.text,
-        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)',
+        placeholder: "ป้อนชื่อวัฒนธรรมอาหาร (ภาษาอังกฤษ)",
         regex: /^([a-zA-Z0-9 _-]+)$/,
         errorMessages: {
-          regex: 'กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น'
-        }
+          regex: "กรุณาป้อนเป็นภาษาอังกฤษ และตัวเลขเท่านั้น",
+        },
       },
       {
-        key: 'DESCRIPTION',
-        label: 'คำอธิบาย',
+        key: "DESCRIPTION",
+        label: "คำอธิบาย",
         type: ControlType.textarea,
-        placeholder: 'ป้อนคำอธิบาย',
+        placeholder: "ป้อนคำอธิบาย",
         // errorMessages: {
         //   required: 'กรุณาป้อนคำอธิบาย'
         // }
       },
       {
-        key: 'COOKING_FOOD',
-        label: 'วิธีการปรุง',
+        key: "COOKING_FOOD",
+        label: "วิธีการปรุง",
         type: ControlType.textarea,
-        placeholder: 'ป้อนวิธีการปรุง'
+        placeholder: "ป้อนวิธีการปรุง",
       },
       {
-        key: 'INGREDIENT',
-        label: 'วัตถุดิบ',
+        key: "INGREDIENT",
+        label: "วัตถุดิบ",
         type: ControlType.textarea,
-        placeholder: 'ป้อนข้อมูลวัตถุดิบ'
+        placeholder: "ป้อนข้อมูลวัตถุดิบ",
       },
       {
-        key: 'DIETETIC_FOOD',
-        label: 'โภชนาการอาหาร',
+        key: "DIETETIC_FOOD",
+        label: "โภชนาการอาหาร",
         type: ControlType.textarea,
-        placeholder: 'ป้อนโภชนาการอาหาร'
+        placeholder: "ป้อนโภชนาการอาหาร",
       },
       {
-        key: 'UPLOAD',
-        label: 'รูปภาพประจำตัวอาหาร',
+        key: "UPLOAD",
+        label: "รูปภาพประจำตัวอาหาร",
         type: ControlType.upload,
-        placeholder: 'เลือกรูปภาพประจำตัว',
-        allowFileType: 'image/jpeg,image/jpg,image/png',
+        placeholder: "เลือกรูปภาพประจำตัว",
+        allowFileType: "image/jpeg,image/jpg,image/png",
         multiple: false,
         size: 10485760,
         preview: false,
-        listType: 'picture-card',
+        listType: "picture-card",
         errorMessages: {
-          uploadFormat: 'รองรับเฉพาะ JPG, JPEG และ PNG',
-          uploadSize: 'รองรับขนาดไฟล์ไม่เกิน 10 MB'
-        }
+          uploadFormat: "รองรับเฉพาะ JPG, JPEG และ PNG",
+          uploadSize: "รองรับขนาดไฟล์ไม่เกิน 10 MB",
+        },
       },
       // {
       //   key: 'LEGEND',
@@ -156,7 +170,7 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
       //   limit: 1,
       //   multiple: true
       // }
-    ]
+    ];
   }
 
   private async retrieveData() {
@@ -165,7 +179,7 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
     const result = await this.service.getFoodCenter({
       COUNTRY_ID: this.service.FOOD_CENTER_INFO.DATA.COUNTRY_ID,
       CULTURE_ID: this.service.FOOD_CENTER_INFO.DATA.CULTURE_ID,
-      FOOD_ID: this.service.FOOD_CENTER_INFO.DATA.FOOD_ID
+      FOOD_ID: this.service.FOOD_CENTER_INFO.DATA.FOOD_ID,
     });
 
     if (result) {
@@ -175,16 +189,26 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
           this.form.setFormData(this.service.FOOD_CENTER_INFO.DATA);
 
           //=>Bind image url
-          if (this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES && this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES.length > 0) {
-            const config = this.formConfig.find((config) => config.key === 'UPLOAD');
+          if (
+            this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES &&
+            this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES.length > 0
+          ) {
+            const config = this.formConfig.find(
+              (config) => config.key === "UPLOAD"
+            );
             config.fileList = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES;
             config.avatarUrl = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES[0].url;
             this.form.setConfig("UPLOAD", config);
           }
 
           //=>Bind legend
-          const config = this.formConfig.find((config) => config.key === 'LEGEND');
-          if (this.service.FOOD_CENTER_INFO.DATA.LEGENDS && this.service.FOOD_CENTER_INFO.DATA.LEGENDS.length > 0) {
+          const config = this.formConfig.find(
+            (config) => config.key === "LEGEND"
+          );
+          if (
+            this.service.FOOD_CENTER_INFO.DATA.LEGENDS &&
+            this.service.FOOD_CENTER_INFO.DATA.LEGENDS.length > 0
+          ) {
             // config.legendValues =
           } else {
             //=>ยังไม่เคยมีการเพิ่มตำนาน
@@ -222,7 +246,6 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
       } else {
         this.app.showError(this.app.message.ERROR.DEFAULT);
       }
-
     } else {
       this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
     }
@@ -260,5 +283,4 @@ export class FoodCenterManageEditMainComponent extends BaseClass implements OnIn
       }
     }
   }
-
 }

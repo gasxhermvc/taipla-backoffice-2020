@@ -36,7 +36,8 @@ export const ROUTE: any = {
     GET_FOOD_CENTER: "food/food",
     CREATED: "food/created",
     UPDATED: "food/updated",
-    DELETED: "food/deleted"
+    DELETED: "food/deleted",
+    MEDIAS: "food/medias"
   },
   RESTAURANT: {
     RESTAURANTS: "restaurant/restaurants",
@@ -44,5 +45,9 @@ export const ROUTE: any = {
     CREATED: "restaurant/created",
     UPDATED: "restaurant/updated",
     DELETED: "restaurant/deleted"
+  },
+  MEDIA: {
+    UPLOAD: "media/upload",
+    REMOVE: "media/remove/upload"
   }
 }

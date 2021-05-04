@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { environment as env } from '@environments/environment';
+import { Injectable } from "@angular/core";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+import { environment as env } from "@environments/environment";
 
 //=>Libraries
 // import { NzModalModule } from 'ng-zorro-antd/modal';
 // import { NzMessageModule } from 'ng-zorro-antd/message';
-import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 
 //=>App
-import { environment } from '@environments/environment';
+import { environment } from "@environments/environment";
 import message from "@assets/messages/message.json";
-import { ROUTE } from '@app-base/config/routes';
-import { XHttpOptions } from '@based/interfaces/HttpOptions';
-import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
-import { PaginationConfig } from '../interfaces/PaginationConfig';
+import { ROUTE } from "@app-base/config/routes";
+import { XHttpOptions } from "@based/interfaces/HttpOptions";
+import { User, JsonWebToken } from "@app-base/interfaces/default-interface";
+import { PaginationConfig } from "../interfaces/PaginationConfig";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AppService {
   env: any = environment;
@@ -34,7 +34,7 @@ export class AppService {
   }
 
   get apiUrl(): string {
-    return this.env.api.baseUrl._trim('/');
+    return this.env.api.baseUrl._trim("/");
   }
 
   get apiVersion(): string {
@@ -42,39 +42,45 @@ export class AppService {
   }
 
   get user(): User {
-    return (this.jwt && this.jwt.payload) ? this.jwt.payload : undefined;
+    return this.jwt && this.jwt.payload ? this.jwt.payload : undefined;
   }
 
   get header() {
     return {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Authorization': `Bearer ${this.jwt.access_token}`
-    }
+      "Content-Type": "application/json; charset=utf-8",
+      Authorization: `Bearer ${this.jwt.access_token}`,
+    };
   }
 
   get headerFormData() {
     return {
-      'Content-Type': "multipart/form-data",
-      'Authorization': `Bearer ${this.jwt.access_token}`
-    }
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${this.jwt.access_token}`,
+    };
   }
 
   get headerUrlEncode() {
     return {
-      'Content-Type': undefined,
-      'Authorization': `Bearer ${this.jwt.access_token}`
-    }
+      "Content-Type": undefined,
+      Authorization: `Bearer ${this.jwt.access_token}`,
+    };
   }
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private msg: NzMessageService,
-    private modalService: NzModalService) { }
+    private modalService: NzModalService
+  ) {}
 
-  reqUrl(url: string, httpOptions: XHttpOptions, alert: boolean = true): Observable<any> {
+  reqUrl(
+    url: string,
+    httpOptions: XHttpOptions,
+    alert: boolean = true
+  ): Observable<any> {
     let req;
 
     if (httpOptions && httpOptions.method === undefined) {
-      httpOptions.method = 'get';
+      httpOptions.method = "get";
     } else {
       httpOptions.method = httpOptions.method.toLowerCase();
     }
@@ -84,36 +90,38 @@ export class AppService {
     } else {
       req = this._reqExternalUrl(url, httpOptions);
     }
-    return req.pipe(map((response: any) => {
-      if (response === null || response === undefined) {
-        if (alert) {
-          this.showDefaultError();
+    return req.pipe(
+      map((response: any) => {
+        if (response === null || response === undefined) {
+          if (alert) {
+            this.showDefaultError();
+          }
         }
-      }
-      return response;
-    }));
+        return response;
+      })
+    );
   }
 
   formData(parameters) {
     var formData: any = new FormData();
 
     Object.keys(parameters).forEach((key) => {
-      formData.append(key, parameters[key]);
-
-      if (key === 'UPLOAD') {
+      if (key === "UPLOAD") {
         //=>Single
         parameters[key].forEach((file) => {
           if (file instanceof File) {
             formData.append(key, file);
           }
         });
-      } else if (key === 'UPLOADS') {
+      } else if (key === "UPLOADS") {
         //=>Multiple
         parameters[key].forEach((file, index) => {
           if (file instanceof File) {
             formData.append(`${key}[${index}]`, file);
           }
         });
+      } else {
+        formData.append(key, parameters[key]);
       }
     });
 
@@ -126,14 +134,14 @@ export class AppService {
   }
 
   showLoading() {
-    console.log('app.show.loading');
+    console.log("app.show.loading");
     setTimeout(() => {
       this._loading = true;
     }, 0);
   }
 
   hideLoading() {
-    console.log('app.hide.loading');
+    console.log("app.hide.loading");
     setTimeout(() => {
       this._loading = false;
     }, 0);
@@ -142,25 +150,27 @@ export class AppService {
   /* Private */
   private _reqInternalUrl(url: string, options: XHttpOptions): Observable<any> {
     const domainName = env.api.baseUrl;
-    const combineUrl = domainName + "/" + (url.startsWith('/') ? url.substring(1).trim() : url.trim());
+    const combineUrl =
+      domainName +
+      "/" +
+      (url.startsWith("/") ? url.substring(1).trim() : url.trim());
 
     if (options && options.headers !== undefined) {
       options.headers = {
         "Content-Type": this.getContentType(options),
-        ...options.headers
-      }
+        ...options.headers,
+      };
     }
 
     return this._reqUrl(combineUrl, options);
   }
 
   private _reqExternalUrl(url: string, options: XHttpOptions): Observable<any> {
-
     if (options && options.headers !== undefined) {
       options.headers = {
         "Content-Type": this.getContentType(options),
-        ...options.headers
-      }
+        ...options.headers,
+      };
     }
 
     return this._reqUrl(url, options);
@@ -174,8 +184,12 @@ export class AppService {
     let formData: FormData;
 
     if (options && options.headers) {
-      Object.keys(options.headers).forEach(key => {
-        if (key.toLowerCase() === 'content-type' && options.headers[key] && options.headers[key].indexOf('form-data') !== -1) {
+      Object.keys(options.headers).forEach((key) => {
+        if (
+          key.toLowerCase() === "content-type" &&
+          options.headers[key] &&
+          options.headers[key].indexOf("form-data") !== -1
+        ) {
           delete options.headers[key];
           isMultipart = true;
           formData = options.parameters;
@@ -192,40 +206,42 @@ export class AppService {
       params = this.buildParams(options);
     }
 
-    let responseType: any = options.responseType ? { responseType: options.responseType } : {};
+    let responseType: any = options.responseType
+      ? { responseType: options.responseType }
+      : {};
     switch (options.method) {
       case "get":
         req = this.http.get(url, {
           headers: headers,
           // params: { ...params },
           ...params,
-          ...responseType
+          ...responseType,
         });
         break;
 
       case "post":
         req = this.http.post(url, params, {
-          headers: headers
+          headers: headers,
         });
         break;
 
       case "put":
         req = this.http.put(url, params, {
-          headers: headers
+          headers: headers,
         });
         break;
 
       case "delete":
         req = this.http.delete(url, {
           headers: headers,
-          ...params
+          ...params,
         });
         break;
 
       default:
         req = this.http.get(url, {
           headers: headers,
-          ...params
+          ...params,
         });
 
         break;
@@ -239,17 +255,23 @@ export class AppService {
     switch (options.method) {
       case "get":
       case "delete":
-        params = (options.parameters && Object.keys(options.parameters).length > 0) ? { params: options.parameters } : {};
+        params =
+          options.parameters && Object.keys(options.parameters).length > 0
+            ? { params: options.parameters }
+            : {};
         break;
       default:
-        params = (options.parameters && Object.keys(options.parameters).length > 0) ? { ...options.parameters } : {};
+        params =
+          options.parameters && Object.keys(options.parameters).length > 0
+            ? { ...options.parameters }
+            : {};
         break;
     }
     return params;
   }
 
   private getContentType(options: any): string {
-    let contentType: string = '';
+    let contentType: string = "";
 
     switch (options.json) {
       case undefined:
@@ -286,7 +308,7 @@ export class AppService {
     if (domainNameEndIndex >= 0)
       domainName = domainName.substring(0, domainNameEndIndex);
 
-    return (domainName === '') ? true : false;
+    return domainName === "" ? true : false;
   }
 
   /* DEFAULT MESSAGE */
@@ -322,14 +344,14 @@ export class AppService {
       nzOnOk: () => callback(true),
       nzOnCancel: () => callback(false),
       nzOkText: okText,
-      nzCancelText: cancelText
+      nzCancelText: cancelText,
     });
   }
   /** Helper **/
   randomStr(maxCharacter: number = 10): string {
-
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var charactersLength = characters.length;
 
     for (var i = 0; i < length; i++) {
@@ -347,19 +369,19 @@ export class AppService {
     this.pagination = {
       ...this.pagination,
       currentIndexPage: 1,
-      pageSize: this.env.pagination.pageSize
+      pageSize: this.env.pagination.pageSize,
     };
   }
 
-  getColumnConfig(columns: any, key: string, useProp: string = '') {
-    let column: any = columns.filter((item:any) => item && item.KEY == key);
+  getColumnConfig(columns: any, key: string, useProp: string = "") {
+    let column: any = columns.filter((item: any) => item && item.KEY == key);
 
-    if(column && column.length > 0){
-      if(useProp != '') return column[0][useProp];
+    if (column && column.length > 0) {
+      if (useProp != "") return column[0][useProp];
 
       return column;
     }
-    
+
     return undefined;
   }
 }

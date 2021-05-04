@@ -1,0 +1,203 @@
+@import "src/styles.scss";
+
+:host {
+  position: relative !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  ::ng-deep {
+    .hr-none {
+      hr {
+        display: none;
+      }
+
+      .border-bottom {
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+}
+
+:host {
+    position: relative !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .inline {
+        display: flex;
+        flex-direction: row;
+
+        label {
+            flex: none;
+        }
+        .ctrl {
+            flex: 1;
+            margin-right: 0.3rem;
+        }
+
+        &.reverse {
+            flex-direction: row-reverse !important;
+            label {
+                flex: 1 !important;
+                margin-right: 0.3rem;
+            }
+            .ctrl {
+                flex: none !important;
+                margin-right: 0;
+            }
+        }
+    }
+
+    .text-error {
+        display: none;
+    }
+
+    label {
+        flex: 1;
+        margin-bottom: 0.2rem;
+    }
+
+    input,
+    textarea {
+        flex: 1;
+        margin-bottom: 0.2rem;
+        border: 0.5px solid $color-gray-light;
+        border-radius: 1rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+        //padding-top: 0.3rem;
+        resize: none;
+    }
+
+    ::placeholder {
+        color: $color-gray-light;
+    }
+
+    input {
+        height: 2rem;
+    }
+
+    textarea {
+        height: 4rem;
+    }
+
+    nz-select {
+        flex: 1;
+    }
+
+    input:focus,
+    textarea:focus,
+    nz-select:focus {
+        outline: none !important;
+        outline-offset: 0px !important;
+        box-shadow: 0 2px 4px $color-shadow;
+    }
+
+    .ctrl {
+        display: flex !important;
+        flex-direction: row;
+    }
+    .suffix-text {
+        padding: 3px;
+    }
+    .readonly {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            flex: 1;
+        }
+
+        .display-labe {
+            margin-bottom: 0.5rem;
+        }
+
+        .display-value {
+            margin-left: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    ::ng-deep {
+        input,
+        textarea {
+            padding-top: none !important;
+        }
+
+        .ant-select-selection,
+        .ant-select-selection__rendered {
+            display: flex;
+            background: none;
+            border: none;
+        }
+
+        .ant-select-selection {
+            margin-bottom: 0.2rem;
+            height: 2rem;
+            border: 0.5px solid $color-gray-light;
+            border-radius: 1rem;
+        }
+
+        .ant-select-selection__rendered {
+            width: 100%;
+        }
+
+        .ant-select-selection,
+        .ant-select-selection-selected-value,
+        .ant-select-dropdown-menu-item {
+            font-size: 0.75rem !important;
+        }
+
+        .ant-calendar-picker-input.ant-input {
+            border-radius: 1rem;
+        }
+
+        .ant-modal {
+            z-index: 9999;
+            background: white;
+        }
+
+        .ant-modal-close,
+        .ant-modal-close-x,
+        .ant-modal-close-x :focus {
+            outline: none !important;
+            border: none !important;
+        }
+    }
+
+    .ant-modal {
+        z-index: 9999;
+        background: white;
+    }
+
+    nz-input-number {
+        border-radius: 1rem;
+        flex: 0 30%;
+    }
+
+    nz-slider {
+        flex: 1 60%;
+    }
+
+    .ant-upload {
+        img {
+            width: 104px;
+            height: 104px;
+        }
+    }
+    .ant-modal-close,
+    .ant-modal-close-x,
+    .ant-modal-close-x :focus {
+        outline: none !important;
+        border: none !important;
+    }
+}
+

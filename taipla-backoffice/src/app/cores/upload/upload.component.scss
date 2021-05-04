@@ -1,0 +1,10 @@
+:host {
+  ::ng-deep {
+    .ant-upload {
+      img {
+        width: 104px;
+        height: 104px;
+      }
+    }
+  }
+}
