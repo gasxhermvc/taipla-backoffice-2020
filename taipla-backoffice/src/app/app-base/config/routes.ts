@@ -1,5 +1,5 @@
 export const ROUTE: any = {
-  MENU:{
+  MENU: {
     LISTS: "menu/lists"
   },
   LUT: {
@@ -45,6 +45,13 @@ export const ROUTE: any = {
     CREATED: "restaurant/created",
     UPDATED: "restaurant/updated",
     DELETED: "restaurant/deleted"
+  },
+  LEGEND: {
+    LEGENDS: "legend/legends",
+    GET_LEGEND: "legend/legend",
+    CREATED: "legend/created",
+    UPDATED: "legend/updated",
+    DELETED: "legend/deleted"
   },
   MEDIA: {
     UPLOAD: "media/upload",

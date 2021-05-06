@@ -1,5 +1,5 @@
 <div class="d-col m-0 p-0 mb-3">
-  <app-legend></app-legend>
+  <app-legend (remove)="onDelete($event)"></app-legend>
 </div>
 <button nz-button nzType="primary" (click)="onSave()">บันทึก</button>
 <span class="p-1"></span>

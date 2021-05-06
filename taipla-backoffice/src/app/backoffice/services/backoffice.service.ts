@@ -8,10 +8,9 @@ import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
 import { AccountService } from '@backoffice/services/account.service';
+import { LegendService } from '@backoffice/services/legend.service';
 
-import { MENU_CONFIGS } from '@app/app-base/config/menu';
 import { MENU } from '@app/app-base/interfaces/menu-config';
-import { ControlComponent } from '@app/cores/control/control.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +28,7 @@ export class BackofficeService extends BaseRequest {
     { key: 'media', class: MediaService },
     { key: 'restaurant', class: RestaurantService },
     { key: 'account', class: AccountService },
+    { key: 'legend', class: LegendService },
   ];
 
   public menus: MENU[] = undefined;

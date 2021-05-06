@@ -1,43 +1,43 @@
 <div class="row p-0 m-0">
-    <nz-header>
-        <ng-content select="[inner-header]"></ng-content>
-    </nz-header>
+  <nz-header>
+    <ng-content select="[inner-header]"></ng-content>
+  </nz-header>
 </div>
 <div class="row p-0 m-0 main-content flex-nowrap">
-    <div class="px-0 pos-relative slider" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible
-        [ngClass]="{'slider-hide': layout.isCollapsed }">
-        <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': layout.isCollapsed }">
-            <div class="logo" [ngClass]="{ 'd-none': layout.isCollapsed }">
-                <ng-container *ngIf="profile">
-                    <ng-container *ngTemplateOutlet="profile"></ng-container>
-                </ng-container>
-            </div>
-            <ul [ngClass]="{ 'd-none': layout.isCollapsed }" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible>
-                <ng-container *ngIf="isShowMenu">
-                    <ng-container *ngFor="let menu of menus; let index = index">
-                        <li *ngIf="menu.IS_MENU" nz-menu-item (click)="onClickMenu(index)"
-                            [ngClass]="{'ant-menu-item-selected': menu.IS_ACTIVE}">
-                            <i *ngIf="menu.ICON" nz-icon [nzType]="menu.ICON"></i>
-                            <span>{{ menu.LABEL }}</span>
-                        </li>
-                    </ng-container>
-                </ng-container>
-            </ul>
-        </div>
+  <div class="px-0 pos-relative slider" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible
+    [ngClass]="{'slider-hide': layout.isCollapsed }">
+    <div class="content p-0 pos-fixed-middle" [ngClass]="{'slider-hide': layout.isCollapsed }">
+      <div class="logo" [ngClass]="{ 'd-none': layout.isCollapsed }">
+        <ng-container *ngIf="profile">
+          <ng-container *ngTemplateOutlet="profile"></ng-container>
+        </ng-container>
+      </div>
+      <ul [ngClass]="{ 'd-none': layout.isCollapsed }" nz-menu nzTheme="dark" nzMode="inline" nzCollapsible>
+        <ng-container *ngIf="isShowMenu">
+          <ng-container *ngFor="let menu of menus; let index = index">
+            <li *ngIf="menu.IS_MENU" (click)="onClickMenu(index)" class="ant-menu-item"
+              [ngClass]="{'ant-menu-item-selected': menu.IS_ACTIVE}">
+              <i *ngIf="menu.ICON" nz-icon [nzType]="menu.ICON"></i>
+              <span>{{ menu.LABEL }}</span>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
     </div>
-    <div class="col-12 px-0" [ngClass]="{'col': !layout.isCollapsed , 'col-12': layout.isCollapsed }">
-        <span class="ant-layout-sider-zero-width-trigger" (click)="layout.isCollapsed = !layout.isCollapsed">
-            <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
-        </span>
-        <nz-content class="row col-12 p-0 m-0">
-            <div class="inner-content">
-                <div class="content p-3 p-sm-3 p-md-4">
-                    <ng-content select="[inner-content]"></ng-content>
-                </div>
-            </div>
-        </nz-content>
-        <div class="row col-12 p-0 m-0">
-            <nz-footer>{{ env.copyright.text }}</nz-footer>
+  </div>
+  <div class="col-12 px-0" [ngClass]="{'col': !layout.isCollapsed , 'col-12': layout.isCollapsed }">
+    <span class="ant-layout-sider-zero-width-trigger" (click)="layout.isCollapsed = !layout.isCollapsed">
+      <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+    </span>
+    <nz-content class="row col-12 p-0 m-0">
+      <div class="inner-content">
+        <div class="content p-3 p-sm-3 p-md-4">
+          <ng-content select="[inner-content]"></ng-content>
         </div>
+      </div>
+    </nz-content>
+    <div class="row col-12 p-0 m-0">
+      <nz-footer>{{ env.copyright.text }}</nz-footer>
     </div>
+  </div>
 </div>

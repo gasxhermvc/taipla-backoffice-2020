@@ -410,6 +410,10 @@ export class ControlComponent implements ControlValueAccessor, Validators {
       });
     }).pipe(
       map((success) => {
+        if (!this._config.multiple) {
+          this.fileList = this.fileList.slice(this.fileList.length - 1);
+        }
+
         this.loading = false;
         this.renderer();
         return success;

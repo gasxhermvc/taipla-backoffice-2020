@@ -1,30 +1,16 @@
-<ng-container *ngIf="FILE_LISTS && FILE_LISTS.length > 0">
-  <nz-upload
-    class="avatar-uploader"
-    nzName="avatar"
-    nzListType="picture-card"
-    [nzMultiple]="MULTIPLE"
-    [(nzFileList)]="FILE_LISTS"
-    [nzShowButton]="FILE_LISTS.length < LIMITS"
-    [nzBeforeUpload]="beforeUpload"
-    [nzPreview]="handlePreview"
-    [nzRemove]="handleRemove"
-    [nzCustomRequest]="handleUpload"
-
-  >
-    <ng-container>
-      <div>
-        <i nz-icon nzType="plus"></i>
-        <div style="margin-top: 8px">Upload</div>
-      </div>
-    </ng-container>
-  </nz-upload>
-  <nz-modal
-    [nzVisible]="previewVisible"
-    [nzContent]="modalContent"
-    [nzFooter]="null"
-    (nzOnCancel)="previewVisible = false"
-  >
+<nz-upload class="avatar-uploader" nzName="avatar" nzListType="picture-card" [nzMultiple]="MULTIPLE"
+  [(nzFileList)]="FILE_LISTS" [nzShowButton]="showButtonUpload" [nzBeforeUpload]="beforeUpload"
+  [nzPreview]="handlePreview" [nzRemove]="handleRemove" [nzCustomRequest]="handleUpload">
+  <ng-container>
+    <div>
+      <i nz-icon nzType="plus"></i>
+      <div style="margin-top: 8px">Upload</div>
+    </div>
+  </ng-container>
+</nz-upload>
+<ng-container *ngIf="FILES && FILES.length > 0">
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false">
     <ng-template #modalContent>
       <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
     </ng-template>

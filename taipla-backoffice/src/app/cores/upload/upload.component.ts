@@ -39,11 +39,23 @@ export class UploadComponent implements OnInit {
 
   previewVisible = false;
 
+  get showButtonUpload() {
+    if (this.FILES.length == 0) {
+      return true;
+    }
+
+    return this.FILES.length < this.LIMITS;
+  }
+
+  get FILES(): NzUploadFile[] {
+    return this.FILE_LISTS && this.FILE_LISTS.length > 0 ? this.FILE_LISTS : [];
+  }
+
   constructor(private app: AppService) {
     (window as any).upload = this;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   beforeUpload = (file: NzUploadFile) => {
     this.loading = true;

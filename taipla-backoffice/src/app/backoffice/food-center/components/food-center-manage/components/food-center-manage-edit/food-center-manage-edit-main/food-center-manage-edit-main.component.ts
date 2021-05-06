@@ -30,7 +30,7 @@ export class FoodCenterManageEditMainComponent
     (window as any).fce = this;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     if (this.service.FOOD_CENTER_INFO && !this.service.tabLoad.one) {
@@ -41,7 +41,7 @@ export class FoodCenterManageEditMainComponent
       }, 0);
     }
   }
-s
+  s
   ngOnDestroy() {
     // this.service.tabLoad.one = false;
   }
@@ -200,48 +200,6 @@ s
             config.avatarUrl = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES[0].url;
             this.form.setConfig("UPLOAD", config);
           }
-
-          //=>Bind legend
-          const config = this.formConfig.find(
-            (config) => config.key === "LEGEND"
-          );
-          if (
-            this.service.FOOD_CENTER_INFO.DATA.LEGENDS &&
-            this.service.FOOD_CENTER_INFO.DATA.LEGENDS.length > 0
-          ) {
-            // config.legendValues =
-          } else {
-            //=>ยังไม่เคยมีการเพิ่มตำนาน
-            // config.useDefault = true;
-          }
-
-          // config.legendValues = [[
-          //   {
-          //     key: 'ID',
-          //     defaultValue: '1'
-          //   },
-          //   {
-          //     key: 'LEGEND_TYPE',
-          //     defaultValue: '1'
-          //   }
-          //   ,
-          //   {
-          //     key: 'DESCRIPTION',
-          //     defaultValue: 'ABC'
-          //   }
-          //   ,
-          //   {
-          //     key: 'CODE',
-          //     defaultValue: '1234567890'
-          //   }
-          //   ,
-          //   {
-          //     key: 'ID',
-          //     defaultValue: '1'
-          //   }
-          // ]]
-
-          // this.form.setConfig("LEGEND", config);
         }
       } else {
         this.app.showError(this.app.message.ERROR.DEFAULT);
@@ -280,6 +238,18 @@ s
       this.form.initFormGroup();
       if (this.service.FOOD_CENTER_INFO.DATA) {
         this.form.setFormData(this.service.FOOD_CENTER_INFO.DATA);
+        //=>Bind image url
+        if (
+          this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES &&
+          this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES.length > 0
+        ) {
+          const config = this.formConfig.find(
+            (config) => config.key === "UPLOAD"
+          );
+          config.fileList = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES;
+          config.avatarUrl = this.service.FOOD_CENTER_INFO.DATA.UPLOAD_FILES[0].url;
+          this.form.setConfig("UPLOAD", config);
+        }
       }
     }
   }
