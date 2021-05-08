@@ -12,6 +12,13 @@ export class RestaurantService extends BaseService {
   LISTS: RESTAURANT_LIST;
   RESTAURANT_INFO: RESTAURANT_INFO;
 
+  //=>Tabs
+  tabLoad: any = {
+    one: false,
+    two: false,
+    three: false,
+  };
+
   get app() {
     return this._app;
   }

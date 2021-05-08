@@ -22,10 +22,7 @@ export class FoodCenterManageEditLegendComponent
 
       if (this.service.FOOD_CENTER_INFO && !this.service.tabLoad.three) {
         setTimeout(() => {
-          this.legend.form && this.legend.form.setFormData({
-            LEGEND_TYPE: '1',
-            CODE: this.service.FOOD_CENTER_INFO.DATA.CODE
-          });
+          this.initLegendForm();
           this.retrieveData();
           this.service.tabLoad.three = true;
         }, 0);
@@ -172,6 +169,7 @@ export class FoodCenterManageEditLegendComponent
             if (result.success) {
               this.app.showSuccess(this.app.message.SUCCESS.DELETE);
               this.legend.form.initFormGroup();
+              this.initLegendForm();
               this.legendService.LEGEND_INFO = {
                 DATA: undefined,
                 MODE: MODE.ADD
@@ -199,6 +197,7 @@ export class FoodCenterManageEditLegendComponent
     }
     this.hideLoading();
   }
+
   onClear() {
     if (this.legend.form) {
       this.legend.form.initFormGroup();
@@ -218,6 +217,15 @@ export class FoodCenterManageEditLegendComponent
         }
 
       }
+    }
+  }
+
+  private initLegendForm() {
+    if (this.legend && this.legend.form) {
+      this.legend.form && this.legend.form.setFormData({
+        LEGEND_TYPE: '1',
+        CODE: this.service.FOOD_CENTER_INFO.DATA.CODE
+      });
     }
   }
 }

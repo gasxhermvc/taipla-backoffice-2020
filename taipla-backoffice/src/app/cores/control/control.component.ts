@@ -100,8 +100,9 @@ export class ControlComponent implements ControlValueAccessor, Validators {
         this.control = new FormControl(this._config.defaultValue || null);
       }
 
-      if (this._config.defaultValue) {
-        this.control.setValue(this._config.defaultType);
+      if (this._config.defaultValue != null && this._config.defaultValue != undefined) {
+        this.control.setValue(this._config.defaultValue);
+        console.log('set',this.control.value);
       }
 
       if (this._config.fileList && this._config.fileList.length > 0) {

@@ -18,7 +18,8 @@ import { RestaurantManageEditComponent } from '@app/backoffice/restaurant/compon
 import { RestaurantManageListComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-list/restaurant-manage-list.component';
 import { RestaurantManageEditMainComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-main/restaurant-manage-edit-main.component';
 import { RestaurantManageEditMediaComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-media/restaurant-manage-edit-media.component';
-import { RestaurantManageEditLegendComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-legend/restaurant-manage-edit-legend.component';
+import { RestaurantManageEditMenuComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-menu/restaurant-manage-edit-menu.component';
+import { RestaurantMenuModule } from '@backoffice/restaurant-menu/restaurant-menu.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { RestaurantManageEditLegendComponent } from '@app/backoffice/restaurant/
     RestaurantManageListComponent,
     RestaurantManageEditMainComponent,
     RestaurantManageEditMediaComponent,
-    RestaurantManageEditLegendComponent
+    RestaurantManageEditMenuComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +38,7 @@ import { RestaurantManageEditLegendComponent } from '@app/backoffice/restaurant/
     AppBaseModule,
     ShareModule,
     BackofficeShareModule,
+    RestaurantMenuModule,
 
     NzButtonModule,
     NzIconModule,
@@ -50,7 +52,7 @@ import { RestaurantManageEditLegendComponent } from '@app/backoffice/restaurant/
     RestaurantManageListComponent,
     RestaurantManageEditMainComponent,
     RestaurantManageEditMediaComponent,
-    RestaurantManageEditLegendComponent
+    RestaurantManageEditMenuComponent
   ]
 })
 export class RestaurantModule { }

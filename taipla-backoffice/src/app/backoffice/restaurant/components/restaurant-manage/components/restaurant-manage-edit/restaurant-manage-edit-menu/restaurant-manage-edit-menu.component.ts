@@ -4,14 +4,14 @@ import { BaseClass } from '@app/based/classes/base-class';
 import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
 
 @Component({
-  selector: 'app-restaurant-manage-edit-legend',
-  templateUrl: './restaurant-manage-edit-legend.component.html',
-  styleUrls: ['./restaurant-manage-edit-legend.component.scss']
+  selector: 'app-restaurant-manage-edit-menu',
+  templateUrl: './restaurant-manage-edit-menu.component.html',
+  styleUrls: ['./restaurant-manage-edit-menu.component.scss']
 })
-export class RestaurantManageEditLegendComponent  extends BaseClass implements OnInit {
+export class RestaurantManageEditMenuComponent extends BaseClass implements OnInit {
   formConfig: FormConfig[];
 
-  
+
   @Output() complete = new EventEmitter<any>();
 
   get service(): RestaurantService {
@@ -149,7 +149,7 @@ export class RestaurantManageEditLegendComponent  extends BaseClass implements O
       // {
       //   key: 'LEGEND',
       //   label: 'ตำนานอาหาร',
-      //   type: ControlType.legend,
+      //   type: ControlType.menu,
       //   lookup: this.backoffice.getLookup('LEGEND-TYPES'),
       //   defaultType: '1',
       //   limit: 1,
@@ -181,16 +181,16 @@ export class RestaurantManageEditLegendComponent  extends BaseClass implements O
             this.form.setConfig("UPLOAD", config);
           }
 
-          //=>Bind legend
+          //=>Bind menu
           const config = this.formConfig.find((config) => config.key === 'LEGEND');
           if (this.service.RESTAURANT_INFO.DATA.LEGENDS && this.service.RESTAURANT_INFO.DATA.LEGENDS.length > 0) {
-            // config.legendValues =
+            // config.menuValues =
           } else {
             //=>ยังไม่เคยมีการเพิ่มตำนาน
             // config.useDefault = true;
           }
 
-          // config.legendValues = [[
+          // config.menuValues = [[
           //   {
           //     key: 'ID',
           //     defaultValue: '1'

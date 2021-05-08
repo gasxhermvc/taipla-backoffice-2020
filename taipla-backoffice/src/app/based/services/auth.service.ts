@@ -2,14 +2,13 @@
 import { Injectable } from '@angular/core';
 
 //=>Libraries
-import { of, Observable, Subject } from 'rxjs';
+import { of, Observable, Subject, forkJoin } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 
 //=App
 import { AppService } from '@based/services/app.service';
 import { LocalStorageService } from '@based/services/local-storage.service';
-import { User, JsonWebToken } from '@app-base/interfaces/default-interface';
-import { MOCK_USER } from '@based/mocks/defaults/mock-user';
+import { JsonWebToken } from '@app-base/interfaces/default-interface';
 import { LoginForm } from '@app/app-base/interfaces/login-interface';
 import { BackofficeService } from '@app/backoffice/services/backoffice.service';
 
@@ -24,7 +23,10 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     this.app.showLoading();
     if (this.app.user !== undefined) {
-      this.backoffice.init();
+      // this.backoffice.init2().subscribe((test) => {
+      //   console.log('test', test);
+      //   return of(true);
+      // });
       return of(true);
     } else {
       const jwt = this.localStorage.exsit('jwt') ? this.localStorage.get('jwt') : undefined;
@@ -33,7 +35,14 @@ export class AuthService {
       if (!jwt) {
         return of(false);
       }
-      return this.getUserInfo();
+
+      const subject = new Subject<boolean>();
+
+      forkJoin([this.getUserInfo(), this.backoffice.init2()]).subscribe((response) => {
+        subject.next(response[0]);
+      });
+
+      return subject.asObservable();
     }
   }
 
@@ -99,13 +108,14 @@ export class AuthService {
         switch (response.statusCode) {
           case 200:
             this.app.jwt.payload = response.data;
-            this.backoffice.init();
             break;
           default:
             this.app.showError(response.message || this.app.message.ERROR.DEFAULT);
+            return response.success;
         }
       }
       return response.success;
+
     }), catchError((handle: any) => {
       if (handle.error && !handle.error.success) {
 

@@ -122,7 +122,8 @@
     <div *ngSwitchCase="CONTROL_TYPE.radio" class="ctrl">
       <nz-radio-group nz-input [class.invalid]="control.invalid != null && control.invalid" [formControl]="control"
         [required]="_config.required">
-        <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="(item[_config?.lookupKey || 'CODE']) ">
+        <label nz-radio *ngFor="let item of _config.lookup" [nzValue]="(item[_config?.lookupKey || 'CODE'])"
+          [ngModel]="(item[_config?.lookupKey || 'CODE']) === _config.defaultValue">
           {{ (item[_config?.lookupLabel || 'DESCR']) }}
         </label>
       </nz-radio-group>
@@ -184,8 +185,8 @@
 
 <ng-template #coordinates>
   <div [ngSwitch]="_config.type">
-      <div *ngSwitchCase="CONTROL_TYPE.coordinates" class="ctrl">
-          <app-lat-long [formControl]="control" [config]="_config" #ctrl></app-lat-long>
-      </div>
+    <div *ngSwitchCase="CONTROL_TYPE.coordinates" class="ctrl">
+      <app-lat-long [formControl]="control" [config]="_config" #ctrl></app-lat-long>
+    </div>
   </div>
 </ng-template>

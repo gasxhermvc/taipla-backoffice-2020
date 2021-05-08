@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
-import { BaseClass } from '@app/based/classes/base-class';
+import { RestaurantService } from '@backoffice/services/restaurant.service';
+import { BaseClass } from '@based/classes/base-class';
 
 @Component({
   selector: 'app-restaurant-manage-edit',
@@ -11,18 +12,24 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
   @Output() back = new EventEmitter<any>();
 
   currentTab: number = 1;
-  tabs: any = [{
-    TITLE: 'ข้อมูลหลัก',
-    VALUE: 1
-  },
-  {
-    TITLE: 'ตำนานอาหาร',
-    VALUE: 2
-  },
-  {
-    TITLE: 'รูปภาพอาหาร',
-    VALUE: 3
-  }];
+  tabs: any = [
+    {
+      TITLE: "ข้อมูลหลัก",
+      VALUE: 1,
+    },
+    {
+      TITLE: "จัดการเมนูอาหาร",
+      VALUE: 2,
+    },
+    {
+      TITLE: "รูปภาพอาหาร",
+      VALUE: 3,
+    },
+  ];
+
+  get service(): RestaurantService {
+    return this.store["food_center"];
+  }
 
   constructor(injector: Injector) {
     super(injector);
@@ -30,6 +37,14 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.service.tabLoad = {
+      one: false,
+      two: false,
+      three: false,
+    };
   }
 
   onChangeTab(evt: any) {
@@ -40,6 +55,7 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
       this.currentTab = 1;
     }
   }
+
   onBack() {
     this.back.emit();
   }

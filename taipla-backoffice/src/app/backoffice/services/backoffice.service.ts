@@ -11,6 +11,7 @@ import { AccountService } from '@backoffice/services/account.service';
 import { LegendService } from '@backoffice/services/legend.service';
 
 import { MENU } from '@app/app-base/interfaces/menu-config';
+import { combineLatest, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +42,9 @@ export class BackofficeService extends BaseRequest {
     'ROLES',
     'COUNTRIES',
     'CULTURES',
-    'LEGEND-TYPES'
+    'LEGEND-TYPES',
+    'OWNERS',
+    'STAFF'
   ];
   lookup: any = undefined;
 
@@ -115,6 +118,36 @@ export class BackofficeService extends BaseRequest {
     }
   }
 
+  init2(): Observable<any> {
+    const subject = new Subject<any>();
+
+    this.autoMapperInjection();
+
+    if (!this.lookup) {
+      this.lookup = {};
+      let reqLookup: Array<Observable<any>> = this.lookupList.map((LUT: any) => {
+        return this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/lut/${LUT}`, {
+          method: 'GET',
+          headers: this.app.header,
+          parameters: {}
+        }, false)
+      });
+
+      combineLatest(reqLookup).subscribe((lookupList: any) => {
+        this.lookupList.forEach((it, i) => { this.lookup[`${it}`] = lookupList[i].data; });
+        subject.next(true);
+      }, (error: any) => {
+        subject.next(false);
+      }, () => {
+        subject.complete()
+      });
+    } else {
+      subject.next(true);
+    }
+    
+    return subject.asObservable();
+  }
+
   private async autoMapperInjection() {
     this.injections.map((inject: any) => {
       if (this.service[inject.key] === undefined) {
@@ -146,5 +179,5 @@ export class BackofficeService extends BaseRequest {
 
     return value;
   }
-  
+
 }

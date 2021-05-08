@@ -35,7 +35,19 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
   }
 
   initConfig() {
-    this.formConfig = this.formConfig = [
+    this.formConfig = [
+      {
+        key: 'OWNER_ID',
+        label: 'ชื่อเจ้าของร้านอาหาร',
+        type: ControlType.select,
+        placeholder: 'เลือกชื่อเจ้าของร้านอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'DESCR',
+        lookup: this.backoffice.getLookup('OWNERS'),
+        errorMessages: {
+          required: 'กรุณาเลือกเจ้าของร้านอาหาร'
+        }
+      },
       {
         key: 'COUNTRY_ID',
         label: 'ประเทศของอาหาร',
@@ -125,7 +137,8 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         key: 'CAR_PARK',
         label: 'แผนที่',
         type: ControlType.radio,
-        lookup: [{ CODE: 0, DESCR: 'ไม่มีที่จอด' }, { CODE: 1, DESCR: 'มีที่จอดรอด' }],
+        defaultValue: '0',
+        lookup: [{ CODE: '0', DESCR: 'ไม่มีที่จอด' }, { CODE: '1', DESCR: 'มีที่จอดรอด' }],
         placeholder: 'ป้อน Link แผนที่่ Google map'
       },
       {
