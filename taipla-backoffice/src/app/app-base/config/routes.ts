@@ -47,6 +47,14 @@ export const ROUTE: any = {
     DELETED: "restaurant/deleted",
     MEDIAS: "restaurant/medias"
   },
+  RESTAURANT_MENU: {
+    RESTAURANT_MENUS: "restaurant-menu/restaurant-menus",
+    GET_RESTAURANT_MENU: "restaurant-menu/restaurant-menu",
+    CREATED: "restaurant-menu/created",
+    UPDATED: "restaurant-menu/updated",
+    DELETED: "restaurant-menu/deleted",
+    MEDIAS: "restaurant-menu/medias"
+  },
   LEGEND: {
     LEGENDS: "legend/legends",
     GET_LEGEND: "legend/legend",

@@ -32,7 +32,12 @@ export class LayoutTemplateService {
           return menu;
         });
 
-      const index = menus.findIndex((menu: MENU) => menu.NAME === current);
+      let index = menus.findIndex((menu: MENU) => menu.NAME === current);
+      if (index === -1) {
+        let url = window.location.pathname.includes('restaurant/manage');
+        if (url) current = 'restaurant';
+        index = menus.findIndex((menu: MENU) => menu.NAME === current)
+      }
 
       if (menus[index] !== undefined) {
         menus[index].IS_ACTIVE = true;

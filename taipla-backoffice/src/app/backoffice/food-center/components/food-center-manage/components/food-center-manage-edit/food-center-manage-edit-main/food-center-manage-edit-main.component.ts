@@ -41,7 +41,7 @@ export class FoodCenterManageEditMainComponent
       }, 0);
     }
   }
-  s
+
   ngOnDestroy() {
     // this.service.tabLoad.one = false;
   }

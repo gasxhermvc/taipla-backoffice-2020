@@ -1,17 +1,17 @@
 <ng-container *ngIf="!readonly; else view;">
   <div class="content input">
-    <label [ngClass]="{'invalid': hasError , 'invalid': hasError }">{{_config?.label || 'พิกัด' }}
+    <label >{{_config?.label || 'พิกัด' }}
       <span *ngIf="_config && _config.required" class="text-danger">*</span>
     </label>
 
     <div class="latitude d-flex flex-1">
       <input [formControl]="controls[0]" [required]="_config?.required" [placeholder]="placeholderLat" step="any"
-        type="text" class="not-wheelmouse" mouseWheel [ngClass]="{'invalid': latitudeError }" (blur)="touched($event)"
+        type="text" class="not-wheelmouse" mouseWheel (blur)="touched($event)"
         (paste)="checkOnPaste($event)" (keypress)="allowInput($event)" />
     </div>
     <div class="longitude d-flex flex-1">
       <input [formControl]="controls[1]" [required]="_config?.required" [placeholder]="placeholderLong" step="any"
-        type="text" class="not-wheelmouse" mouseWheel [ngClass]="{'invalid': longitudeError }" (blur)="touched($event)"
+        type="text" class="not-wheelmouse" mouseWheel (blur)="touched($event)"
         (paste)="checkOnPaste($event)" (keypress)="allowInput($event)" />
     </div>
   </div>

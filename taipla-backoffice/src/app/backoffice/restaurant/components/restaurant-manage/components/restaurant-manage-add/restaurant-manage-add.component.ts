@@ -81,8 +81,12 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
       {
         key: 'GOOGLE_MAP',
         label: 'แผนที่',
-        type: ControlType.text,
-        placeholder: 'ป้อน Link แผนที่่ Google map'
+        type: ControlType.textarea,
+        placeholder: 'ป้อน Link แผนที่่ Google map หรือ <iframe />',
+        regex: /^(https:\/\/www.google.com\/maps.*|https:\/\/www.google.com\/maps.*|https:\/\/g.page.*|https:\/\/wwww.google.com\/maps.*|\<iframe.*https:\/\/www.google.com\/maps\/embed.*)*$/,
+        errorMessages: {
+          regex: 'กรุณาป้อน Link แผนที่่ Google map หรือ <iframe />'
+        }
       },
       {
         label: 'พิกัด',
@@ -107,7 +111,12 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         key: 'FACEBOOK',
         label: 'Social media (Facebook)',
         type: ControlType.text,
-        placeholder: 'ป้อน Link Facebook'
+        placeholder: 'ป้อน Link Facebook',
+        // regex: /^$|^https:\/\/www.facebook.com.*|^.*facebook.com.*/gi,
+        // regex: /^((\s\S|https:\/\/www.facebook.com.*|^.*facebook.com.*)*)$/,
+        // errorMessages: {
+        //   regex: 'กรุณาป้อน Link Facebook fan page หรือ Facebook profile'
+        // }
       },
       {
         key: 'LINE',
@@ -130,7 +139,8 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
       {
         key: 'TAGS',
         label: 'แปะป้ายสำหรับค้นหา',
-        type: ControlType.textarea,
+        type: ControlType.tagTokenize,
+        defaultValue: [],
         placeholder: 'ป้อน Link แผนที่่ Google map'
       },
       {
@@ -189,6 +199,10 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
   onClear() {
     if (this.form) {
       this.form.initFormGroup();
+      this.form.setFormData({
+        LATITUDE: undefined,
+        LONGITUDE: undefined
+      })
     }
   }
 

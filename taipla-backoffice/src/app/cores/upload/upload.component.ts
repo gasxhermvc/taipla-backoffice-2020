@@ -39,7 +39,12 @@ export class UploadComponent implements OnInit {
 
   previewVisible = false;
 
+  @Input()
+  viewMode: boolean = false;
+
   get showButtonUpload() {
+    if(this.viewMode) return false;
+    
     if (this.FILES.length == 0) {
       return true;
     }

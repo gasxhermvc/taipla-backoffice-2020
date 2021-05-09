@@ -435,7 +435,7 @@ export class LatLongComponent implements ControlValueAccessor, Validator, OnInit
   public onTouched: () => void = () => { }
 
   allowInput(evt: any) {
-    const regex = new RegExp(/^((\d{1,3})|\.)(\.\d+)*$/gi);
+    const regex = new RegExp(/^((\d{1,3}|.)?\.?((\.\d{1,18})?)*)$/gi);
     let isAllow = regex.test(evt.key);
 
     if (evt.target.value.includes('.') && evt.key === '.') {
@@ -443,19 +443,23 @@ export class LatLongComponent implements ControlValueAccessor, Validator, OnInit
       return false;
     }
 
+    let text: any = '';
     if (this._config.coordinate.decimalPlaces && isAllow) {
       //=>selection for remove text
       const selection = window.getSelection().toString();
-      let text = evt.target.value.split('')
+      text = evt.target.value.split('')
       text.splice(evt.target.selectionStart, selection.length, evt.key);
       text = text.join('');
       if (text.includes('.')) {
         const split = text.split('.');
         const valid = split[1].length <= this._config.coordinate.decimalPlaces;
         isAllow = valid;
+
+        if (!isAllow) return isAllow;
       }
     }
 
+    isAllow = new RegExp(/^(\d{1,3}?\.?((\.\d{1,18})?)*)$/gi).test(text);
     return isAllow;
   }
 

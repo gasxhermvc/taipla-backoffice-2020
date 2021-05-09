@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="service.STATE">
+  <app-restaurant-menu-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)">
+  </app-restaurant-menu-manage-list>
+  <app-restaurant-menu-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete()" (back)="onBack()">
+  </app-restaurant-menu-manage-add>
+  <app-restaurant-menu-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete()" (back)="onBack()">
+  </app-restaurant-menu-manage-edit>
+</ng-container>

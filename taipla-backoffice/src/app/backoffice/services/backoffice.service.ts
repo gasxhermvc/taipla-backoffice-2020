@@ -9,6 +9,7 @@ import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
 import { AccountService } from '@backoffice/services/account.service';
 import { LegendService } from '@backoffice/services/legend.service';
+import { RestaurantMenuService } from '@app/backoffice/services/restaurant-menu.service';
 
 import { MENU } from '@app/app-base/interfaces/menu-config';
 import { combineLatest, Observable, Subject } from 'rxjs';
@@ -30,6 +31,7 @@ export class BackofficeService extends BaseRequest {
     { key: 'restaurant', class: RestaurantService },
     { key: 'account', class: AccountService },
     { key: 'legend', class: LegendService },
+    { key: 'restaurant_menu', class: RestaurantMenuService },
   ];
 
   public menus: MENU[] = undefined;
@@ -144,7 +146,7 @@ export class BackofficeService extends BaseRequest {
     } else {
       subject.next(true);
     }
-    
+
     return subject.asObservable();
   }
 

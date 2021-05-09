@@ -1,13 +1,17 @@
 <nz-upload class="avatar-uploader" nzName="avatar" nzListType="picture-card" [nzMultiple]="MULTIPLE"
   [(nzFileList)]="FILE_LISTS" [nzShowButton]="showButtonUpload" [nzBeforeUpload]="beforeUpload"
   [nzPreview]="handlePreview" [nzRemove]="handleRemove" [nzCustomRequest]="handleUpload">
-  <ng-container>
+  <ng-container *ngIf="!viewMode">
     <div>
       <i nz-icon nzType="plus"></i>
       <div style="margin-top: 8px">Upload</div>
     </div>
   </ng-container>
 </nz-upload>
+<ng-container *ngIf="FILES && FILES.length == 0">
+  <div class="not-found"></div>
+</ng-container>
+
 <ng-container *ngIf="FILES && FILES.length > 0">
   <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
     (nzOnCancel)="previewVisible = false">

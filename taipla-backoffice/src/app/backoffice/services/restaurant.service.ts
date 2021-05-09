@@ -51,7 +51,7 @@ export class RestaurantService extends BaseService {
     }
 
     //=>Mock
-    // const LISTS = [].concat(...MOCK_FOOD_CENTERLISTS);
+    // const LISTS = [].concat(...MOCK_RESTAURANTLISTS);
     // this.LISTS = {
     //   TOTAL: LISTS.length,
     //   LISTS: LISTS,
@@ -63,7 +63,7 @@ export class RestaurantService extends BaseService {
     let result;
     try {
 
-      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_RESTAURANT}/${params.RES_ID}`, {
+      const response = await this.app.reqUrl(`${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.GET_RESTAURANT}/${params.RES_ID}`, {
         method: 'GET',
         headers: this.app.header,
         parameters: params,
@@ -76,7 +76,7 @@ export class RestaurantService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_EDIT }
+    // result = { ...MOCK_RESTAURANT_EDIT }
 
     return result;
   }
@@ -97,7 +97,7 @@ export class RestaurantService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_ADD }
+    // result = { ...MOCK_RESTAURANT_ADD }
 
     return result;
   }
@@ -116,7 +116,7 @@ export class RestaurantService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_EDIT };
+    // result = { ...MOCK_RESTAURANT_EDIT };
 
     return result;
   }
@@ -138,6 +138,29 @@ export class RestaurantService extends BaseService {
 
     //=>Mock
     // result = MOCK_COUNTRY_DELETE.success
+    return result;
+  }
+
+  async mediaRestaurant(param: any) {
+    let result;
+
+    try {
+      const response = await this.app
+        .reqUrl(
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT.MEDIAS}/${param.RES_ID}`,
+          {
+            method: "GET",
+            headers: this.app.header,
+            parameters: param,
+          }
+        )
+        .toPromise();
+
+      result = response && response.success ? response : undefined;
+    } catch (exception) {
+      console.log("mediaRestaurant.exception", exception);
+    }
+
     return result;
   }
 }

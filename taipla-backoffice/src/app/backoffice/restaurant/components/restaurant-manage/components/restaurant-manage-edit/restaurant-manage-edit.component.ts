@@ -28,7 +28,7 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
   ];
 
   get service(): RestaurantService {
-    return this.store["food_center"];
+    return this.store["restaurant"];
   }
 
   constructor(injector: Injector) {
@@ -48,7 +48,6 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
   }
 
   onChangeTab(evt: any) {
-    console.log(evt);
     if (evt && evt.index != undefined && evt.index != null) {
       this.currentTab = evt.index + 1;
     } else {

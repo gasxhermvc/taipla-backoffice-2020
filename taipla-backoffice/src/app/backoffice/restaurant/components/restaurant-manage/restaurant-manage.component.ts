@@ -11,7 +11,7 @@ import { RestaurantManageListComponent } from './components/restaurant-manage-li
 })
 export class RestaurantManageComponent extends BaseClass implements OnInit {
 
-  @ViewChild(RestaurantManageListComponent) fcList: RestaurantManageListComponent;
+  @ViewChild(RestaurantManageListComponent) rmList: RestaurantManageListComponent;
 
   MODE = MODE;
 
@@ -41,8 +41,8 @@ export class RestaurantManageComponent extends BaseClass implements OnInit {
         case MODE.DELETE:
           this.service.RESTAURANT_INFO = undefined;
           this.service.STATE = this.service.STATE_PAGE.LISTS;
-          if (this.fcList) {
-            this.fcList.retrieveData();
+          if (this.rmList) {
+            this.rmList.retrieveData();
           }
           break;
         case MODE.VIEW:

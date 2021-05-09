@@ -72,31 +72,50 @@ $border-width-input: 0.1rem;
         }
     }
 
-    .validate {
-        .ng-invalid {
-            border: $border-width-input solid red !important;
-        }
+    input {
+        border-color: #dfdfdf !important;
+        border: 0.5px solid #dfdfdf !important;
     }
 
+    .ng-invalid {
+        border-color: red !important;
+    }
     ::ng-deep {
         .validate {
-            input:invalid {
-                &.invalid {
-                    border: $border-width-input solid red !important;
-                }
-            }
-
             .ng-invalid {
-                border: $border-width-input solid red !important;
-            }
-
-            input,
-            .latitude,
-            .longitude {
-                .invalid {
-                    border: $border-width-input solid red !important;
+                input {
+                    border-color: #dfdfdf !important;
+                    border: 0.5px solid #dfdfdf !important;
                 }
             }
         }
     }
+
+    // .validate {
+    //     .ng-invalid {
+    //         border: $border-width-input solid red !important;
+    //     }
+    // }
+
+    // ::ng-deep {
+    //     .validate {
+    //         input:invalid {
+    //             &.invalid {
+    //                 border: $border-width-input solid red !important;
+    //             }
+    //         }
+
+    //         .ng-invalid {
+    //             border: $border-width-input solid red !important;
+    //         }
+
+    //         input,
+    //         .latitude,
+    //         .longitude {
+    //             .invalid {
+    //                 border: $border-width-input solid red !important;
+    //             }
+    //         }
+    //     }
+    // }
 }

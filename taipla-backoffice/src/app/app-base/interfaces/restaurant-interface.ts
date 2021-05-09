@@ -17,13 +17,15 @@ export interface Restaurant {
     TAGS?: string;
     CAR_PARK?: boolean;
     AUTHOR?: string;
+    OWNER_ID?: number;
+    OWNER?: string;
 
-    VIEWER?:number;
+    VIEWER?: number;
 
     CREATED_DATE?: string;
     UPDATED_DATE?: string;
     UPLOAD_FILES?: any;
-  
+
     //=>Legend
     LEGENDS?: any;
 }

@@ -82,7 +82,9 @@ export enum ControlType {
     modal,
     slider,
     coordinates,
-    legend
+    legend,
+    tags,
+    tagTokenize
 }
 
 export interface CoordinateConfig {

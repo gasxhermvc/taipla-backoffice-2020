@@ -1,1 +1,8 @@
-<p>restaurant-menu works!</p>
+<div class="content" [ngClass]="{ 'inner': isParent }">
+  <div class="row flex-column flex-sm-row m-0 p-0">
+    <div class="col-12 p-0">
+      <router-outlet *ngIf="!isParent"></router-outlet>
+      <app-restaurant-menu-manage *ngIf="isParent"></app-restaurant-menu-manage>
+    </div>
+  </div>
+</div>
