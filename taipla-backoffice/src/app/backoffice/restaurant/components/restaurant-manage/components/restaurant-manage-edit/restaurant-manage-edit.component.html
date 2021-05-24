@@ -1,28 +1,30 @@
 <div class="d-row m-0 p-0 mb-3">
-  <button nz-button nzDanger (click)="onBack()">
+  <button nz-button nzDanger (click)="onBack()" [hidden]="service.HIDE_TAB">
     ย้อนกลับ
   </button>
 </div>
-<nz-tabset (nzSelectChange)="onChangeTab($event)">
-  {{ currentTab }}
+<nz-tabset (nzSelectChange)="onChangeTab($event)" [hidden]="service.HIDE_TAB">
   <ng-container *ngFor="let tab of tabs">
     <nz-tab [nzTitle]="tab.TITLE">
-      <ng-container [ngSwitch]="tab.VALUE">
-        <div class="content p-0">
-          <ng-container *ngSwitchCase="1">
-            <app-restaurant-manage-edit-main></app-restaurant-manage-edit-main>
-          </ng-container>
-          <ng-container *ngSwitchCase="2">
-            <app-restaurant-manage-edit-menu></app-restaurant-manage-edit-menu>
-          </ng-container>
-          <ng-container *ngSwitchCase="3">
-            <app-restaurant-manage-edit-media></app-restaurant-manage-edit-media>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <app-restaurant-manage-edit-main></app-restaurant-manage-edit-main>
-          </ng-container>
-        </div>
-      </ng-container>
     </nz-tab>
   </ng-container>
 </nz-tabset>
+<ng-container [ngSwitch]="currentTab">
+  <div class="content p-0">
+    <ng-container *ngSwitchCase="1">
+      <app-restaurant-manage-edit-main></app-restaurant-manage-edit-main>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+      <app-restaurant-manage-edit-menu></app-restaurant-manage-edit-menu>
+    </ng-container>
+    <!-- <ng-container *ngSwitchCase="3">
+      <app-restaurant-manage-edit-promotion></app-restaurant-manage-edit-promotion>
+    </ng-container> -->
+    <ng-container *ngSwitchCase="3">
+      <app-restaurant-manage-edit-media></app-restaurant-manage-edit-media>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <app-restaurant-manage-edit-main></app-restaurant-manage-edit-main>
+    </ng-container>
+  </div>
+</ng-container>

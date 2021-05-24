@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RestaurantMenuManageEditLegendComponent } from './restaurant-menu-manage-edit-legend.component';
+import { RestaurantMenuManageEditLegendComponent } from '@backoffice/restaurant-menu/components/restaurant-menu-manage/components/restaurant-menu-manage-edit/restaurant-menu-manage-edit-legend/restaurant-menu-manage-edit-legend.component';
 
 describe('RestaurantMenuManageEditLegendComponent', () => {
   let component: RestaurantMenuManageEditLegendComponent;
@@ -8,9 +8,9 @@ describe('RestaurantMenuManageEditLegendComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RestaurantMenuManageEditLegendComponent ]
+      declarations: [RestaurantMenuManageEditLegendComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -21,9 +21,13 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
       TITLE: "จัดการเมนูอาหาร",
       VALUE: 2,
     },
+    // {
+    //   TITLE: "จัดการโปรโมชัน",
+    //   VALUE: 3,
+    // },
     {
-      TITLE: "รูปภาพอาหาร",
-      VALUE: 3,
+      TITLE: "รูปภาพร้านอาหาร",
+      VALUE: 4,
     },
   ];
 
@@ -44,6 +48,7 @@ export class RestaurantManageEditComponent extends BaseClass implements OnInit {
       one: false,
       two: false,
       three: false,
+      four: false,
     };
   }
 

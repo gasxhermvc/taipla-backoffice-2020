@@ -12,6 +12,8 @@ export class RestaurantService extends BaseService {
   LISTS: RESTAURANT_LIST;
   RESTAURANT_INFO: RESTAURANT_INFO;
 
+  HIDE_TAB: boolean = false;
+
   //=>Tabs
   tabLoad: any = {
     one: false,

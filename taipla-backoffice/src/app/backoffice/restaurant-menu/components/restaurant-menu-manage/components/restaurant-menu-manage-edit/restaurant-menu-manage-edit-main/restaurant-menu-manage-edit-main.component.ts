@@ -36,11 +36,16 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
   }
 
   ngOnDestroy() {
-    // this.service.tabLoad.one = false;
+     this.service.tabLoad.one = false;
   }
 
   initConfig() {
     this.formConfig = [
+      {
+        key: "MENU_ID",
+        invisible: true,
+        required: true
+      },
       {
         key: "RES_ID",
         invisible: true,
@@ -121,23 +126,32 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
         //   required: 'กรุณาป้อนคำอธิบาย'
         // }
       },
+      // {
+      //   key: "COOKING_FOOD",
+      //   label: "วิธีการปรุง",
+      //   type: ControlType.textarea,
+      //   placeholder: "ป้อนวิธีการปรุง",
+      // },
+      // {
+      //   key: "INGREDIENT",
+      //   label: "วัตถุดิบ",
+      //   type: ControlType.textarea,
+      //   placeholder: "ป้อนข้อมูลวัตถุดิบ",
+      // },
+      // {
+      //   key: "DIETETIC_FOOD",
+      //   label: "โภชนาการอาหาร",
+      //   type: ControlType.textarea,
+      //   placeholder: "ป้อนโภชนาการอาหาร",
+      // },
       {
-        key: "COOKING_FOOD",
-        label: "วิธีการปรุง",
-        type: ControlType.textarea,
-        placeholder: "ป้อนวิธีการปรุง",
-      },
-      {
-        key: "INGREDIENT",
-        label: "วัตถุดิบ",
-        type: ControlType.textarea,
-        placeholder: "ป้อนข้อมูลวัตถุดิบ",
-      },
-      {
-        key: "DIETETIC_FOOD",
-        label: "โภชนาการอาหาร",
-        type: ControlType.textarea,
-        placeholder: "ป้อนโภชนาการอาหาร",
+        key: 'PRICE',
+        label: 'ราคาอาหาร',
+        type: ControlType.number,
+        placeholder: 'ป้อนราคาอาหาร',
+        errorMessages: {
+          required: 'กรุณาป้อนราคาอาหาร'
+        }
       },
       {
         key: "UPLOAD",
@@ -173,6 +187,8 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
       COUNTRY_ID: this.service.RESTAURANT_MENU_INFO.DATA.COUNTRY_ID,
       CULTURE_ID: this.service.RESTAURANT_MENU_INFO.DATA.CULTURE_ID,
       RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
+      MENU_ID: this.service.RESTAURANT_MENU_INFO.DATA.MENU_ID,
+      OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID,
     });
 
     if (result) {

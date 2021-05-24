@@ -11,6 +11,8 @@ export class RestaurantMenuService extends BaseService {
   LISTS: RESTAURANT_MENU_LIST;
   RESTAURANT_MENU_INFO: RESTAURANT_MENU_INFO;
 
+  RES_ID: any;
+
   //=>Tabs
   tabLoad: any = {
     one: false,
@@ -30,7 +32,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.FOODS}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.RESTAURANT_MENUS}`,
           {
             method: "GET",
             headers: this.app.header,
@@ -54,7 +56,7 @@ export class RestaurantMenuService extends BaseService {
     }
 
     //=>Mock
-    // const LISTS = [].concat(...MOCK_FOOD_CENTERLISTS);
+    // const LISTS = [].concat(...MOCK_RESTAURANT_MENULISTS);
     // this.LISTS = {
     //   TOTAL: LISTS.length,
     //   LISTS: LISTS,
@@ -67,7 +69,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.GET_FOOD_CENTER}/${params.FOOD_ID}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.GET_RESTAURANT_MENU}`,
           {
             method: "GET",
             headers: this.app.header,
@@ -84,7 +86,7 @@ export class RestaurantMenuService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_EDIT }
+    // result = { ...MOCK_RESTAURANT_MENU_EDIT }
 
     return result;
   }
@@ -94,7 +96,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.CREATED}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.CREATED}`,
           {
             method: "POST",
             headers: this.app.headerFormData,
@@ -110,7 +112,7 @@ export class RestaurantMenuService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_ADD }
+    // result = { ...MOCK_RESTAURANT_MENU_ADD }
 
     return result;
   }
@@ -119,7 +121,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.UPDATED}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.UPDATED}`,
           {
             method: "PUT",
             headers: this.app.headerFormData,
@@ -135,7 +137,7 @@ export class RestaurantMenuService extends BaseService {
     }
 
     //=>Mock
-    // result = { ...MOCK_FOOD_CENTER_EDIT };
+    // result = { ...MOCK_RESTAURANT_MENU_EDIT };
 
     return result;
   }
@@ -146,7 +148,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.DELETED}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.DELETED}`,
           {
             method: "DELETE",
             headers: this.app.header,
@@ -172,7 +174,7 @@ export class RestaurantMenuService extends BaseService {
     try {
       const response = await this.app
         .reqUrl(
-          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.FOOD_CENTER.MEDIAS}/${param.FOOD_ID}`,
+          `${this.app.apiUrl}/${this.app.apiVersion}/backend/${this.app.route.RESTAURANT_MENU.MEDIAS}/${param.RESTAURANT_MENU_ID}`,
           {
             method: "GET",
             headers: this.app.header,

@@ -1,8 +1,21 @@
 <div class="row flex-column flex-sm-row m-0 p-0 mb-3">
-  <div class="col-12 col-sm-6 px-0">
+  <div class="col-12 col-sm-8 px-0 d-flex flex-column">
     <h3>จัดการอาหารส่วนกลาง</h3>
+    <ng-container *ngIf="formConfig">
+      <div class="d-flex flex-column flex-sm-row">
+        <div class="col-12 col-sm-3 px-0 d-flex flex-row">
+          <app-control [config]="formConfig[0]" #country></app-control>
+        </div>
+        <div class="col-12 col-sm-3 px-0 mr-sm-3 mx-md-3 d-flex flex-row">
+          <app-control [config]="formConfig[1]" #culture></app-control>
+        </div>
+        <div class="col-12 col-sm-3 px-0 d-flex flex-row">
+          <app-control [config]="formConfig[2]" class="radius-none" #name_th></app-control>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+  <div class="col-12 col-sm-4 px-0 d-flex justify-content-end">
     <button (click)="createFoodCenter()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
       <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มอาหารส่วนกลาง
     </button>

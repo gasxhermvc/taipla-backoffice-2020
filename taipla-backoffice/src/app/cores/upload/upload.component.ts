@@ -43,8 +43,8 @@ export class UploadComponent implements OnInit {
   viewMode: boolean = false;
 
   get showButtonUpload() {
-    if(this.viewMode) return false;
-    
+    if (this.viewMode) return false;
+
     if (this.FILES.length == 0) {
       return true;
     }
@@ -137,6 +137,7 @@ export class UploadComponent implements OnInit {
     let param: any = this.getFormData({
       ...(this.MEATA ? { ...this.MEATA } : {}),
       UID: item.uid,
+      SYSTEM_NAME: item.systemName,
       PATH_FILE: item.url,
     });
     this.app

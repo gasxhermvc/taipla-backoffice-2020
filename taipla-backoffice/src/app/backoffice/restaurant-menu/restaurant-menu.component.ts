@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { RestaurantMenuService } from '@backoffice/services/restaurant-menu.service';
 import { MODE } from '@app-base/enums/MODE';
 import { BaseClass } from '@based/classes/base-class';
@@ -27,10 +27,11 @@ export class RestaurantMenuComponent extends BaseClass implements OnInit {
     return this.store[this.currentSystem] || {};
   }
 
+  @Output() selected = new EventEmitter<any>();
   constructor(injector: Injector) {
     super(injector);
     this.backoffice.currentSystem = this.currentSystem;
-    (window as any).food_center = this;
+    (window as any).restaurant_menu = this;
   }
 
   ngOnInit() {

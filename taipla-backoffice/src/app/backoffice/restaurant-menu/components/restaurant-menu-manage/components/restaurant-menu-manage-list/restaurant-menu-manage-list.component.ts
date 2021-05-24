@@ -42,7 +42,9 @@ export class RestaurantMenuManageListComponent extends BaseClass implements OnIn
     if (this.service !== undefined) {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
-        const params: any = {};
+        const params: any = {
+          RES_ID: this.service.RESTAURANT_MENU_INFO?.DATA.RES_ID || this.service.RES_ID
+        };
         this.service.LISTS = await this.service.getRestaurantMenuLists(params);
         this.hideLoading();
       }
@@ -60,7 +62,9 @@ export class RestaurantMenuManageListComponent extends BaseClass implements OnIn
         let param: any = {
           COUNTRY_ID: item.COUNTRY_ID,
           CULTURE_ID: item.CULTURE_ID,
-          FOOD_ID: item.FOOD_ID
+          RES_ID: item.RES_ID,
+          OWNER_ID: item.OWNER_ID,
+          MENU_ID: item.MENU_ID
         };
 
         const result = await this.service.deleteRestaurantMenu(param);

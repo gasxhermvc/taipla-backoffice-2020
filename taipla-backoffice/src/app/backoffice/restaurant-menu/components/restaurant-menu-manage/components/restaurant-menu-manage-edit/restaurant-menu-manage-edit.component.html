@@ -4,7 +4,6 @@
   </button>
 </div>
 <nz-tabset (nzSelectChange)="onChangeTab($event)">
-  {{ currentTab }}
   <ng-container *ngFor="let tab of tabs">
     <nz-tab [nzTitle]="tab.TITLE">
       <ng-container [ngSwitch]="tab.VALUE">

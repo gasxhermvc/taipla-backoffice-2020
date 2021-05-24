@@ -1,0 +1,14 @@
+<div class="d-flex flex-column">
+  <div class="mb-3">
+    <div class="d-flex flex-column">
+      <div class="d-flex mb-3 justify-content-end" *ngIf="hasValue">
+        <button nz-button nzDanger nzType="danger" (click)="removePromotion($event)">
+          <div class="d-flex align-self-center align-items-center">
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i>&nbsp;ลบตำนาน
+          </div>
+        </button>
+      </div>
+      <app-form [configs]="formConfig" [isMultipart]="true"></app-form>
+    </div>
+  </div>
+</div>

@@ -23,8 +23,7 @@
           <th class="text-center align-top COUNTRY_NAME_TH">ประเทศของอาหาร</th>
           <th class="text-center align-top CULTURE_NAME_TH">วัฒนธรรมอาหาร</th>
           <th class="text-center align-top NAME_TH" [innerHTML]="'ชื่ออาหาร \n(ภาษาไทย)'"></th>
-          <th class="text-center align-top NAME_EN" [innerHTML]="'ชื่อาหาร \n(ภาษาอังกฤษ)'"></th>
-          <th class="text-center align-top AUTHOR">ผู้สร้างรายการ</th>
+          <!-- <th class="text-center align-top AUTHOR">ผู้สร้างรายการ</th> -->
           <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
           <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
           <th class="text-center align-top MANAGE">จัดการ</th>
@@ -49,12 +48,9 @@
             <td class="text-left align-top NAME_TH">
               {{ item.NAME_TH || '-' }}
             </td>
-            <td class="text-left align-top NAME_EN">
-              {{ item.NAME_EN || '-' }}
-            </td>
-            <td class="text-center align-top AUTHOR">
-              {{ item.AUTHOR || '-' }}
-            </td>
+            <!-- <td class="text-center align-top AUTHOR">
+              {{ item.OWNER || '-' }}
+            </td> -->
             <td class="text-center align-top CREATED_DATE">
               <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YY <br />HH:mm:ss">
               </app-display-datetime>
@@ -70,7 +66,7 @@
         </ng-container>
         <ng-container *ngIf="items.length < 1">
           <tr>
-            <td class="text-center align-top" colspan="10">
+            <td class="text-center align-top" colspan="9">
               <div class="not-found"></div>
             </td>
           </tr>

@@ -62,6 +62,13 @@ export const ROUTE: any = {
     UPDATED: "legend/updated",
     DELETED: "legend/deleted"
   },
+  PROMOTION: {
+    PROMOTIONS: "promotion/promotions",
+    GET_PROMOTION: "promotion/promotion",
+    CREATED: "promotion/created",
+    UPDATED: "promotion/updated",
+    DELETED: "promotion/deleted"
+  },
   MEDIA: {
     UPLOAD: "media/upload",
     REMOVE: "media/remove/upload"

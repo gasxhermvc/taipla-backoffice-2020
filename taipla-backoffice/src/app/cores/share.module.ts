@@ -16,7 +16,6 @@ import { TableModule } from '@cores/table/table.module';
 import { ListModule } from '@cores/list/list.module';
 import { PaginationModule } from '@cores/pagination/pagination.module';
 import { UploadModule } from '@cores/upload/upload.module';
-// import { LegendModule } from '@cores/legend/legend.module';
 
 
 

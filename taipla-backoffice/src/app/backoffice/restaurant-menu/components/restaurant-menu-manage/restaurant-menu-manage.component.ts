@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output, ViewChild } from '@angular/core';
 import { MODE } from '@app/app-base/enums/MODE';
 import { RestaurantMenuService } from '@app/backoffice/services/restaurant-menu.service';
 import { BaseClass } from '@based/classes/base-class';
@@ -20,6 +20,8 @@ export class RestaurantMenuManageComponent extends BaseClass implements OnInit {
     return this.store['restaurant_menu'];
   }
 
+  @Output() selected = new EventEmitter<any>();
+
   constructor(injector: Injector) {
     super(injector);
     (window as any).ct = this;
@@ -34,12 +36,15 @@ export class RestaurantMenuManageComponent extends BaseClass implements OnInit {
       const doMODE = this.service.RESTAURANT_MENU_INFO !== undefined ? this.service.RESTAURANT_MENU_INFO.MODE : undefined;
       switch (doMODE) {
         case MODE.ADD:
+          this.selected.emit(true);
           this.service.STATE = this.service.STATE_PAGE.ADD;
           break;
         case MODE.EDIT:
+          this.selected.emit(true);
           this.service.STATE = this.service.STATE_PAGE.EDIT;
           break;
         case MODE.DELETE:
+          this.selected.emit(false);
           this.service.RESTAURANT_MENU_INFO = undefined;
           this.service.STATE = this.service.STATE_PAGE.LISTS;
           if (this.rmList) {
@@ -49,6 +54,7 @@ export class RestaurantMenuManageComponent extends BaseClass implements OnInit {
         case MODE.VIEW:
         case MODE.COMPLETE:
         default:
+          this.selected.emit(false);
           this.service.STATE = this.service.STATE_PAGE.LISTS;
           break;
       }

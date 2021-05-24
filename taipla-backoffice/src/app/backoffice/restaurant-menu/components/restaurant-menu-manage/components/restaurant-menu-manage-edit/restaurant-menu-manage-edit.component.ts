@@ -20,10 +20,10 @@ export class RestaurantMenuManageEditComponent extends BaseClass implements OnIn
       TITLE: "ตำนานอาหาร",
       VALUE: 2,
     },
-    {
-      TITLE: "รูปภาพอาหาร",
-      VALUE: 3,
-    },
+    // {
+    //   TITLE: "รูปภาพอาหาร",
+    //   VALUE: 3,
+    // },
   ];
 
   get service(): RestaurantMenuService {

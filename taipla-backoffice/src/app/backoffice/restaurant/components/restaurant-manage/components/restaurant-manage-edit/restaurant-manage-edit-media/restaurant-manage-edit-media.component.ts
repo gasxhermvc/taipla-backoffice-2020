@@ -27,7 +27,7 @@ export class RestaurantManageEditMediaComponent extends BaseClass
     if (!this.service.RESTAURANT_INFO.DATA) return undefined;
 
     return {
-      PATH: UPLOAD.FOOD_CENTER,
+      PATH: UPLOAD.RESTAURANT,
       REF_ID: this.service.RESTAURANT_INFO.DATA.RES_ID,
     };
   }
@@ -40,17 +40,17 @@ export class RestaurantManageEditMediaComponent extends BaseClass
   ngOnInit(): void { }
 
   ngAfterViewInit() {
-    if (this.service.RESTAURANT_INFO && !this.service.tabLoad.three) {
+    if (this.service.RESTAURANT_INFO && !this.service.tabLoad.four) {
       setTimeout(() => {
         this.initConfig();
         this.retrieveData();
-        this.service.tabLoad.three = true;
+        this.service.tabLoad.four = true;
       }, 0);
     }
   }
 
   ngOnDestroy() {
-    // this.service.tabLoad.three = false;
+    this.service.tabLoad.four = false;
   }
 
   initConfig() {

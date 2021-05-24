@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Injector, ViewChild } from '@angular/core';
 import { BaseClass } from '@based/classes/base-class';
 import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MODE } from '@app-base/enums/MODE';
+import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
+import { ControlComponent } from '@app/cores/control/control.component';
 
 @Component({
   selector: 'app-food-center-manage-list',
@@ -10,7 +12,12 @@ import { MODE } from '@app-base/enums/MODE';
 })
 export class FoodCenterManageListComponent extends BaseClass implements OnInit {
 
-  public MODE = MODE;;
+  @ViewChild('country', { static: false }) country: ControlComponent;
+  @ViewChild('culture', { static: false }) culture: ControlComponent;
+  @ViewChild('name_th', { static: false }) name_th: ControlComponent;
+
+  public formConfig: FormConfig[];
+  public MODE = MODE;
 
   get service(): FoodCenterService {
     return this.store['food_center'];
@@ -34,16 +41,85 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
   ngAfterViewInit() {
     if (this.service.STATE) {
       setTimeout(() => {
+        this.initConfig();
         this.retrieveData();
       }, 0);
     }
+  }
+
+  initConfig() {
+    this.formConfig = this.formConfig = [
+      {
+        key: 'COUNTRY_ID',
+        label: 'ประเทศของอาหาร',
+        type: ControlType.select,
+        placeholder: 'เลือกประเทศของอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'VALUE_TH',
+        lookup: this.backoffice.getLookup('COUNTRIES'),
+        change: (evt: any) => {
+          let related = 'CULTURE_ID'
+          let config = this.formConfig.find((item: any) => item.key === related);
+          if (config) {
+            config.lookup = [].concat(...this.backoffice.getLookup('CULTURES')).filter((item: any) => item.COUNTRY_ID === evt);
+
+            if (evt == undefined || evt == null || evt == 0 || evt == '') {
+              config.disable = true;
+            } else {
+              config.disable = false;
+            }
+            this.formConfig[1] = { ...config };
+          }
+
+          this.retrieveData();
+        },
+        errorMessages: {
+          required: 'กรุณาเลือกประเทศของอาหาร'
+        }
+      },
+      {
+        key: 'CULTURE_ID',
+        label: 'วัฒนธรรมอาหาร',
+        type: ControlType.select,
+        placeholder: 'เลือกวัฒนธรรมของอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'VALUE_TH',
+        disable: true,
+        // lookup: this.backoffice.getLookup('CULTURES'),
+        change: (evt: any) => {
+          if (evt) {
+            this.retrieveData();
+          }
+        },
+        errorMessages: {
+          required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
+        }
+      },
+      {
+        key: 'NAME_TH',
+        label: 'ชื่ออาหาร (ภาษาไทย)',
+        type: ControlType.text,
+        placeholder: 'ป้อนชื่อวัฒนธรรมอาหาร (ภาษาไทย)',
+        delay: 500,
+        change: (evt: any) => {
+          this.retrieveData();
+        },
+        errorMessages: {
+          required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
+        }
+      },
+    ]
   }
 
   async retrieveData() {
     if (this.service !== undefined) {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
-        const params: any = {};
+        const params: any = {
+          COUNTRY_ID: this.country?.control?.value || '',
+          CULTURE_ID: this.culture?.control?.value || '',
+          NAME_TH: this.name_th?.control?.value || ''
+        };
         this.service.LISTS = await this.service.getFoodCenterLists(params);
         this.hideLoading();
       }

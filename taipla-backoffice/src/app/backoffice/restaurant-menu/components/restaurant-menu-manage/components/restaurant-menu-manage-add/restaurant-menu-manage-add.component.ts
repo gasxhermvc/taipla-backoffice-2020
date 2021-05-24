@@ -36,6 +36,10 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
   initConfig() {
     this.formConfig = this.formConfig = [
       {
+        key: 'RES_ID',
+        invisible: true
+      },
+      {
         key: 'COUNTRY_ID',
         label: 'ประเทศของอาหาร',
         type: ControlType.select,
@@ -101,24 +105,27 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
         //   required: 'กรุณาป้อนคำอธิบาย'
         // }
       },
+      // {
+      //   key: 'COOKING_FOOD',
+      //   label: 'วิธีการปรุง',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนวิธีการปรุง'
+      // },
       {
-        key: 'COOKING_FOOD',
-        label: 'วิธีการปรุง',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนวิธีการปรุง'
+        key: 'PRICE',
+        label: 'ราคาอาหาร',
+        type: ControlType.number,
+        placeholder: 'ป้อนราคาอาหาร',
+        errorMessages: {
+          required: 'กรุณาป้อนราคาอาหาร'
+        }
       },
-      {
-        key: 'INGREDIENT',
-        label: 'วัตถุดิบ',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนข้อมูลวัตถุดิบ'
-      },
-      {
-        key: 'DIETETIC_FOOD',
-        label: 'โภชนาการอาหาร',
-        type: ControlType.textarea,
-        placeholder: 'ป้อนโภชนาการอาหาร'
-      },
+      // {
+      //   key: 'DIETETIC_FOOD',
+      //   label: 'โภชนาการอาหาร',
+      //   type: ControlType.textarea,
+      //   placeholder: 'ป้อนโภชนาการอาหาร'
+      // },
       {
         key: 'UPLOAD',
         label: 'รูปภาพประจำตัวอาหาร',
@@ -140,6 +147,8 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
     this.showLoading();
     if (this.form.isValid(false)) {
       let param: any = this.form.getFormData();
+      param.RES_ID = this.service.RESTAURANT_MENU_INFO?.DATA.RES_ID || this.service.RES_ID;
+
       const result = await this.service.addRestaurantMenu(param);
       if (result) {
         if (result.success) {
@@ -147,7 +156,9 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
           this.service.RESTAURANT_MENU_INFO.DATA = {
             COUNTRY_ID: param.COUNTRY_ID,
             CULTURE_ID: param.CULTURE_ID,
-            RES_ID: result.data.RES_ID
+            OWNER_ID: result.OWNER_ID,
+            RES_ID: result.data.RES_ID,
+            MENU_ID: result.data.MENU_ID
           }
           // this.onBack();
           this.complete.emit();

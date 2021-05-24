@@ -27,7 +27,7 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
     if (!this.service.RESTAURANT_MENU_INFO.DATA) return undefined;
 
     return {
-      PATH: UPLOAD.FOOD_CENTER,
+      PATH: UPLOAD.RESTAURANT_MENU,
       REF_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
     };
   }
@@ -50,7 +50,7 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
   }
 
   ngOnDestroy() {
-    // this.service.tabLoad.three = false;
+    this.service.tabLoad.three = false;
   }
 
   initConfig() {
@@ -79,7 +79,9 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
     const result = await this.service.mediaRestaurantMenu({
       COUNTRY_ID: this.service.RESTAURANT_MENU_INFO.DATA.COUNTRY_ID,
       CULTURE_ID: this.service.RESTAURANT_MENU_INFO.DATA.CULTURE_ID,
+      OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID,
       RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
+      MENU_ID: this.service.RESTAURANT_MENU_INFO.DATA.MENU_ID
     });
 
     if (result) {

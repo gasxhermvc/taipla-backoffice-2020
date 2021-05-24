@@ -2,14 +2,15 @@ import { Injectable, Injector, Output, EventEmitter } from '@angular/core';
 import { BaseRequest } from '@based/classes/base-request';
 import { DashboardService } from '@backoffice/services/dashboard.service';
 import { UmService } from '@backoffice/services/um.service';
-import { CountryService } from '@app/backoffice/services/country.service';
+import { CountryService } from '@backoffice/services/country.service';
 import { CultureService } from '@backoffice/services/culture.service';
 import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MediaService } from '@backoffice/services/media.service';
 import { RestaurantService } from '@backoffice/services/restaurant.service';
 import { AccountService } from '@backoffice/services/account.service';
 import { LegendService } from '@backoffice/services/legend.service';
-import { RestaurantMenuService } from '@app/backoffice/services/restaurant-menu.service';
+import { RestaurantMenuService } from '@backoffice/services/restaurant-menu.service';
+import { PromotionService } from '@backoffice/services/promotion.service';
 
 import { MENU } from '@app/app-base/interfaces/menu-config';
 import { combineLatest, Observable, Subject } from 'rxjs';
@@ -32,6 +33,7 @@ export class BackofficeService extends BaseRequest {
     { key: 'account', class: AccountService },
     { key: 'legend', class: LegendService },
     { key: 'restaurant_menu', class: RestaurantMenuService },
+    { key: 'promotion', class: PromotionService },
   ];
 
   public menus: MENU[] = undefined;
@@ -46,7 +48,8 @@ export class BackofficeService extends BaseRequest {
     'CULTURES',
     'LEGEND-TYPES',
     'OWNERS',
-    'STAFF'
+    'STAFF',
+    'PROMOTION-TYPES'
   ];
   lookup: any = undefined;
 
@@ -144,7 +147,10 @@ export class BackofficeService extends BaseRequest {
         subject.complete()
       });
     } else {
-      subject.next(true);
+      setTimeout(() => {
+        subject.next(true);
+        subject.complete();
+      }, 0);
     }
 
     return subject.asObservable();

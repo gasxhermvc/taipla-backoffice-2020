@@ -8,14 +8,15 @@ export interface RestaurantMenu {
     NAME_TH?: string;
     NAME_EN?: string;
     DESCRIPTION?: string;
-    COOKING_FOOD?: string;
-    DIETETIC_FOOD?: string;
+    // COOKING_FOOD?: string;
+    // DIETETIC_FOOD?: string;
     CODE?: string;
+    OWNER_ID?: number;
     PRICE?: number;
     VIEWER?: number;
     LEGEND_STATUS?: Boolean;
     THUMBNAIL?: string;
-    AUTHOR?: string;
+    // AUTHOR?: string;
     CREATED_DATE?: string;
     UPDATED_DATE?: string;
     UPLOAD_FILES?: any;

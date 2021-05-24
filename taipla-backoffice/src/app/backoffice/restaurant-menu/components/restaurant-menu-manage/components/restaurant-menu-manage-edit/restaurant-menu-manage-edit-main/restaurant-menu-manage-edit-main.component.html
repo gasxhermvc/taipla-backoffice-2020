@@ -1,1 +1,10 @@
-<p>restaurant-menu-manage-edit-main works!</p>
+<ng-container *ngIf="formConfig">
+  <app-form [configs]="formConfig" [isMultipart]="true"></app-form>
+  <button nz-button nzType="primary" (click)="onSave()">
+    บันทึก
+  </button>
+  <span class="p-1"></span>
+  <button nz-button nzDanger nzType="primary" (click)="onClear()">
+    ล้างค่า
+  </button>
+</ng-container>

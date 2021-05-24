@@ -29,4 +29,11 @@ export class RestaurantComponent extends BaseClass implements OnInit {
   ngOnInit() {
     this.service.STATE = this.service.STATE_PAGE.LISTS;
   }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.service.HIDE_TAB = false;
+    
+  }
 }

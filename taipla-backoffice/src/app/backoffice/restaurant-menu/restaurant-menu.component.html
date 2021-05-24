@@ -2,7 +2,7 @@
   <div class="row flex-column flex-sm-row m-0 p-0">
     <div class="col-12 p-0">
       <router-outlet *ngIf="!isParent"></router-outlet>
-      <app-restaurant-menu-manage *ngIf="isParent"></app-restaurant-menu-manage>
+      <app-restaurant-menu-manage *ngIf="isParent" (selected)="selected.emit($event)"></app-restaurant-menu-manage>
     </div>
   </div>
 </div>

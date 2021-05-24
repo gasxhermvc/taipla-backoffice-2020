@@ -20,7 +20,8 @@ import { RestaurantManageEditMainComponent } from '@app/backoffice/restaurant/co
 import { RestaurantManageEditMediaComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-media/restaurant-manage-edit-media.component';
 import { RestaurantManageEditMenuComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-menu/restaurant-manage-edit-menu.component';
 import { RestaurantMenuModule } from '@backoffice/restaurant-menu/restaurant-menu.module';
-
+import { RestaurantManageEditPromotionComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-promotion/restaurant-manage-edit-promotion.component';
+import { PromotionModule } from '@cores/promotion/promotion.module';
 @NgModule({
   declarations: [
     RestaurantComponent,
@@ -30,7 +31,8 @@ import { RestaurantMenuModule } from '@backoffice/restaurant-menu/restaurant-men
     RestaurantManageListComponent,
     RestaurantManageEditMainComponent,
     RestaurantManageEditMediaComponent,
-    RestaurantManageEditMenuComponent
+    RestaurantManageEditMenuComponent,
+    RestaurantManageEditPromotionComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,9 @@ import { RestaurantMenuModule } from '@backoffice/restaurant-menu/restaurant-men
 
     NzButtonModule,
     NzIconModule,
-    NzTabsModule
+    NzTabsModule,
+
+    PromotionModule
   ],
   exports: [
     RestaurantComponent,
