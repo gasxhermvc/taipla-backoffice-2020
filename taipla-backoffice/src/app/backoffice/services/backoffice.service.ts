@@ -49,7 +49,9 @@ export class BackofficeService extends BaseRequest {
     'LEGEND-TYPES',
     'OWNERS',
     'STAFF',
-    'PROMOTION-TYPES'
+    'PROMOTION-TYPES',
+    'AUTHOR-CREATE-RESTAURANT',
+    'AUTHOR-CREATE-FOOD-CENTER'
   ];
   lookup: any = undefined;
 

@@ -14,8 +14,8 @@ export interface FoodCenter {
   LEGEND_STATUS?: Boolean;
   THUMBNAIL?: string;
   AUTHOR?: string;
-  CREATED_DATE?: string;
-  UPDATED_DATE?: string;
+  CREATE_DATE?: string;
+  UPDATE_DATE?: string;
   UPLOAD_FILES?: any;
 
   //=>Legend

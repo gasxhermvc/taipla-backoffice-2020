@@ -1,4 +1,4 @@
-<ng-container *ngTemplateOutlet="template; context: {items: lists, from: from}"></ng-container>
+<ng-container *ngTemplateOutlet="template; context: {items: lists, from: from, total: total}"></ng-container>
 <div class="text-center">
   <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="total" [nzPageSize]="pageSize" nzShowSizeChanger
     (nzPageSizeChange)="onPageSizeChange($event)" (nzPageIndexChange)="onPageIndexChange($event)" [nzHideOnSinglePage]="true"></nz-pagination>

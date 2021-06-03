@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Injector } from '@angular/core
 import { BaseClass } from '@based/classes/base-class';
 import { CountryService } from '@backoffice/services/country.service';
 import { MODE } from '@app-base/enums/MODE';
-
+import { COUNTRY_LIST_CONFIG } from '@based/configs/table-config';
 @Component({
   selector: 'app-country-manage-list',
   templateUrl: './country-manage-list.component.html',
@@ -14,6 +14,10 @@ export class CountryManageListComponent extends BaseClass implements OnInit {
 
   get service(): CountryService {
     return this.store['country'];
+  }
+
+  get columns(): any{
+    return COUNTRY_LIST_CONFIG;
   }
 
   get items(): any {
@@ -85,6 +89,10 @@ export class CountryManageListComponent extends BaseClass implements OnInit {
       DATA: item,
       MODE: mode
     });
+  }
+
+  getColumnConfig(key: string, useProps: string = '') {
+    return this.app.getColumnConfig(COUNTRY_LIST_CONFIG, key, useProps)
   }
 
 }

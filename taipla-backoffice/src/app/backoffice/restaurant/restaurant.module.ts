@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTableModule, NzTableStyleService } from 'ng-zorro-antd/table';
 
 //=>Application
 import { AppBaseModule } from '@app-base/app-base.module';
@@ -45,6 +46,7 @@ import { PromotionModule } from '@cores/promotion/promotion.module';
     NzButtonModule,
     NzIconModule,
     NzTabsModule,
+    NzTableModule,
 
     PromotionModule
   ],
@@ -57,6 +59,9 @@ import { PromotionModule } from '@cores/promotion/promotion.module';
     RestaurantManageEditMainComponent,
     RestaurantManageEditMediaComponent,
     RestaurantManageEditMenuComponent
+  ],
+  providers: [
+    NzTableStyleService
   ]
 })
 export class RestaurantModule { }

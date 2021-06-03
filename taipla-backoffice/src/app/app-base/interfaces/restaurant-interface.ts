@@ -22,8 +22,8 @@ export interface Restaurant {
 
     VIEWER?: number;
 
-    CREATED_DATE?: string;
-    UPDATED_DATE?: string;
+    CREATE_DATE?: string;
+    UPDATE_DATE?: string;
     UPLOAD_FILES?: any;
 
     //=>Legend

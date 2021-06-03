@@ -12,8 +12,8 @@ export const MOCK_FOOD_CENTER_LISTS: FoodCenter[] = [
     CODE: 'E1001',
     VIEWER: 100,
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36',
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36',
   },
   {
     FOOD_ID: 2,
@@ -26,7 +26,7 @@ export const MOCK_FOOD_CENTER_LISTS: FoodCenter[] = [
     CODE: 'E1002',
     VIEWER: 100,
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36',
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36',
   }
 ]

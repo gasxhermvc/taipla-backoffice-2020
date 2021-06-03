@@ -30,8 +30,12 @@ export class UmManageEditComponent extends BaseClass implements OnInit {
   ngAfterViewInit() {
     if (this.service.UM_INFO) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
       }, 0);
     }
   }

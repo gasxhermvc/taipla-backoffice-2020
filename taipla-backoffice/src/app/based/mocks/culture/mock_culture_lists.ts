@@ -8,8 +8,8 @@ export const MOCK_CULTURE_LISTS: Culture[] = [
     NAME_TH: 'มังสาวิรัต',
     NAME_EN: '',
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36'
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36'
   },
   {
     CULTURE_ID: 2,
@@ -17,8 +17,8 @@ export const MOCK_CULTURE_LISTS: Culture[] = [
     COUNTRY_NAME_TH: 'สิงคโปร์',
     NAME_TH: 'จีน',
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36'
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36'
   },
   {
     CULTURE_ID: 3,
@@ -26,8 +26,8 @@ export const MOCK_CULTURE_LISTS: Culture[] = [
     COUNTRY_NAME_TH: 'ไทย',
     NAME_TH: 'ปักษ์ใต้',
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36'
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36'
   },
   {
     CULTURE_ID: 4,
@@ -35,7 +35,7 @@ export const MOCK_CULTURE_LISTS: Culture[] = [
     COUNTRY_NAME_TH: 'มาเลยเซีย',
     NAME_TH: 'มาเลย์',
     AUTHOR: 'admin',
-    CREATED_DATE: '2020-04-26 18:36',
-    UPDATED_DATE: '2020-04-26 18:36'
+    CREATE_DATE: '2020-04-26 18:36',
+    UPDATE_DATE: '2020-04-26 18:36'
   }
 ];

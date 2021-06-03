@@ -40,7 +40,14 @@ export class RestaurantService extends BaseService {
       if (response && response.success) {
         this.LISTS = {
           TOTAL: response.data.length,
-          LISTS: [...response.data]
+          LISTS: [].concat(...response.data).map((item: any, index: number) => {
+
+            return {
+              ROWNO: (index + 1),
+              EXPAND: false,
+              ...item
+            }
+          })
         }
         console.log('getRestaurantLists.response', response);
       } else {

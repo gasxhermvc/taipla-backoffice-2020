@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 //=>Libraries
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTableModule, NzTableStyleService } from 'ng-zorro-antd/table';
 
 //=>App
 import { AppBaseModule } from '@app-base/app-base.module';
@@ -32,7 +33,8 @@ import { CultureManageEditComponent } from '@app/backoffice/culture/components/c
     ShareModule,
 
     NzButtonModule,
-    NzIconModule
+    NzIconModule,
+    NzTableModule
   ],
   exports: [
     CultureComponent,
@@ -40,6 +42,9 @@ import { CultureManageEditComponent } from '@app/backoffice/culture/components/c
     CultureManageListComponent,
     CultureManageAddComponent,
     CultureManageEditComponent
+  ],
+  providers: [
+    NzTableStyleService
   ]
 })
 export class CultureModule { }

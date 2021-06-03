@@ -15,7 +15,7 @@ export class CultureService extends BaseService {
   LISTS: CULTURE_LIST;
   CULTURE_INFO: CULTURE_INFO;
 
-  get app(){
+  get app() {
     return this._app;
   }
 
@@ -36,7 +36,13 @@ export class CultureService extends BaseService {
       if (response && response.success) {
         this.LISTS = {
           TOTAL: response.data.length,
-          LISTS: [...response.data]
+          LISTS: [].concat(...response.data).map((item: any, index: number) => {
+            return {
+              ROWNO: (index + 1),
+              EXPAND: false,
+              ...item
+            }
+          })
         };
         console.log('getCultureLists.response', response);
       } else {

@@ -7,6 +7,6 @@ export const MOCK_CULTURE_EDIT: Culture = {
   NAME_TH: 'มังสาวิรัต',
   NAME_EN: '',
   AUTHOR: 'admin',
-  CREATED_DATE: '2020-04-26 18:36',
-  UPDATED_DATE: '2020-04-26 18:36'
+  CREATE_DATE: '2020-04-26 18:36',
+  UPDATE_DATE: '2020-04-26 18:36'
 }

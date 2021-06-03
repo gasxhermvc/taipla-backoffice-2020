@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Injector } from '@angular/core
 import { BaseClass } from '@based/classes/base-class';
 import { CultureService } from '@backoffice/services/culture.service';
 import { MODE } from '@app-base/enums/MODE';
+import { CULTURE_LIST_CONFIG } from '@based/configs/table-config';
 
 @Component({
   selector: 'app-culture-manage-list',
@@ -15,6 +16,11 @@ export class CultureManageListComponent extends BaseClass implements OnInit {
   get service(): CultureService {
     return this.store['culture'];
   }
+
+  get columns(): any {
+    return CULTURE_LIST_CONFIG;
+  }
+
 
   get items(): any {
     return this.service.LISTS !== undefined ? this.service.LISTS.LISTS : [];
@@ -86,5 +92,7 @@ export class CultureManageListComponent extends BaseClass implements OnInit {
       MODE: mode
     });
   }
-
+  getColumnConfig(key: string, useProps: string = '') {
+    return this.app.getColumnConfig(CULTURE_LIST_CONFIG, key, useProps)
+  }
 }

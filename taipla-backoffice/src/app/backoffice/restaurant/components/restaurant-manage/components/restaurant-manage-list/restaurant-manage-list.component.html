@@ -1,8 +1,27 @@
 <div class="row flex-column flex-sm-row m-0 p-0 mb-3">
-  <div class="col-12 col-sm-6 px-0">
+  <div class="col-12 col-md-8 px-0 d-flex flex-column">
     <h3>จัดการร้านอาหาร</h3>
+    <ng-container *ngIf="formConfig">
+      <div class="d-flex flex-column flex-md-row flex-wrap mb-3">
+        <div class="col-12 col-sm-4">
+          <div style="max-width: 90%;">
+            <app-control [config]="formConfig[0]" #country></app-control>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div style="max-width: 90%;">
+            <app-control [config]="formConfig[1]" class="radius-none" #name></app-control>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div style="max-width: 90%;">
+            <app-control [config]="formConfig[2]" class="d-none radius-none" #author></app-control>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+  <div class="col-12 col-md-4 px-3  d-flex justify-content-end mb-3">
     <button (click)="createFoodCenter()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
       <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มข้อมูลร้านอาหาร
     </button>
@@ -12,66 +31,111 @@
   [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
   (pageSizeChange)="app.pagination.pageSize = $event">
 </app-pagination>
-<ng-template #list let-items="items" let-from="from">
+<ng-template #list let-items="items" let-from="from" let-total="total">
   <div class="table-responsive">
-    <table class="table table-hover backoffice-table">
+    <ng-container *ngIf="items.length > 0">
+      <div class="total-container">
+        แสดงรายการที่ <strong>{{ (from+1) | number: '1.0-0' }}</strong> ถึง
+        <strong>{{ (from + items.length) | number: '1.0-0' }}</strong>
+        จาก <strong>{{ total | number: '1.0-0' }}</strong> รายการ
+      </div>
+    </ng-container>
+    <nz-table #nzTable class="table table-hover backoffice-table" [nzData]="items" [nzFrontPagination]="false"
+      [nzNoResult]="empty">
       <thead>
         <tr>
-          <th class="text-center align-top NO">#</th>
-          <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
-          <th class="text-center align-top COUNTRY_NAME_TH">ประเทศของอาหาร</th>
-          <th class="text-center align-top NAME" [innerHTML]="'ชื่อร้านอาหาร'"></th>
-          <th class="text-center align-top OWNER">ชื่อเจ้าของร้าน</th>
-          <th class="text-center align-top AUTHOR">ชื่อผู้สร้างรายการ</th>
-          <th class="text-center align-top CREATED_DATE">วันที่สร้าง</th>
-          <th class="text-center align-top UPDATED_DATE">วันที่แก้ไข</th>
-          <th class="text-center align-top MANAGE">จัดการ</th>
+          <ng-container *ngFor="let col of columns" nzTableLayout="fixed">
+            <ng-container *ngIf="col.KEY === 'EXPAND'; else headerNormal">
+              <th [nzWidth]="col.WIDTH" [attr.innerHTML]="col.HTML ? col.HEADER : null" [class]="col.CLASS"
+                *ngIf="detect.has(col.HIDE)">
+                {{ col.HEADER }}
+              </th>
+            </ng-container>
+            <ng-template #headerNormal>
+              <th [nzWidth]="col.WIDTH" [attr.innerHTML]="col.HTML ? col.HEADER : null" [class]="col.CLASS"
+                *ngIf="!detect.has(col.HIDE)">
+                {{ col.HEADER }}
+              </th>
+            </ng-template>
+          </ng-container>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let item of items;let index = index">
           <tr>
-            <td class="text-center align-top NO">
-              {{ (from +index + 1) }}
-            </td>
-            <td class="text-center align-top THUMBNAIL">
-              <app-image [src]="item.THUMBNAIL" imageType="image" className="img-fluid image rounded-circle">
-              </app-image>
-            </td>
-            <td class="text-center align-top COUNTRY_NAME_TH">
-              {{ item.COUNTRY_NAME_TH || '-' }}
-            </td>
-            <td class="text-left align-top NAME">
-              {{ item.NAME || '-' }}
-            </td>
-            <td class="text-left align-top OWNER">
-              {{ item.OWNER || '-' }}
-            </td>
-            <td class="text-center align-top AUTHOR">
-              {{ item.AUTHOR || '-' }}
-            </td>
-            <td class="text-center align-top CREATED_DATE">
-              <app-display-datetime [datetime]="item.CREATED_DATE" format="DD MMM YY <br />HH:mm:ss">
-              </app-display-datetime>
-            </td>
-            <td class="text-center align-top UPDATED_DATE">
-              <app-display-datetime [datetime]="item.UPDATED_DATE" format="DD MMM YY <br />H:mm:ss">
-              </app-display-datetime>
-            </td>
-            <td class="text-center align-top MANAGE">
-              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
-            </td>
+            <ng-container *ngFor="let col of columns">
+              <ng-container *ngIf="col.KEY === 'EXPAND'; else normal">
+                <td [(nzExpand)]="item[col.KEY]" [class]="col.CLASS" *ngIf="detect.has(col.HIDE)"></td>
+              </ng-container>
+              <ng-template #normal>
+                <td [class]="col.CLASS" *ngIf="!detect.has(col.HIDE)">
+                  <ng-container [ngSwitch]="col.KEY">
+                    <ng-container *ngSwitchCase="'EXPAND'"></ng-container>
+                    <ng-container *ngSwitchCase="'THUMBNAIL'">
+                      <app-image [src]="item.THUMBNAIL" className="img-fluid image rounded-circle" imageType="image">
+                      </app-image>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'CREATE_DATE'">
+                      <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'UPDATE_DATE'">
+                      <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY <br /> HH:mm:ss">
+                      </app-display-datetime>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'MANAGE'">
+                      <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      {{ (item[col.KEY]) }}
+                    </ng-container>
+                  </ng-container>
+                </td>
+              </ng-template>
+            </ng-container>
           </tr>
-        </ng-container>
-        <ng-container *ngIf="items.length < 1">
-          <tr>
-            <td class="text-center align-top" colspan="9">
-              <div class="not-found"></div>
-            </td>
+          <tr *ngIf="detect.has(getColumnConfig('EXPAND','HIDE'))" [nzExpand]="item.EXPAND">
+            <div class="d-flex flex-column">
+              <ng-container *ngFor="let col of columns">
+                <ng-container *ngIf="col.RESPONSIVE">
+                  <div class="d-flex ml-5 mb-1 DETAIL"
+                    [ngClass]="{ 'flex-column': col.ACTION,'flex-row': !col.ACTION }">
+                    <strong class="mb-1">
+                      {{ col.HEADER }} :
+                    </strong>
+                    <div class="ml-3" [ngClass]="col.KEY">
+                      <ng-container [ngSwitch]="col.KEY">
+                        <ng-container *ngSwitchCase="'CREATE_DATE'">
+                          <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY HH:mm:ss">
+                          </app-display-datetime>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'UPDATE_DATE'">
+                          <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY HH:mm:ss">
+                          </app-display-datetime>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'MANAGE'">
+                          <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                          {{ (item[col.KEY]) }}
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </tr>
         </ng-container>
       </tbody>
-    </table>
+    </nz-table>
+    <ng-template #empty>
+      <tr>
+        <td class="text-center align-top" [colSpan]="columns.length || 0">
+          <div class="not-found"></div>
+        </td>
+      </tr>
+    </ng-template>
   </div>
 </ng-template>
 

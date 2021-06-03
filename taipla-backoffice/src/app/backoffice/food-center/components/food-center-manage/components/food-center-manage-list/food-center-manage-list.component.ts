@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Injector, ViewChild, Renderer2 } from '@angular/core';
 import { BaseClass } from '@based/classes/base-class';
 import { FoodCenterService } from '@backoffice/services/food-center.service';
 import { MODE } from '@app-base/enums/MODE';
 import { ControlType, FormConfig } from '@app/based/interfaces/FormConfig';
 import { ControlComponent } from '@app/cores/control/control.component';
-
+import { FOOD_CENTER_LIST_CONFIG } from '@based/configs/table-config';
+import { RoleEnum } from '@based/enums/RoleEnum';
 @Component({
   selector: 'app-food-center-manage-list',
   templateUrl: './food-center-manage-list.component.html',
@@ -15,6 +16,7 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
   @ViewChild('country', { static: false }) country: ControlComponent;
   @ViewChild('culture', { static: false }) culture: ControlComponent;
   @ViewChild('name_th', { static: false }) name_th: ControlComponent;
+  @ViewChild('user', { static: false }) user: ControlComponent;
 
   public formConfig: FormConfig[];
   public MODE = MODE;
@@ -23,13 +25,18 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
     return this.store['food_center'];
   }
 
+  get columns(): any {
+    return FOOD_CENTER_LIST_CONFIG;
+  }
+
   get items(): any {
     return this.service.LISTS !== undefined ? this.service.LISTS.LISTS : [];
   }
 
   @Output() selected = new EventEmitter<any>();
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector,
+    private renderer: Renderer2) {
     super(injector);
 
     (window as any).fcml = this;
@@ -41,8 +48,24 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
   ngAfterViewInit() {
     if (this.service.STATE) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          switch (this.app.user.ROLE) {
+            case RoleEnum.SUPER_ADMIN:
+            case RoleEnum.ADMIN:
+              this.renderer.removeClass(this.user.el.nativeElement, 'd-none');
+              break;
+            case RoleEnum.OWNER:
+            case RoleEnum.POST:
+            case RoleEnum.USER:
+            case RoleEnum.CLIENT:
+              this.user.el.nativeElement.remove();
+              break;
+          }
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
       }, 0);
     }
   }
@@ -108,6 +131,20 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
           required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
         }
       },
+      {
+        key: 'USER',
+        label: 'ชื่อผู้ใช้งาน',
+        type: ControlType.select,
+        placeholder: 'เลือกวัฒนธรรมของอาหาร',
+        lookupKey: 'CODE',
+        lookupLabel: 'DESCR',
+        lookup: this.backoffice.getLookup('AUTHOR-CREATE-FOOD-CENTER'),
+        change: (evt: any) => {
+          if (evt) {
+            this.retrieveData();
+          }
+        },
+      }
     ]
   }
 
@@ -118,7 +155,8 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
         const params: any = {
           COUNTRY_ID: this.country?.control?.value || '',
           CULTURE_ID: this.culture?.control?.value || '',
-          NAME_TH: this.name_th?.control?.value || ''
+          NAME_TH: this.name_th?.control?.value || '',
+          AUTHOR: this.user?.control?.value || ''
         };
         this.service.LISTS = await this.service.getFoodCenterLists(params);
         this.hideLoading();
@@ -163,5 +201,7 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
       MODE: mode
     });
   }
-
+  getColumnConfig(key: string, useProps: string = '') {
+    return this.app.getColumnConfig(FOOD_CENTER_LIST_CONFIG, key, useProps)
+  }
 }

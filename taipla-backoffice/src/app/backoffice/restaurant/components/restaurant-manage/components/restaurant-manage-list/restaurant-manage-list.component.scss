@@ -6,5 +6,29 @@
             width: 60px !important;
             height: 60px !important;
         }
+
+        td.NAME {
+            text-align: left !important;
+        }
+
+        .radius-none {
+            input {
+                border-radius: 0 !important;
+            }
+        }
+    }
+
+    .DETAIL {
+        .ml-3 {
+            margin-left: 0.5rem;
+        }
+
+        div.MANAGE {
+            margin-left: 0;
+        }
+
+        .MANAGE > div {
+            justify-content: flex-start !important;
+        }
     }
 }

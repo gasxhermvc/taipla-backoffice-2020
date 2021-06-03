@@ -102,7 +102,7 @@ export class ControlComponent implements ControlValueAccessor, Validators {
 
       if (this._config.defaultValue != null && this._config.defaultValue != undefined) {
         this.control.setValue(this._config.defaultValue);
-        console.log('set',this.control.value);
+        console.log('set', this.control.value);
       }
 
       if (this._config.fileList && this._config.fileList.length > 0) {
@@ -203,7 +203,7 @@ export class ControlComponent implements ControlValueAccessor, Validators {
   }
 
   options?: [];
-  constructor(private cdr: ChangeDetectorRef, private datetime: DatetimeService, private msg: NzMessageService) {
+  constructor(private cdr: ChangeDetectorRef, public el: ElementRef, private datetime: DatetimeService, private msg: NzMessageService) {
     this.control = new FormControl();
   }
 

@@ -5,7 +5,7 @@ export interface Promotion {
     THUMBNAIL?: string;
     PROMOTION_TYPE?: any;
     PROMOTION_TYPE_DESCR?: any;
-    CREATED_DATE?: string;
-    UPDATED_DATE?: string;
+    CREATE_DATE?: string;
+    UPDATE_DATE?: string;
     UPLOAD_FILES?: any;
 }

@@ -8,11 +8,12 @@ export interface JsonWebToken {
 }
 
 export interface User {
-    client_id?: string;
-    displayName?: string;
-    email?: string;
-    idRestaurant?: number;
-    imageProfile?: string;
-    phoneNumber?: number;
-    role?: string;
+    USER_ID?: number;
+    CLIEBT_ID?: string;
+    EMAIL?: string;
+    FIRST_NAME?: string;
+    LAST_NAME?: string;
+    USERNAME?: string;
+    PHONE?: number;
+    ROLE?: string;
 }

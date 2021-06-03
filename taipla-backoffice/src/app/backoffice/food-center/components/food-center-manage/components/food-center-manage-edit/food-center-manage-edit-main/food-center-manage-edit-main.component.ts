@@ -35,8 +35,12 @@ export class FoodCenterManageEditMainComponent
   ngAfterViewInit() {
     if (this.service.FOOD_CENTER_INFO && !this.service.tabLoad.one) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
         this.service.tabLoad.one = true;
       }, 0);
     }
