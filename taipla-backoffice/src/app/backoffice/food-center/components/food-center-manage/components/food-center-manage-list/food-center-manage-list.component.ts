@@ -95,9 +95,6 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
           }
 
           this.retrieveData();
-        },
-        errorMessages: {
-          required: 'กรุณาเลือกประเทศของอาหาร'
         }
       },
       {
@@ -110,13 +107,9 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
         disable: true,
         // lookup: this.backoffice.getLookup('CULTURES'),
         change: (evt: any) => {
-          if (evt) {
-            this.retrieveData();
-          }
-        },
-        errorMessages: {
-          required: 'กรุณาเลือกวัฒนธรรมของอาหาร'
+          this.retrieveData();
         }
+
       },
       {
         key: 'NAME_TH',
@@ -126,9 +119,6 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
         delay: 500,
         change: (evt: any) => {
           this.retrieveData();
-        },
-        errorMessages: {
-          required: 'กรุณาป้อนชื่อวัฒนธรรมอาหาร'
         }
       },
       {
@@ -140,9 +130,7 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
         lookupLabel: 'DESCR',
         lookup: this.backoffice.getLookup('AUTHOR-CREATE-FOOD-CENTER'),
         change: (evt: any) => {
-          if (evt) {
-            this.retrieveData();
-          }
+          this.retrieveData();
         },
       }
     ]

@@ -44,9 +44,9 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         lookupKey: 'CODE',
         lookupLabel: 'DESCR',
         lookup: this.backoffice.getLookup('OWNERS'),
-        errorMessages: {
-          required: 'กรุณาเลือกเจ้าของร้านอาหาร'
-        }
+        // errorMessages: {
+        //   required: 'กรุณาเลือกเจ้าของร้านอาหาร'
+        // }
       },
       {
         key: 'COUNTRY_ID',
@@ -58,6 +58,18 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         lookup: this.backoffice.getLookup('COUNTRIES'),
         errorMessages: {
           required: 'กรุณาเลือกประเทศของอาหาร'
+        }
+      },
+      {
+        key: 'PROVINCE',
+        label: 'จังหวัด',
+        type: ControlType.select,
+        placeholder: 'เลือกจังหวัด',
+        lookupKey: 'CODE',
+        lookupLabel: 'DESCR',
+        lookup: this.backoffice.getLookup('PROVINCES'),
+        errorMessages: {
+          required: 'กรุณาเลือกจังหวัด'
         }
       },
       {
@@ -82,11 +94,14 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
         key: 'GOOGLE_MAP',
         label: 'แผนที่',
         type: ControlType.textarea,
-        placeholder: 'ป้อน Link แผนที่่ Google map หรือ <iframe />',
-        regex: /^(https:\/\/www.google.com\/maps.*|https:\/\/www.google.com\/maps.*|https:\/\/g.page.*|https:\/\/wwww.google.com\/maps.*|\<iframe.*https:\/\/www.google.com\/maps\/embed.*)*$/,
+        placeholder: 'กรุณาป้อน Link แผนที่่ เช่น google maps, nostramap เป็นต้น',
         errorMessages: {
-          regex: 'กรุณาป้อน Link แผนที่่ Google map หรือ <iframe />'
+          required: 'กรุณาป้อน Link แผนที่่ เช่น google maps, nostramap เป็นต้น'
         }
+        // regex: /^(https:\/\/map.nostramap.com|https:\/\/www.google.com\/maps.*|https:\/\/www.google.com\/maps.*|https:\/\/g.page.*|https:\/\/wwww.google.com\/maps.*|\<iframe.*https:\/\/www.google.com\/maps\/embed.*)*$/,
+        // errorMessages: {
+        //   regex: 'กรุณาป้อน Link แผนที่่ Google map หรือ <iframe />'
+        // }
       },
       {
         label: 'พิกัด',

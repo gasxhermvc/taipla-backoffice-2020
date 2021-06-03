@@ -19,11 +19,11 @@ export class RestaurantMenuManageEditLegendComponent extends BaseClass
     if (legend) {
       this._legend = legend;
 
-      if (this.service.RESTAURANT_MENU_INFO && !this.service.tabLoad.three) {
+      if (this.service.RESTAURANT_MENU_INFO && !this.service.tabLoad.two) {
         setTimeout(() => {
           this.initLegendForm();
           this.retrieveData();
-          this.service.tabLoad.three = true;
+          this.service.tabLoad.two = true;
         }, 0);
       }
     } else {
@@ -216,6 +216,7 @@ export class RestaurantMenuManageEditLegendComponent extends BaseClass
         }
 
       }
+      this.initLegendForm();
     }
   }
 

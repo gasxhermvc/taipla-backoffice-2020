@@ -118,9 +118,7 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
         lookupLabel: 'DESCR',
         lookup: this.backoffice.getLookup('AUTHOR-CREATE-RESTAURANT'),
         change: (evt: any) => {
-          if (evt) {
-            this.retrieveData();
-          }
+          this.retrieveData();
         },
       }
     ]
@@ -130,7 +128,11 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
     if (this.service !== undefined) {
       if (this.service.STATE === this.service.STATE_PAGE.LISTS) {
         this.showLoading();
-        const params: any = {};
+        const params: any = {
+          COUNTRY_ID: this.country?.control.value || '',
+          NAME: this.name?.control.value || '',
+          AUTHOR: this.author?.control.value || ''
+        };
         this.service.LISTS = await this.service.getRestaurantLists(params);
         this.hideLoading();
       }

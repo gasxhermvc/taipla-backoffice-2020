@@ -17,9 +17,9 @@
             <ng-template #defaultAvatar>
                 <img src="./assets/images/defaults/avatar.png" class="img-fluid profile-image" draggable="false" />
             </ng-template> -->
-      <app-image [src]="user.imageProfile" className="img-fluid profile-image" imageType="avatar"></app-image>
+      <app-image [src]="user.AVATAR" className="img-fluid profile-image" imageType="avatar"></app-image>
       <p class="profile-text">
-        {{ user.displayName }}
+        {{ user.DISPLAY_NAME }}
       </p>
     </div>
   </ng-container>

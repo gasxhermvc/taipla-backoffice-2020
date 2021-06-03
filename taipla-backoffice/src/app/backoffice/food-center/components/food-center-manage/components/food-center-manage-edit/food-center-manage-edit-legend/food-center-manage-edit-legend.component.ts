@@ -217,6 +217,7 @@ export class FoodCenterManageEditLegendComponent
         }
 
       }
+      this.initLegendForm();
     }
   }
 

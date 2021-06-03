@@ -28,15 +28,19 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
   ngAfterViewInit() {
     if (this.service.RESTAURANT_MENU_INFO && !this.service.tabLoad.one) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
         this.service.tabLoad.one = true;
       }, 0);
     }
   }
 
   ngOnDestroy() {
-     this.service.tabLoad.one = false;
+    this.service.tabLoad.one = false;
   }
 
   initConfig() {
@@ -188,7 +192,7 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
       CULTURE_ID: this.service.RESTAURANT_MENU_INFO.DATA.CULTURE_ID,
       RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
       MENU_ID: this.service.RESTAURANT_MENU_INFO.DATA.MENU_ID,
-      OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID,
+      OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID || -1,
     });
 
     if (result) {
