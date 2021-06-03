@@ -190,7 +190,7 @@ export class RestaurantMenuManageEditMainComponent extends BaseClass
     const result = await this.service.getRestaurantMenu({
       COUNTRY_ID: this.service.RESTAURANT_MENU_INFO.DATA.COUNTRY_ID,
       CULTURE_ID: this.service.RESTAURANT_MENU_INFO.DATA.CULTURE_ID,
-      RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
+      RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID || this.service.RES_ID || this.app.user.RES_ID,
       MENU_ID: this.service.RESTAURANT_MENU_INFO.DATA.MENU_ID,
       OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID || -1,
     });

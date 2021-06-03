@@ -448,6 +448,14 @@ export const MEDIA_LIST_CONFIG: any = [
         WIDTH: '120px'
     },
     {
+        HEADER: 'ประเภทการอัพโหลด',
+        KEY: 'SYSTEM_NAME',
+        HIDE: 'mobile tablet',
+        CLASS: 'text-center align-top SYSTEM_NAME',
+        RESPONSIVE: true,
+        WIDTH: '120px'
+    },
+    {
         HEADER: 'วันที่สร้าง',
         KEY: 'CREATE_DATE',
         HIDE: 'mobile tablet',

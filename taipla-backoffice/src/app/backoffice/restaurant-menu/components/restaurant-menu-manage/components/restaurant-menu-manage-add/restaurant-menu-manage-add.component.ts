@@ -147,7 +147,7 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
     this.showLoading();
     if (this.form.isValid(false)) {
       let param: any = this.form.getFormData();
-      param.RES_ID = this.service.RESTAURANT_MENU_INFO?.DATA.RES_ID || this.service.RES_ID;
+      param.RES_ID = this.service.RESTAURANT_MENU_INFO?.DATA.RES_ID || this.service.RES_ID || this.app.user.RES_ID;
 
       const result = await this.service.addRestaurantMenu(param);
       if (result) {
@@ -156,9 +156,10 @@ export class RestaurantMenuManageAddComponent extends BaseClass implements OnIni
           this.service.RESTAURANT_MENU_INFO.DATA = {
             COUNTRY_ID: param.COUNTRY_ID,
             CULTURE_ID: param.CULTURE_ID,
-            OWNER_ID: result.OWNER_ID,
+            OWNER_ID: result.OWNER_ID || '',
             RES_ID: result.data.RES_ID,
-            MENU_ID: result.data.MENU_ID
+            MENU_ID: result.data.MENU_ID,
+            CODE: result.data.CODE
           }
           // this.onBack();
           this.complete.emit();

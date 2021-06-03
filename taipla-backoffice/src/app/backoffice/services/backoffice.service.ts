@@ -99,7 +99,9 @@ export class BackofficeService extends BaseRequest {
     }));
 
     if (reqLookup && reqLookup.success) {
-      this.lookup[keys] = reqLookup[0] && reqLookup[0].data;
+      if (reqLookup[0] && reqLookup[0].data.length > 0) {
+        this.lookup[keys] = reqLookup[0].data;
+      }
     }
   }
 

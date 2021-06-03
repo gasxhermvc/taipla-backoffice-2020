@@ -6,7 +6,10 @@ import { BaseClass } from '@based/classes/base-class';
 @Component({
   selector: 'app-restaurant-menu',
   templateUrl: './restaurant-menu.component.html',
-  styleUrls: ['./restaurant-menu.component.scss']
+  styleUrls: ['./restaurant-menu.component.scss'],
+  host:{
+    class: 'main'
+  }
 })
 export class RestaurantMenuComponent extends BaseClass implements OnInit {
   _isParent: boolean = false;

@@ -21,8 +21,12 @@ export class RestaurantMenuManageEditLegendComponent extends BaseClass
 
       if (this.service.RESTAURANT_MENU_INFO && !this.service.tabLoad.two) {
         setTimeout(() => {
+          this.showLoading();
           this.initLegendForm();
-          this.retrieveData();
+          setTimeout(() => {
+            this.retrieveData();
+            this.hideLoading();
+          }, 1000);
           this.service.tabLoad.two = true;
         }, 0);
       }

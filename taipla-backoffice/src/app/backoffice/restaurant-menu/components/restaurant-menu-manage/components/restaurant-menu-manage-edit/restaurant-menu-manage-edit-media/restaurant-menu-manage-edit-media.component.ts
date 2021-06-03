@@ -28,7 +28,7 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
 
     return {
       PATH: UPLOAD.RESTAURANT_MENU,
-      REF_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
+      REF_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID || this.service.RES_ID || this.app.user.RES_ID,
     };
   }
 
@@ -42,8 +42,12 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
   ngAfterViewInit() {
     if (this.service.RESTAURANT_MENU_INFO && !this.service.tabLoad.three) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
         this.service.tabLoad.three = true;
       }, 0);
     }
@@ -80,7 +84,7 @@ export class RestaurantMenuManageEditMediaComponent extends BaseClass
       COUNTRY_ID: this.service.RESTAURANT_MENU_INFO.DATA.COUNTRY_ID,
       CULTURE_ID: this.service.RESTAURANT_MENU_INFO.DATA.CULTURE_ID,
       OWNER_ID: this.service.RESTAURANT_MENU_INFO.DATA.OWNER_ID,
-      RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID,
+      RES_ID: this.service.RESTAURANT_MENU_INFO.DATA.RES_ID || this.service.RES_ID || this.app.user.RES_ID,
       MENU_ID: this.service.RESTAURANT_MENU_INFO.DATA.MENU_ID
     });
 

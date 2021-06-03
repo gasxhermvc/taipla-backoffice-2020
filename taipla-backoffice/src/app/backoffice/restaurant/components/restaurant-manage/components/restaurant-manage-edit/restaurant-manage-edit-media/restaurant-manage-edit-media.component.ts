@@ -42,8 +42,12 @@ export class RestaurantManageEditMediaComponent extends BaseClass
   ngAfterViewInit() {
     if (this.service.RESTAURANT_INFO && !this.service.tabLoad.four) {
       setTimeout(() => {
+        this.showLoading();
         this.initConfig();
-        this.retrieveData();
+        setTimeout(() => {
+          this.retrieveData();
+          this.hideLoading();
+        }, 1000);
         this.service.tabLoad.four = true;
       }, 0);
     }
@@ -78,7 +82,7 @@ export class RestaurantManageEditMediaComponent extends BaseClass
 
     const result = await this.service.mediaRestaurant({
       COUNTRY_ID: this.service.RESTAURANT_INFO.DATA.COUNTRY_ID,
-      OWNER_ID: this.service.RESTAURANT_INFO.DATA.OWNER_ID,
+      OWNER_ID: this.service.RESTAURANT_INFO.DATA.OWNER_ID || '',
       RES_ID: this.service.RESTAURANT_INFO.DATA.RES_ID,
     });
 
@@ -104,7 +108,7 @@ export class RestaurantManageEditMediaComponent extends BaseClass
         this.app.showError(this.app.message.ERROR.DEFAULT);
       }
     } else {
-      this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
+      // this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
     }
 
     this.hideLoading();

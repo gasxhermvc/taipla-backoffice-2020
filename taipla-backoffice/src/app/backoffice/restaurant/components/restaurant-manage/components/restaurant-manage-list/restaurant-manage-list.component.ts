@@ -149,7 +149,7 @@ export class RestaurantManageListComponent extends BaseClass implements OnInit {
         this.showLoading();
         let param: any = {
           COUNTRY_ID: item.COUNTRY_ID,
-          OWNER_ID: item.OWNER_ID,
+          OWNER_ID: item.OWNER_ID || '',
           RES_ID: item.RES_ID
         };
 

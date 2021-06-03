@@ -16,6 +16,7 @@ export interface User {
     USERNAME?: string;
     PHONE?: number;
     ROLE?: string;
+    RES_ID?: number;
     AVATAR?: string;
     DISPLAY_NAME?: string;
 }

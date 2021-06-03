@@ -2,6 +2,7 @@ import { Component, OnInit, Injector, Output, EventEmitter } from '@angular/core
 import { BaseClass } from '@based/classes/base-class';
 import { FormConfig, ControlType } from '@based/interfaces/FormConfig';
 import { UmService } from '@app/backoffice/services/um.service';
+import { RoleEnum } from '@app/based/enums/RoleEnum';
 
 @Component({
   selector: 'app-um-manage-add',
@@ -31,7 +32,12 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
+      this.showLoading();
       this.initConfig();
+      setTimeout(() => {
+        this.prepareData();
+        this.hideLoading();
+      }, 1000);
     }, 0);
   }
 
@@ -163,6 +169,9 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
               this.duplicate.emit();
               break;
             case 201:
+              ['OWNERS', 'STAFF'].forEach(async (lut: string) => {
+                await this.backoffice.reloadLookup(lut);
+              });
               this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT);
               this.complete.emit();
               this.onBack();
@@ -190,11 +199,20 @@ export class UmManageAddComponent extends BaseClass implements OnInit {
   onClear() {
     if (this.form) {
       this.form.initFormGroup();
+      this.prepareData();
     }
   }
 
   onBack() {
     this.back.emit();
+  }
+
+  prepareData() {
+    if (this.app.user.ROLE == RoleEnum.OWNER) {
+      this.form.setFormData({
+        ROLE: 'staff'
+      });
+    }
   }
 
 }

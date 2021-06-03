@@ -200,7 +200,7 @@ export class RestaurantManageEditMainComponent extends BaseClass implements OnIn
 
     const result = await this.service.getRestaurant({
       COUNTRY_ID: this.service.RESTAURANT_INFO.DATA.COUNTRY_ID,
-      OWNER_ID: this.service.RESTAURANT_INFO.DATA.OWNER_ID || -1,
+      OWNER_ID: this.service.RESTAURANT_INFO.DATA.OWNER_ID || '',
       RES_ID: this.service.RESTAURANT_INFO.DATA.RES_ID,
     });
 
@@ -227,7 +227,7 @@ export class RestaurantManageEditMainComponent extends BaseClass implements OnIn
         this.app.showError(this.app.message.ERROR.DEFAULT);
       }
     } else {
-      this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
+      // this.app.showError(this.app.message.ERROR.NOT_FOUND_DATA);
     }
 
     this.hideLoading();

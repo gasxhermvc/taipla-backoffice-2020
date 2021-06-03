@@ -191,11 +191,14 @@ export class RestaurantManageAddComponent extends BaseClass implements OnInit {
       if (result) {
         if (result.success) {
           this.app.showSuccess(result.message || this.app.message.SUCCESS.INSERT)
-          // this.service.RESTAURANT_INFO.DATA = {
-          //   COUNTRY_ID: param.COUNTRY_ID,
-          //   CULTURE_ID: param.CULTURE_ID,
-          //   FOOD_ID: result.data.FOOD_ID
-          // }
+          this.service.RESTAURANT_INFO.DATA = {
+            RES_ID: result.data.RES_ID,
+            COUNTRY_ID: param.COUNTRY_ID
+            //   COUNTRY_ID: param.COUNTRY_ID,
+            //   CULTURE_ID: param.CULTURE_ID,
+            //   FOOD_ID: result.data.FOOD_ID
+          }
+          
           // this.onBack();
           this.complete.emit();
         } else {

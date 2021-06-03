@@ -46,6 +46,11 @@ const BACKOFFICE_ROUTES: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'restaurant-menu',
+        loadChildren: () => import('@backoffice/restaurant-menu/restaurant-menu.module').then(m => m.RestaurantMenuModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('@backoffice/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGuard],

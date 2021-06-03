@@ -148,7 +148,8 @@ export class FoodCenterManageAddComponent extends BaseClass implements OnInit {
           this.service.FOOD_CENTER_INFO.DATA = {
             COUNTRY_ID: param.COUNTRY_ID,
             CULTURE_ID: param.CULTURE_ID,
-            FOOD_ID: result.data.FOOD_ID
+            FOOD_ID: result.data.FOOD_ID,
+            CODE: result.data.CODE
           }
           // this.onBack();
           this.complete.emit();
