@@ -84,7 +84,7 @@ export class CultureManageEditComponent extends BaseClass implements OnInit {
       },
       {
         key: 'UPLOAD',
-        label: 'รูปภาพประจำตัวประเทศอาหาร',
+        label: 'รูปภาพประจำตัววัฒนธรรมอาหาร',
         type: ControlType.upload,
         placeholder: 'เลือกรูปภาพประจำตัว',
         allowFileType: 'image/jpeg,image/jpg,image/png',

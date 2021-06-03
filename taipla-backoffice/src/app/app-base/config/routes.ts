@@ -70,6 +70,7 @@ export const ROUTE: any = {
     DELETED: "promotion/deleted"
   },
   MEDIA: {
+    MEDIAS: "media/medias",
     UPLOAD: "media/upload",
     REMOVE: "media/remove/upload"
   }

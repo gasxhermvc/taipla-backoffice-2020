@@ -14,6 +14,7 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 //=>App
 import { ControlComponent } from '@cores/control/control.component';
@@ -46,7 +47,8 @@ registerLocaleData(th);
     NzAutocompleteModule,
     NzRadioModule,
     NzCheckboxModule,
-    NzModalModule
+    NzModalModule,
+    NzDatePickerModule
   ],
   exports: [
     ControlComponent,

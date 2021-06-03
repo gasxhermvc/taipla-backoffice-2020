@@ -179,7 +179,7 @@ export class RestaurantManageEditMainComponent extends BaseClass implements OnIn
       },
       {
         key: 'UPLOAD',
-        label: 'รูปภาพประจำตัวอาหาร',
+        label: 'รูปภาพประจำตัวร้านอาหาร',
         type: ControlType.upload,
         placeholder: 'เลือกรูปภาพประจำตัว',
         allowFileType: 'image/jpeg,image/jpg,image/png',

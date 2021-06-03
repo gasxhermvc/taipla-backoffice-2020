@@ -92,4 +92,9 @@ export class BackofficeComponent extends BaseClass implements OnInit {
       }
     });
   }
+
+  onSidebarCollapse(evt: any) {
+    this.layout.isCollapsed = evt;
+    this.backoffice.setVariableToService('isCollapsed', evt);
+  }
 }

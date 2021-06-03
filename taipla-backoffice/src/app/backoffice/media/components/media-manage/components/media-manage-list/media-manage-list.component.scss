@@ -1,0 +1,38 @@
+@import "src/app/backoffice/styles.scss";
+
+:host {
+    ::ng-deep {
+        .image {
+            width: 60px !important;
+            height: 60px !important;
+        }
+
+        td.FILENAME {
+            text-align: left !important;
+        }
+
+        td.FILENAME.break-word {
+            word-break: break-all;
+        }
+
+        .radius-none {
+            input {
+                border-radius: 0 !important;
+            }
+        }
+    }
+
+    .DETAIL {
+        .ml-3 {
+            margin-left: 0.5rem;
+        }
+
+        div.MANAGE {
+            margin-left: 0;
+        }
+
+        .MANAGE > div {
+            justify-content: flex-start !important;
+        }
+    }
+}

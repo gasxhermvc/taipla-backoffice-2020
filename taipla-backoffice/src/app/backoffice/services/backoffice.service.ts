@@ -191,4 +191,11 @@ export class BackofficeService extends BaseRequest {
     return value;
   }
 
+  setVariableToService(name: string, value: any) {
+    this.injections.forEach((inject: any) => {
+      if (this.service[inject.key] !== undefined) {
+        this.service[inject.key][name] = value;
+      }
+    });
+  }
 }

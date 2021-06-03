@@ -1,0 +1,84 @@
+<div class="row flex-column flex-sm-row m-0 p-0 mb-3">
+  <div class="col-12 col-sm-6 px-0">
+    <h3>จัดการโปรโมชัน</h3>
+  </div>
+  <div class="col-12 col-sm-6 px-0 d-flex justify-content-end">
+    <button (click)="createPromotion()" class="d-flex align-self-center align-items-center" nz-button nzType="primary">
+      <i nz-icon nzType="plus-circle" nzTheme="outline"></i> เพิ่มโปรโมชัน
+    </button>
+  </div>
+</div>
+<app-pagination [items]="items" [template]="list" [pageSize]="app.pagination.pageSize"
+  [pageIndex]="app.pagination.currentIndexPage" (pageIndexChange)="app.pagination.currentIndexPage = $event"
+  (pageSizeChange)="app.pagination.pageSize = $event">
+</app-pagination>
+<ng-template #list let-items="items" let-from="from">
+  <div class="table-responsive">
+    <table class="table table-hover backoffice-table">
+      <thead>
+        <tr>
+          <th class="text-center align-top NO">#</th>
+          <th class="text-center align-top THUMBNAIL">รูปประจำตัว</th>
+          <th class="text-center align-top NAME">ประเทศของอาหาร</th>
+          <th class="text-center align-top PROMOTION_TYPE_DESC">ประเภทโปรโมชัน</th>
+          <th class="text-center align-top VIEWER">ยอดคนดู</th>
+          <th class="text-center align-top CREATE_DATE">วันที่สร้าง</th>
+          <th class="text-center align-top UPDATE_DATE">วันที่แก้ไข</th>
+          <th class="text-center align-top MANAGE">จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of items;let index = index">
+          <tr>
+            <td class="text-center align-top NO">
+              {{ (from +index + 1) }}
+            </td>
+            <td class="text-center align-top THUMBNAIL">
+              <app-image [src]="item.THUMBNAIL" imageType="image" className="img-fluid image rounded-circle">
+              </app-image>
+            </td>
+            <td class="text-center align-top NAME">
+              {{ item.NAME || '-' }}
+            </td>
+            <td class="text-center align-top PROMOTION_TYPE_DESC">
+              {{ item.PROMOTION_TYPE_DESC || '-' }}
+            </td>
+            <td class="text-right align-top VIEWER">
+              {{ item.VIEWER || '0' }}
+            </td>
+            <td class="text-center align-top CREATE_DATE">
+              <app-display-datetime [datetime]="item.CREATE_DATE" format="DD MMM YY <br />HH:mm:ss">
+              </app-display-datetime>
+            </td>
+            <td class="text-center align-top UPDATED_DATE">
+              <app-display-datetime [datetime]="item.UPDATE_DATE" format="DD MMM YY <br />H:mm:ss">
+              </app-display-datetime>
+            </td>
+            <td class="text-center align-top MANAGE">
+              <ng-container *ngTemplateOutlet="btn; context: { item: item || {} }"></ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="items.length < 1">
+          <tr>
+            <td class="text-center align-top" colspan="8">
+              <div class="not-found"></div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+<ng-template let-item="item" #btn>
+  <div class="d-flex flex-row flex-nowrap justify-content-center">
+    <button nz-button nzType="primary" (click)="onSelected(item,MODE.EDIT)">
+      แก้ไข
+    </button>
+    <span class="px-1"></span>
+    <button nz-button nzDanger (click)="onDelete(item)">
+      ลบ
+    </button>
+  </div>
+</ng-template>

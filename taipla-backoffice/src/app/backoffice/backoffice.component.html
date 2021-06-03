@@ -1,5 +1,6 @@
 <app-loading *ngIf="isShowLoading"></app-loading>
-<app-layout-template [menu]="menus" [current]="currentSystem" [profile]="profileTemp">
+<app-layout-template [menu]="menus" [current]="currentSystem" [profile]="profileTemp"
+  (sidebarCollase)="onSidebarCollapse($event)">
   <ng-container inner-header *ngTemplateOutlet="headerTemp"></ng-container>
   <router-outlet inner-content></router-outlet>
 </app-layout-template>

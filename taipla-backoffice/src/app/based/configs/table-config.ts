@@ -416,3 +416,60 @@ export const RESTAURANT_LIST_CONFIG: any = [
         ACTION: true
     }
 ]
+
+export const MEDIA_LIST_CONFIG: any = [
+    {
+        HEADER: '',
+        KEY: 'EXPAND',
+        HIDE: 'mobile tablet',
+        CLASS: 'text-center align-top EXPAND',
+        WIDTH: '60px',
+    },
+    {
+        HEADER: '#',
+        KEY: 'ROWNO',
+        HIDE: undefined,
+        CLASS: 'text-center align-top ROWNO',
+        WIDTH: '80px',
+
+    },
+    {
+        HEADER: 'รูปประจำตัว',
+        KEY: 'URL',
+        HIDE: undefined,
+        CLASS: 'text-center align-top THUMBNAIL',
+        WIDTH: '120px'
+    },
+    {
+        HEADER: 'ชื่อรูปภาพ',
+        KEY: 'FILENAME',
+        HIDE: undefined,
+        CLASS: 'text-center align-top FILENAME',
+        WIDTH: '120px'
+    },
+    {
+        HEADER: 'วันที่สร้าง',
+        KEY: 'CREATE_DATE',
+        HIDE: 'mobile tablet',
+        CLASS: 'text-center align-top CREATE_DATE',
+        RESPONSIVE: true,
+        WIDTH: '120px'
+    },
+    {
+        HEADER: 'วันที่แก้ไข',
+        KEY: 'UPDATE_DATE',
+        HIDE: 'mobile tablet',
+        CLASS: 'text-center align-top UPDATE_DATE',
+        RESPONSIVE: true,
+        WIDTH: '120px'
+    },
+    {
+        HEADER: 'จัดการ',
+        KEY: 'MANAGE',
+        HIDE: 'mobile tablet',
+        CLASS: 'text-center align-top MANAGE',
+        WIDTH: '200px',
+        RESPONSIVE: true,
+        ACTION: true
+    }
+]

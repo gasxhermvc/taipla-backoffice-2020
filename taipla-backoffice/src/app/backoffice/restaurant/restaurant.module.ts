@@ -21,8 +21,8 @@ import { RestaurantManageEditMainComponent } from '@app/backoffice/restaurant/co
 import { RestaurantManageEditMediaComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-media/restaurant-manage-edit-media.component';
 import { RestaurantManageEditMenuComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-menu/restaurant-manage-edit-menu.component';
 import { RestaurantMenuModule } from '@backoffice/restaurant-menu/restaurant-menu.module';
-import { RestaurantManageEditPromotionComponent } from '@app/backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-promotion/restaurant-manage-edit-promotion.component';
-import { PromotionModule } from '@cores/promotion/promotion.module';
+import { RestaurantManageEditPromotionComponent } from '@backoffice/restaurant/components/restaurant-manage/components/restaurant-manage-edit/restaurant-manage-edit-promotion/restaurant-manage-edit-promotion.component';
+import { PromotionModule } from '@backoffice/promotion/promotion.module';
 @NgModule({
   declarations: [
     RestaurantComponent,
@@ -42,13 +42,13 @@ import { PromotionModule } from '@cores/promotion/promotion.module';
     ShareModule,
     BackofficeShareModule,
     RestaurantMenuModule,
+    PromotionModule,
 
     NzButtonModule,
     NzIconModule,
     NzTabsModule,
     NzTableModule,
 
-    PromotionModule
   ],
   exports: [
     RestaurantComponent,
@@ -58,7 +58,8 @@ import { PromotionModule } from '@cores/promotion/promotion.module';
     RestaurantManageListComponent,
     RestaurantManageEditMainComponent,
     RestaurantManageEditMediaComponent,
-    RestaurantManageEditMenuComponent
+    RestaurantManageEditMenuComponent,
+    RestaurantManageEditPromotionComponent
   ],
   providers: [
     NzTableStyleService

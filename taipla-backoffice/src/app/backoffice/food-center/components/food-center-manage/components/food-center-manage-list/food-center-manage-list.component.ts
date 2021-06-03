@@ -123,7 +123,7 @@ export class FoodCenterManageListComponent extends BaseClass implements OnInit {
       },
       {
         key: 'USER',
-        label: 'ชื่อผู้ใช้งาน',
+        label: 'ชื่อผู้สร้างรายการ ',
         type: ControlType.select,
         placeholder: 'เลือกวัฒนธรรมของอาหาร',
         lookupKey: 'CODE',

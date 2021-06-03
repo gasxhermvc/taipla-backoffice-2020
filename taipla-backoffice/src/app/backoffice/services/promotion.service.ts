@@ -12,6 +12,8 @@ export class PromotionService extends BaseService {
   LISTS: PROMOTION_LIST;
   PROMOTION_INFO: PROMOTION_INFO;
 
+  RES_ID: any;
+  
   //=>Tabs
   tabLoad: any = {
     one: false,

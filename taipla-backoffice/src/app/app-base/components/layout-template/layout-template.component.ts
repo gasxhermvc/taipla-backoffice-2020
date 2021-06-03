@@ -1,5 +1,5 @@
 //=>Angular
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 //=>App
@@ -15,6 +15,8 @@ import { MENU } from '@app/app-base/interfaces/menu-config';
 export class LayoutTemplateComponent implements OnInit {
 
   env: any = env;
+
+  @Output() sidebarCollase = new EventEmitter<any>();
 
   @Input('menu')
   set menu(menus: any) {
@@ -69,7 +71,7 @@ export class LayoutTemplateComponent implements OnInit {
   onClickMenu(index: number) {
     const menu = this.menus[index] || null;
 
-    if(menu.IS_ACTIVE){
+    if (menu.IS_ACTIVE) {
       return;
     }
 
@@ -83,5 +85,10 @@ export class LayoutTemplateComponent implements OnInit {
         this.layout.pageChange.emit(false);
       });
     }
+  }
+
+  sidebarCollapse(evt: any) {
+    this.layout.isCollapsed = !this.layout.isCollapsed
+    this.sidebarCollase.emit(this.layout.isCollapsed);
   }
 }

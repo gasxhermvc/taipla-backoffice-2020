@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="service.STATE">
+  <app-promotion-manage-list *ngSwitchCase="service.STATE_PAGE.LISTS" (selected)="onSelected($event)">
+  </app-promotion-manage-list>
+  <app-promotion-manage-add *ngSwitchCase="service.STATE_PAGE.ADD" (complete)="onComplete()" (back)="onBack()">
+  </app-promotion-manage-add>
+  <app-promotion-manage-edit *ngSwitchCase="service.STATE_PAGE.EDIT" (complete)="onComplete()" (back)="onBack()">
+  </app-promotion-manage-edit>
+</ng-container>

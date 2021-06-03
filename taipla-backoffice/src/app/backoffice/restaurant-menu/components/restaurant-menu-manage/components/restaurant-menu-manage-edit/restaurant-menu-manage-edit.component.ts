@@ -27,7 +27,7 @@ export class RestaurantMenuManageEditComponent extends BaseClass implements OnIn
   ];
 
   get service(): RestaurantMenuService {
-    return this.store["food_center"];
+    return this.store["restaurant_menu"];
   }
 
   constructor(injector: Injector) {
@@ -35,7 +35,7 @@ export class RestaurantMenuManageEditComponent extends BaseClass implements OnIn
     (window as any).rmme = this;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.service.tabLoad = {
